@@ -149,7 +149,8 @@ export const Home = () => {
         visible={visibleSections.includes(projectThree.current)}
         index={3}
         title="Intune"
-        description="Increasing the amount of collaboration in Slice, an app for biomedical imaging"
+        description=" InTune, an immersive e-commerce website that revolutionizes the way users buy, rent, review, and take lessons
+        for musical instruments."
         buttonText="View project"
         buttonLink="/projects/slice"
         model={{
