@@ -42,7 +42,7 @@ import styles from './slice.module.css';
 
 const title = 'Intune';
 const description =
-  ' *Change* This project involved designing a better way for biomedical educators and learners to annotate digital slides together.';
+  ' Welcome to InTune, your premier destination for all things musical! Our e-commerce website offers a wide array of options, including purchasing, renting, reviewing, and even taking lessons for musical instruments. With an extensive selection to explore, dive into our website today to discover the perfect harmony for your musical aspirations.';
 const roles = ['User Research', 'UX Design', 'Interface Design'];
 
 export const meta = () => {
@@ -84,14 +84,13 @@ export const Slice = () => {
             <div className={styles.imagesText}>
               <ProjectSectionHeading>User/admin page</ProjectSectionHeading>
               <ProjectSectionText>
-                Teachers needed a better way to create collaborative group activities by
-                annotating slides on Slice. Before starting this project, a layer could
-                only be annotated by a single user, making it difficult for learners to
-                work together.
+              Empowering users with versatile access control, enabling them to seamlessly browse the 
+              website for purchasing, renting, reviewing, and accessing lessons. Meanwhile, administrators 
+              wield comprehensive control, facilitating actions such as adding instruments, fine-tuning quantities, 
+              and crafting or refining lessons with effortless precision.
               </ProjectSectionText>
               <ProjectSectionText>
-                Our solution was to allow users to be invited to a layer, where they can
-                see others’ annotations and make their own.
+                {/* if need additional text */}
               </ProjectSectionText>
             </div>
             <div className={styles.sidebarImages}>
@@ -121,12 +120,10 @@ export const Slice = () => {
             <ProjectTextRow>
               <ProjectSectionHeading>Product Page</ProjectSectionHeading>
               <ProjectSectionText>
-                A problem we heard about often form users was that it was difficult to
-                find images they had previously seen or worked on. To solve this we added
-                a new tab that lists all previously annotated slides. In addition, we
-                added the ability to favorite slides, so if users find an interesting
-                slide they want to annotate later, they can easily save it to their
-                account.
+                The product page showcases a diverse array of instruments currently in stock, 
+                complete with detailed descriptions and pricing information. A user-friendly 
+                search bar enhances the browsing experience, offering comprehensive filtering 
+                options to search by instrument name or select specific instrument families.
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
@@ -167,11 +164,10 @@ export const Slice = () => {
             <div className={styles.gridText}>
               <ProjectSectionHeading>Cart/Checkout</ProjectSectionHeading>
               <ProjectSectionText>
-                Marking and annotating areas on high resolution biomedical images is the
-                core experience of the app, and it was easy to get lost or lose sense of
-                scale when zooming in on details. Adding measurements for the perimeter
-                and area of an annotation both helped to communicate the overall scale of
-                the image and how large the annotated feature is in comparison.
+              Comprehensive shopping cart featuring clear product images, item names, prices, 
+              and quantities for a seamless checkout process. The checkout page is designed to 
+              accommodate your needs, allowing you to effortlessly input personal information 
+              including address, name, and credit card details to finalize your purchase.
               </ProjectSectionText>
             </div>
           </ProjectSectionContent>
@@ -181,11 +177,10 @@ export const Slice = () => {
             <ProjectTextRow>
               <ProjectSectionHeading>Lessons</ProjectSectionHeading>
               <ProjectSectionText>
-                Real-time collaborative annotation facilitated better collaboration
-                between learners, and was much easier to run group exercises with the new
-                shared layers feature. Learners gave feedback that is was enjoyable to
-                work together and see what others were doing, and liked how interactive
-                and easy to use the application was.
+              Explore our lesson page, where you can conveniently schedule sessions with an instructor 
+              tailored to your specific instrument. Whether you're a beginner or advanced musician, our 
+              platform provides an intuitive interface for arranging personalized lessons that cater to 
+              your musical journey.
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
