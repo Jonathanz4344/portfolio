@@ -37,7 +37,7 @@ import {
 } from '~/layouts/project';
 import { Fragment } from 'react';
 import { media } from '~/utils/style';
-import { baseMeta } from '~/utils/meta';
+import { baseMeta } from '~/utils/meta'; 
 import styles from './slice.module.css';
 
 const title = 'Intune';
