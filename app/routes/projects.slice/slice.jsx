@@ -37,7 +37,7 @@ import {
 } from '~/layouts/project';
 import { Fragment } from 'react';
 import { media } from '~/utils/style';
-import { baseMeta } from '~/utils/meta'; 
+import { baseMeta } from '~/utils/meta';
 import styles from './slice.module.css';
 
 const title = 'Intune';
@@ -64,7 +64,7 @@ export const Slice = () => {
         <ProjectHeader
           title={title}
           description={description}
-          url="https://www.best.edu.au/s/q2yjjvl7?data=8%404!9%4020303!10%40-15087&version=1"
+          url="https://github.com/Jonathanz4344/inTune"
           roles={roles}
         />
         <ProjectSection padding="top">
@@ -84,14 +84,13 @@ export const Slice = () => {
             <div className={styles.imagesText}>
               <ProjectSectionHeading>User/admin page</ProjectSectionHeading>
               <ProjectSectionText>
-              Empowering users with versatile access control, enabling them to seamlessly browse the 
-              website for purchasing, renting, reviewing, and accessing lessons. Meanwhile, administrators 
-              wield comprehensive control, facilitating actions such as adding instruments, fine-tuning quantities, 
-              and crafting or refining lessons with effortless precision.
+                Empowering users with versatile access control, enabling them to
+                seamlessly browse the website for purchasing, renting, reviewing, and
+                accessing lessons. Meanwhile, administrators wield comprehensive control,
+                facilitating actions such as adding instruments, fine-tuning quantities,
+                and crafting or refining lessons with effortless precision.
               </ProjectSectionText>
-              <ProjectSectionText>
-                {/* if need additional text */}
-              </ProjectSectionText>
+              <ProjectSectionText>{/* if need additional text */}</ProjectSectionText>
             </div>
             <div className={styles.sidebarImages}>
               <Image
@@ -120,10 +119,11 @@ export const Slice = () => {
             <ProjectTextRow>
               <ProjectSectionHeading>Product Page</ProjectSectionHeading>
               <ProjectSectionText>
-                The product page showcases a diverse array of instruments currently in stock, 
-                complete with detailed descriptions and pricing information. A user-friendly 
-                search bar enhances the browsing experience, offering comprehensive filtering 
-                options to search by instrument name or select specific instrument families.
+                The product page showcases a diverse array of instruments currently in
+                stock, complete with detailed descriptions and pricing information. A
+                user-friendly search bar enhances the browsing experience, offering
+                comprehensive filtering options to search by instrument name or select
+                specific instrument families.
               </ProjectSectionText>
             </ProjectTextRow>
             <Image
@@ -164,10 +164,11 @@ export const Slice = () => {
             <div className={styles.gridText}>
               <ProjectSectionHeading>Cart/Checkout</ProjectSectionHeading>
               <ProjectSectionText>
-              Comprehensive shopping cart featuring clear product images, item names, prices, 
-              and quantities for a seamless checkout process. The checkout page is designed to 
-              accommodate your needs, allowing you to effortlessly input personal information 
-              including address, name, and credit card details to finalize your purchase.
+                Comprehensive shopping cart featuring clear product images, item names,
+                prices, and quantities for a seamless checkout process. The checkout page
+                is designed to accommodate your needs, allowing you to effortlessly input
+                personal information including address, name, and credit card details to
+                finalize your purchase.
               </ProjectSectionText>
             </div>
           </ProjectSectionContent>
@@ -177,10 +178,11 @@ export const Slice = () => {
             <ProjectTextRow>
               <ProjectSectionHeading>Lessons</ProjectSectionHeading>
               <ProjectSectionText>
-              Explore our lesson page, where you can conveniently schedule sessions with an instructor 
-              tailored to your specific instrument. Whether you're a beginner or advanced musician, our 
-              platform provides an intuitive interface for arranging personalized lessons that cater to 
-              your musical journey.
+                Explore our lesson page, where you can conveniently schedule sessions with
+                an instructor tailored to your specific instrument. Whether you're a
+                beginner or advanced musician, our platform provides an intuitive
+                interface for arranging personalized lessons that cater to your musical
+                journey.
               </ProjectSectionText>
             </ProjectTextRow>
             <Image

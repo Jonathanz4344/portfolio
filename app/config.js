@@ -1,8 +1,8 @@
 export const config = {
   name: 'Jonathan Zhu',
-  role: 'Associate Software',
+  role: ' Software',
   disciplines: ['Engineer','Developer','Tester'],
-  url: 'https://hamishw.com',
+  url: 'https://jonathanzhu.com',
   twitter: '@twitterHandle',
   linkedin: 'jonathanzhuu',
   github: 'Jonathanz4344',

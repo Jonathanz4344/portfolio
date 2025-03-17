@@ -21,16 +21,29 @@ const ProfileText = ({ visible, titleId }) => (
       <DecoderText text="Hi there" start={visible} delay={500} />
     </Heading>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      I’m Jonathan, a proactive 3rd-year Software Engineering student at Rochester Institute of Technology, currently a full-time software engineer. 
-      My passion lies in crafting and refining modern enterprise applications, API platforms, and backend systems using Node.js, React.js, Python, 
-      SQL, and more. I specialize in leveraging cloud computing services like AWS EC2, S3, and RDS to create scalable solutions, implementing CI/CD practices 
-      with tools like Jenkins Pipeline for efficient deployment workflows. My proficiency in code enables me to swiftly prototype and validate user experiences,
-      delivering innovative solutions with agility and precision. If you’re interested in the tools and software I use check out my{' '}
-      <Link href="/uses">uses page</Link>.
+      I’m Jonathan, a passionate Full Stack Engineer with expertise in building modern web
+      applications, scalable backend systems, and cloud-based solutions.
+    </Text>
+
+    <Text className={styles.description} data-visible={visible} size="l" as="p">
+      I specialize in React.js, Node.js, Python, and SQL, leveraging cloud platforms like
+      AWS (EC2, S3, RDS) to develop high-performance applications. With experience in
+      full-stack development, CI/CD automation, and API integrations, I have engineered
+      solutions that enhance user engagement, streamline workflows, and optimize system
+      performance.
+      {/* <Link href="/uses">uses page</Link>. */}
     </Text>
     <Text className={styles.description} data-visible={visible} size="l" as="p">
-      In my spare time I like to play video games. I’m always down for hearing about new
-      projects, so feel free to drop me a line.
+      Currently, I’m leading the development of digital solutions at Citywide Eye Care,
+      where I’ve built interactive user interfaces, automated inventory systems, and
+      optimized cloud deployments to ensure seamless scalability and security. My past
+      experience at ADP involved improving CI/CD efficiency, automating workflows, and
+      enhancing database performance.
+    </Text>
+    <Text className={styles.description} data-visible={visible} size="l" as="p">
+      Beyond work, I enjoy experimenting with AI-driven applications, optimizing DevOps
+      pipelines, and playing video games. Feel free to connect if you’d like to chat about
+      new projects, collaboration, or tech in general!
     </Text>
   </Fragment>
 );

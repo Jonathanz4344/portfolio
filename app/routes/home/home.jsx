@@ -41,7 +41,7 @@ export const links = () => {
 
 export const meta = () => {
   return baseMeta({
-    title: 'Associate Software Developer',
+    title: 'Software Developer',
     description: `Design portfolio of ${config.name} — a product designer working on web & mobile apps with a focus on motion, experience design, and accessibility.`,
   });
 };
@@ -103,7 +103,7 @@ export const Home = () => {
         sectionRef={projectOne}
         visible={visibleSections.includes(projectOne.current)}
         index={1}
-        title="Citywide Eye Care" 
+        title="Citywide Eye Care"
         description="Citywide Eye Care offers comprehensive optometric services for patients of all ages, specializing in both medical and vision care."
         buttonText="View project"
         buttonLink="/projects/citywide"
