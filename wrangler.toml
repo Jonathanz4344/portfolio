@@ -1,5 +1,6 @@
 name = "portfolio"
 main = "functions/[[path]].js"
+compatibility_date = "2025-03-18"
 
 kv_namespaces = [
   { id = "MY_KV", binding="MY_KV" }
