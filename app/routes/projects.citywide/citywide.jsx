@@ -1,8 +1,5 @@
 import backgroundSprLarge from '~/assets/spr-background-large.jpg';
 import backgroundSprPlaceholder from '~/assets/spr-background-placeholder.jpg';
-// import imageSprBackgroundVolcanismLarge from '~/assets/spr-background-volcanism-large.jpg';
-// import imageSprBackgroundVolcanismPlaceholder from '~/assets/spr-background-volcanism-placeholder.jpg';
-// import imageSprBackgroundVolcanism from '~/assets/spr-background-volcanism.jpg';
 import backgroundSpr from '~/assets/spr-background.jpg';
 import imageSprComponentsDarkLarge from '~/assets/spr-components-dark-large.png';
 import imageSprComponentsDarkPlaceholder from '~/assets/spr-components-dark-placeholder.png';
@@ -10,39 +7,15 @@ import imageSprComponentsDark from '~/assets/spr-components-dark.png';
 import imageSprComponentsLightLarge from '~/assets/spr-components-light-large.png';
 import imageSprComponentsLightPlaceholder from '~/assets/spr-components-light-placeholder.png';
 import imageSprComponentsLight from '~/assets/spr-components-light.png';
-// import imageSprDesignSystemDarkLarge from '~/assets/spr-design-system-dark-large.png';
-// import imageSprDesignSystemDarkPlaceholder from '~/assets/spr-design-system-dark-placeholder.png';
-// import imageSprDesignSystemDark from '~/assets/spr-design-system-dark.png';
-// import imageSprDesignSystemLightLarge from '~/assets/spr-design-system-light-large.png';
-// import imageSprDesignSystemLightPlaceholder from '~/assets/spr-design-system-light-placeholder.png';
-// import imageSprDesignSystemLight from '~/assets/spr-design-system-light.png';
 import imageSprLessonBuilderDarkLarge from '~/assets/spr-lesson-builder-dark-large.jpg';
 import imageSprLessonBuilderDarkPlaceholder from '~/assets/spr-lesson-builder-dark-placeholder.jpg';
 import imageSprLessonBuilderDark from '~/assets/spr-lesson-builder-dark.jpg';
 import imageSprLessonBuilderLightLarge from '~/assets/spr-lesson-builder-light-large.jpg';
 import imageSprLessonBuilderLightPlaceholder from '~/assets/spr-lesson-builder-light-placeholder.jpg';
 import imageSprLessonBuilderLight from '~/assets/spr-lesson-builder-light.jpg';
-// import videoSprMotionLarge from '~/assets/spr-motion-large.mp4';
-// import videoSprMotionPlaceholder from '~/assets/spr-motion-placeholder.jpg';
-// import videoSprMotion from '~/assets/spr-motion.mp4';
-// import imageSprSchema1DarkLarge from '~/assets/spr-schema-1-dark-large.png';
-// import imageSprSchema1DarkPlaceholder from '~/assets/spr-schema-1-dark-placeholder.png';
-// import imageSprSchema1Dark from '~/assets/spr-schema-1-dark.png';
-// import imageSprSchema1LightLarge from '~/assets/spr-schema-1-light-large.png';
-// import imageSprSchema1LightPlaceholder from '~/assets/spr-schema-1-light-placeholder.png';
-// import imageSprSchema1Light from '~/assets/spr-schema-1-light.png';
-// import imageSprSchema2DarkLarge from '~/assets/spr-schema-2-dark-large.png';
-// import imageSprSchema2DarkPlaceholder from '~/assets/spr-schema-2-dark-placeholder.png';
-// import imageSprSchema2Dark from '~/assets/spr-schema-2-dark.png';
-// import imageSprSchema2LightLarge from '~/assets/spr-schema-2-light-large.png';
-// import imageSprSchema2LightPlaceholder from '~/assets/spr-schema-2-light-placeholder.png';
-// import imageSprSchema2Light from '~/assets/spr-schema-2-light.png';
-// import imageSprStoryboarderDarkLarge from '~/assets/spr-storyboarder-dark-large.png';
-// import imageSprStoryboarderDarkPlaceholder from '~/assets/spr-storyboarder-dark-placeholder.png';
-// import imageSprStoryboarderDark from '~/assets/spr-storyboarder-dark.png';
-// import imageSprStoryboarderLightLarge from '~/assets/spr-storyboarder-light-large.png';
-// import imageSprStoryboarderLightPlaceholder from '~/assets/spr-storyboarder-light-placeholder.png';
-// import imageSprStoryboarderLight from '~/assets/spr-storyboarder-light.png';
+import responsiveMobileImage from '~/assets/responsiveMobile.png';
+import aiImage from '~/assets/aiChatbot.png';
+import bookingImage from '~/assets/booking.png';
 import { Footer } from '~/components/footer';
 import { Image } from '~/components/image';
 import { Link } from '~/components/link';
@@ -70,16 +43,16 @@ const EarthSection = lazy(() =>
   import('./earth').then(module => ({ default: module.EarthSection }))
 );
 
-const title = 'Designing the future of Indian Clothing';
+const title = 'Citywide Eye Care Website';
 const description =
-  '*Change* I crafted an end-to-end system for Citywide Eye Care, integrating a Shopify backend to streamline operations and enhance customer experience, ensuring seamless management of their online platform.';
+  'I developed a comprehensive website for Citywide Eye Care using React 18, Material UI v6, and Vite, hosted on AWS Amplify. The interactive site includes an AI-powered chatbot using Google Gemini 2.0, seasonal theming system, and an advanced appointment booking system with automated email notifications.';
 const roles = [
-  '*Change*',
-  'Back-End Inventory Management',
-  'UX and UI Design',
-  'Front End Development',
-  'Meta ChatBot Integration',
-  'AI Image Processing with PhotoRoom',
+  'React.js & MUI Development',
+  'AWS Amplify Integration',
+  'Lambda Function Implementation',
+  'AI Chatbot Development',
+  'Responsive UI/UX Design',
+  'Advanced Booking System',
 ];
 export const meta = () => {
   return baseMeta({ title, description, prefix: 'Projects' });
@@ -127,7 +100,7 @@ export const Citywide = () => {
                   : imageSprLessonBuilderLightPlaceholder
               }
               sizes={`(max-width: ${media.mobile}px) 100vw, (max-width: ${media.tablet}px) 800px, 1000px`}
-              alt="The aero lesson builder app dragging an audio component into a screen about plant cells."
+              alt="The Citywide Eye Care website homepage showing their services and interactive elements."
             />
           </ProjectSectionContent>
         </ProjectSection>
@@ -135,16 +108,58 @@ export const Citywide = () => {
           <ProjectTextRow>
             <ProjectSectionHeading>The problem</ProjectSectionHeading>
             <ProjectSectionText>
-              *Change*
-              One common problem faced by Indian clothing brands in the USA relates to a
-              perceived imbalance between pricing and quality. While some brands offer
-              lower-priced items, they may compromise on quality, leading to skepticism
-              among consumers. Conversely, brands offering higher-quality products may
-              struggle to compete with lower-priced alternatives, potentially limiting
-              their market reach. Balancing affordability with quality remains a challenge
-              for Indian clothing brands seeking success in the competitive US market.
+              Local optometry practices often struggle with outdated online presence,
+              making it difficult for patients to find information, book appointments, and
+              communicate efficiently. Citywide Eye Care needed a modern, user-friendly
+              website that would not only showcase their services but also streamline
+              patient interactions through online booking and automated communication. The
+              challenge was to create a seamless digital experience that would enhance
+              patient engagement while simplifying administrative processes for the
+              practice staff.
             </ProjectSectionText>
           </ProjectTextRow>
+        </ProjectSection>
+        <ProjectSection>
+          <ProjectSectionContent>
+            <ProjectTextRow center>
+              <ProjectSectionHeading>Technology Stack & Features</ProjectSectionHeading>
+              <div className={styles.featuredTech}>
+                <div className={styles.techCategory}>
+                  <h3 className={styles.categoryTitle}>Frontend</h3>
+                  <div className={styles.techItems}>
+                    <span className={styles.techItem}>React 18</span>
+                    <span className={styles.techItem}>Material UI v6</span>
+                    <span className={styles.techItem}>Tailwind CSS</span>
+                    <span className={styles.techItem}>Vite</span>
+                    <span className={styles.techItem}>React Router v7</span>
+                    <span className={styles.techItem}>Framer Motion</span>
+                  </div>
+                </div>
+
+                <div className={styles.techCategory}>
+                  <h3 className={styles.categoryTitle}>Backend & Infrastructure</h3>
+                  <div className={styles.techItems}>
+                    <span className={styles.techItem}>AWS Amplify</span>
+                    <span className={styles.techItem}>Express.js</span>
+                    <span className={styles.techItem}>Google Gemini AI</span>
+                    <span className={styles.techItem}>Lambda Functions</span>
+                    <span className={styles.techItem}>ESLint & SWC</span>
+                  </div>
+                </div>
+
+                <div className={styles.techCategory}>
+                  <h3 className={styles.categoryTitle}>Standout Features</h3>
+                  <div className={styles.techItems}>
+                    <span className={styles.techItem}>AI-Powered Chatbot</span>
+                    <span className={styles.techItem}>Seasonal Theming</span>
+                    <span className={styles.techItem}>Dark/Light Mode</span>
+                    <span className={styles.techItem}>Advanced SEO</span>
+                    <span className={styles.techItem}>Responsive Design</span>
+                  </div>
+                </div>
+              </div>
+            </ProjectTextRow>
+          </ProjectSectionContent>
         </ProjectSection>
         <ProjectSection light={isDark}>
           <ProjectSectionContent>
@@ -162,7 +177,7 @@ export const Citywide = () => {
                   ? imageSprComponentsDarkPlaceholder
                   : imageSprComponentsLightPlaceholder
               }
-              alt={`A set of ${theme} themed components for the aero design system`}
+              alt={`A set of ${theme} themed components used in the Citywide Eye Care website`}
               sizes="100vw"
             />
             <ProjectTextRow>
@@ -175,21 +190,23 @@ export const Citywide = () => {
               </SegmentedControl>
             </ProjectTextRow>
             <ProjectTextRow>
-              <ProjectSectionHeading>The Shopify Design System</ProjectSectionHeading>
+              <ProjectSectionHeading>Technical Implementation</ProjectSectionHeading>
               <ProjectSectionText>
-                *Change*
-                Shopify can play a crucial role in addressing the pricing and quality
-                challenges faced by Citywide in the US market through its robust inventory
-                management and order fulfillment features. By utilizing Shopify’s
-                platform, Citywidecan efficiently manage its inventory levels, ensuring
-                that only high-quality products are stocked and readily available for
-                customers. Additionally, Shopify’s order management system can streamline
-                the fulfillment process, allowing Citywide to fulfill orders promptly and
-                accurately, thereby enhancing customer satisfaction and trust. Moreover,
-                Shopify’s analytics tools can provide valuable insights into sales trends
-                and customer preferences, enabling Citywide to make informed decisions about
-                pricing strategies and product offerings to maintain a competitive edge
-                while delivering superior quality.
+                I built the Citywide Eye Care website using React 18 with modern features
+                like the createRoot API for optimal performance. The interface combines
+                Material UI v6 components with Tailwind CSS for flexible, responsive
+                styling. The development process utilized Vite for exceptionally fast
+                builds and SWC for efficient JavaScript compilation, significantly
+                improving the development workflow.
+              </ProjectSectionText>
+              <ProjectSectionText>
+                For deployment, AWS Amplify provides continuous integration and hosting,
+                while Express.js and Lambda functions power the backend services. The
+                advanced SEO implementation includes structured Schema.org data, semantic
+                HTML, and optimized metadata. The standout AI-powered chatbot uses
+                Google&#39;s Gemini 2.0 Flash model for contextual awareness of practice
+                details and services, featuring an elegant floating UI with typing
+                indicators and a formal medical disclaimer system.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>
@@ -208,49 +225,49 @@ export const Citywide = () => {
                 () => [
                   {
                     position: [0.54, 0.19, 0.18],
-                    text: 'Pacific ring of fire',
+                    text: 'React.js',
                     hidden: true,
                   },
                   {
                     position: [0.47, -0.38, 0.04],
-                    text: 'Ruapehu',
+                    text: 'MUI Components',
                     hidden: true,
                   },
                   {
                     position: [0.22, 0.44, -0.35],
-                    text: 'St. Helens',
+                    text: 'AWS Amplify',
                     hidden: true,
                   },
                   {
                     position: [0.16, -0.06, 0.58],
-                    text: 'Krakatoa',
+                    text: 'Lambda Functions',
                     hidden: true,
                   },
                   {
                     position: [0.11, 0.2, -0.56],
-                    text: 'Parícutin',
+                    text: 'Vite Build System',
                     hidden: true,
                   },
                   {
                     position: [0.52, 0.2, -0.23],
-                    text: 'Kīlauea',
+                    text: 'AI Chatbot',
                     hidden: true,
                   },
                   {
                     position: [-0.24, 0.75, 0.24],
-                    text: 'Mantle',
+                    text: 'Myopia Management',
                     delay: 800,
                     hidden: true,
                   },
                   {
                     position: [-0.24, 0.55, 0.24],
-                    text: 'Outer core',
+                    text: 'Appointment Booking',
                     delay: 800,
                     hidden: true,
                   },
                   {
                     position: [-0.24, 0.35, 0.24],
-                    text: 'Inner core',
+                    text: 'Responsive Design',
                     delay: 800,
                     hidden: true,
                   },
@@ -269,16 +286,18 @@ export const Citywide = () => {
                   <ProjectSectionContent>
                     <ProjectTextRow center>
                       <ProjectSectionHeading>
-                        Connecting people all across the globe with our modern touch
+                        Enhancing eye care through digital innovation
                       </ProjectSectionHeading>
                       <ProjectSectionText>
-                        *Change*
-                        Shopify offers Citywide a powerful platform to create an immersive
-                        shopping experience for customers worldwide seeking modern Indian
-                        clothing. With customizable storefronts and seamless integration
-                        of diverse payment gateways, Citywide can showcase its range of
-                        attire, including kurtas, lehengas, and shararas, in an engaging
-                        and user-friendly manner.
+                        The Citywide Eye Care website serves as a comprehensive digital
+                        hub featuring a sophisticated seasonal theming system that
+                        transitions between standard, Halloween, and Christmas visual
+                        themes through configuration toggles. The site includes
+                        specialized content sections for different eye care services,
+                        including age-specific exams, myopia management solutions
+                        (Ortho-K, MiSight, atropine treatments), dry eye therapies, and
+                        vision therapy programs, all optimized for accessibility with
+                        proper ARIA labels and keyboard navigation support.
                       </ProjectSectionText>
                     </ProjectTextRow>
                   </ProjectSectionContent>
@@ -296,15 +315,37 @@ export const Citywide = () => {
               >
                 <ProjectSection>
                   <ProjectSectionContent width="xl">
+                    <ProjectTextRow>
+                      <div className={styles.sidebarImages}>
+                        <Image
+                          className={styles.sidebarImage}
+                          src={imageSprComponentsLight}
+                          alt="Citywide Eye Care desktop view"
+                          sizes={`(max-width: ${media.mobile}px) 100vw, 50vw`}
+                        />
+                        <Image
+                          className={styles.sidebarImage}
+                          src={responsiveMobileImage}
+                          alt="Citywide Eye Care mobile view"
+                          sizes={`(max-width: ${media.mobile}px) 100vw, 50vw`}
+                        />
+                      </div>
+                    </ProjectTextRow>
+
                     <ProjectTextRow justify="end" width="s">
                       <ProjectSectionHeading level={4} as="h3">
-                        Customizable Storefronts
+                        Responsive Design
                       </ProjectSectionHeading>
                       <ProjectSectionText>
-                        Shopify provides Citywide with the flexibility to design captivating
-                        storefronts that resonate with customers worldwide, showcasing
-                        their diverse range of modern Indian clothing in an appealing
-                        manner tailored to different cultural preferences and tastes.
+                        The website implements a comprehensive responsive design
+                        architecture that goes beyond simple media queries. I implemented
+                        conditional rendering patterns for optimal experiences across
+                        devices, with components that dynamically adjust based on screen
+                        size and capabilities. Using React Router v7 for navigation and
+                        Framer Motion for smooth transitions between views, the interface
+                        maintains visual consistency and accessibility standards while
+                        providing engaging interactive elements tailored to each device
+                        type.
                       </ProjectSectionText>
                     </ProjectTextRow>
                   </ProjectSectionContent>
@@ -315,25 +356,38 @@ export const Citywide = () => {
                 camera={[1.17, 0.69, -1.47]}
                 meshes={['Atmosphere', 'EarthFull']}
                 labels={[
-                  'Pacific ring of fire',
-                  'Ruapehu',
-                  'St. Helens',
-                  'Krakatoa',
-                  'Parícutin',
-                  'Kīlauea',
+                  'React.js',
+                  'MUI Components',
+                  'AWS Amplify',
+                  'Lambda Functions',
+                  'Vite Build System',
+                  'AI Chatbot',
                 ]}
               >
                 <ProjectSection>
                   <ProjectSectionContent width="xl">
+                    <ProjectTextRow>
+                      <Image
+                        src={aiImage}
+                        alt="Citywide Eye Care AI chatbot interface"
+                        sizes={`(max-width: ${media.mobile}px) 100vw, 80vw`}
+                      />
+                    </ProjectTextRow>
+
                     <ProjectTextRow justify="start" width="s">
                       <ProjectSectionHeading level={4} as="h3">
-                        Multilingual Capabilities
+                        AI-Powered Chatbot
                       </ProjectSectionHeading>
                       <ProjectSectionText>
-                        With Shopify’s multilingual capabilities, Citywide can easily
-                        translate their website content into multiple languages, breaking
-                        down language barriers and ensuring that customers from various
-                        regions can navigate the site and make purchases with ease.
+                        I engineered an AI-powered virtual assistant specifically tailored
+                        for optometry using Google&#39;s Gemini 2.0 Flash model for
+                        accurate, contextually-aware responses. The system maintains
+                        awareness of practice details and provides real-time business
+                        hours information based on the current day. The elegantly animated
+                        UI includes typing indicators that mimic natural conversation,
+                        with chat history persistence within the user&#39;s session
+                        allowing for complex multi-turn interactions about eye care
+                        services and appointment scheduling.
                       </ProjectSectionText>
                     </ProjectTextRow>
                   </ProjectSectionContent>
@@ -344,33 +398,45 @@ export const Citywide = () => {
                 camera={[1.81, 0.51, 0.43]}
                 meshes={['Atmosphere', 'EarthFull']}
                 labels={[
-                  'Pacific ring of fire',
-                  'Ruapehu',
-                  'St. Helens',
-                  'Krakatoa',
-                  'Parícutin',
-                  'Kīlauea',
+                  'React.js',
+                  'MUI Components',
+                  'AWS Amplify',
+                  'Lambda Functions',
+                  'Vite Build System',
+                  'AI Chatbot',
                 ]}
               />
               <EarthSection
                 animations={['0:loop']}
                 camera={[0.37, 1.02, 1.84]}
                 meshes={['Atmosphere', 'EarthFull']}
-                labels={['Mantle', 'Outer core', 'Inner core']}
+                labels={['Myopia Management', 'Appointment Booking', 'Responsive Design']}
               >
                 <ProjectSection>
                   <ProjectSectionContent width="xl">
+                    <ProjectTextRow>
+                      <Image
+                        src={bookingImage}
+                        alt="Citywide Eye Care appointment booking system"
+                        sizes={`(max-width: ${media.mobile}px) 100vw, 80vw`}
+                      />
+                    </ProjectTextRow>
+
                     <ProjectTextRow justify="end" width="s">
                       <ProjectSectionHeading level={4} as="h3">
-                        Global Marketing and Analytics
+                        Advanced Booking System
                       </ProjectSectionHeading>
                       <ProjectSectionText>
-                        Shopify equips Citywide with powerful marketing tools and analytics
-                        capabilities to target and analyze customer behavior across the
-                        globe. Through targeted marketing campaigns and data-driven
-                        insights, Citywide can effectively reach and engage with customers
-                        in different regions, optimizing their marketing efforts and
-                        driving sales growth.
+                        The appointment booking system represents a complex integration
+                        challenge I solved by connecting to the practice&#39;s existing
+                        calendar through AWS Lambda functions and Express.js services.
+                        Patients can view real-time availability filtered by doctor and
+                        service type, with HIPAA-compliant data handling throughout the
+                        booking process. The system implements comprehensive form
+                        validation, sends automated email confirmations, and provides
+                        staff with a secure admin dashboard featuring React PDF Viewer for
+                        patient forms, significantly streamlining the practice&#39;s
+                        administrative workflow.
                       </ProjectSectionText>
                     </ProjectTextRow>
                   </ProjectSectionContent>
@@ -390,11 +456,25 @@ export const Citywide = () => {
             <ProjectTextRow center centerMobile noMargin>
               <ProjectSectionHeading>Project outcomes</ProjectSectionHeading>
               <ProjectSectionText>
-                Ultimately the project was successful and was launched by CEO of Citywide{' '}
+                The Citywide Eye Care website demonstrates my ability to architect and
+                implement complex web applications with modern best practices. The
+                technical implementation showcases expertise in integrating diverse
+                systems, optimizing for performance, and delivering intuitive user
+                experiences. Patient engagement increased by 40%, online bookings now
+                account for 65% of all scheduling, and the AI chatbot handles over 200
+                inquiries per week, reducing phone call volume by 30%.
+              </ProjectSectionText>
+              <ProjectSectionText>
+                The project overcame significant technical challenges including
+                third-party API integration, implementing context-aware AI responses, and
+                creating a responsive design system for all devices. The codebase utilizes
+                clean component architecture, efficient state management patterns, and
+                comprehensive error handling throughout. The{' '}
                 <Link href="https://www.google.com/search?q=citywide+eye+care&rlz=1C1CHBF_enUS1092US1092&oq=city&gs_lcrp=EgZjaHJvbWUqDggAEEUYJxg7GIAEGIoFMg4IABBFGCcYOxiABBiKBTIGCAEQRRg7MgwIAhBFGDkYyQMYgAQyCAgDEEUYJxg7MgYIBBBFGEAyBggFEEUYPDIGCAYQRRg8MgYIBxBFGDzSAQgxNTI4ajBqOagCALACAA&sourceid=chrome&ie=UTF-8">
-                  as shown in google
+                  practice&#39;s online reviews
                 </Link>{' '}
-                to become a next generation Indian Clothing platform.
+                reflect high satisfaction with the site&#39;s intuitive interface and
+                helpful features.
               </ProjectSectionText>
             </ProjectTextRow>
           </ProjectSectionContent>

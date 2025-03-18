@@ -1,3 +1,93 @@
+/* Earth component styling is handled in earth.module.css */
+
+.featuredTech {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  margin: 60px auto;
+  max-width: 1200px;
+  
+  @media (--mediaLaptop) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  
+  @media (--mediaTablet) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 500px;
+  }
+}
+
+.techCategory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 16px;
+  padding: 30px;
+  background-color: color-mix(in srgb, var(--background) 80%, transparent);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.categoryTitle {
+  font-size: var(--fontSizeH4);
+  font-weight: var(--fontWeightMedium);
+  margin-bottom: 30px;
+  color: var(--primary);
+  position: relative;
+  padding-bottom: 15px;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: var(--primary);
+    border-radius: 4px;
+  }
+}
+
+.techItems {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+}
+
+.techItem {
+  padding: 14px 20px;
+  background-color: color-mix(in srgb, var(--primary) 15%, var(--background));
+  color: var(--primary);
+  border-radius: 12px;
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--fontSizeBodyM);
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: block;
+  width: 100%;
+  text-align: center;
+  
+  &:hover {
+    transform: translateY(-4px);
+    background-color: var(--primary);
+    color: var(--background);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary);
+  }
+}
+
 .video {
   width: 120%;
 

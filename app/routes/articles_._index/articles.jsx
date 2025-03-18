@@ -90,7 +90,7 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
       )}
 
       {featured && (
-        // Featured post - NOT clickable, only download button clickable
+        // Featured post - Now with both view and download options
         <div className={styles.postLink}>
           <div className={styles.postDetails}>
             <div aria-hidden className={styles.postDate}>
@@ -107,16 +107,32 @@ function ArticlesPost({ slug, frontmatter, timecode, index }) {
               {abstract}
             </Text>
             <div className={styles.postFooter}>
-              <a
-                href={resumePDF}
-                download="Resume"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button secondary iconHoverShift as="div">
-                  Download CV
-                </Button>
-              </a>
+              <div className={styles.resumeButtons}>
+                {/* View Resume Button */}
+                <a
+                  href={resumePDF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.resumeButton}
+                >
+                  <Button secondary iconHoverShift icon="eye" as="div">
+                    View CV
+                  </Button>
+                </a>
+                
+                {/* Download Resume Button */}
+                <a
+                  href={resumePDF}
+                  download="Resume"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.resumeButton}
+                >
+                  <Button secondary iconHoverShift icon="download" as="div">
+                    Download CV
+                  </Button>
+                </a>
+              </div>
               <Text className={styles.timecode} size="s">
                 {timecode}
               </Text>

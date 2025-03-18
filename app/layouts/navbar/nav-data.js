@@ -20,11 +20,11 @@ export const navLinks = [
 ];
 
 export const socialLinks = [
-  {
-    label: 'Twitter',
-    url: `https://twitter.com/${config.twitter}`,
-    icon: 'twitter',
-  },
+  // {
+  //   label: 'Twitter',
+  //   url: `https://twitter.com/${config.twitter}`,
+  //   icon: 'twitter',
+  // },
   {
     label: 'Linkedin',
     url: `https://www.linkedin.com/in/${config.linkedin}`,
