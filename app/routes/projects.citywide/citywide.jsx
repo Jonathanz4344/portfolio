@@ -84,6 +84,7 @@ export const Citywide = () => {
         />
         <ProjectSection padding="top">
           <ProjectSectionContent>
+            <h2 className={styles.beforeHeading}>Before</h2>
             <ProjectImage
               raised
               key={theme}
@@ -163,6 +164,7 @@ export const Citywide = () => {
         </ProjectSection>
         <ProjectSection light={isDark}>
           <ProjectSectionContent>
+            <h2 className={styles.afterHeading}>After</h2>
             <Image
               key={theme}
               srcSet={
