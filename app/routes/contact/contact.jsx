@@ -67,8 +67,17 @@ export async function action({ request }) {
     return json({ errors });
   }
 
-  // Send email via Formspree
-  await axios.post(formspreeEndpoint, formData);
+  try {
+    await axios.post(formspreeEndpoint, formData, {
+      headers: { Accept: 'application/json' },
+    });
+  } catch (error) {
+    console.error('Form submission failed', error.response?.data ?? error.message);
+    return json(
+      { errors: { message: 'Unable to send message right now. Please try again soon.' } },
+      { status: 500 }
+    );
+  }
 
   return json({ success: true });
 }
