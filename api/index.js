@@ -2,7 +2,7 @@ import { createRequestHandler } from '@vercel/remix';
 import * as build from '../build/server/index.js';
 
 export const config = {
-  runtime: 'nodejs',
+  runtime: 'nodejs22.x',
 };
 
 export default createRequestHandler({
