@@ -2,6 +2,7 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "framework": null,
+  "outputDirectory": "public",
   "rewrites": [
     { "source": "/build/(.*)", "destination": "/build/$1" },
     { "source": "/(.*)", "destination": "/api/index" }
