@@ -32,7 +32,11 @@ const MAX_MESSAGE_LENGTH = 4096;
 const EMAIL_PATTERN = /(.+)@(.+){2,}\.(.+){2,}/;
 
 export async function action({ request }) {
-  
+  const formspreeEndpoint = process.env.FORMSPREE_ENDPOINT;
+  if (!formspreeEndpoint) {
+    console.error('Missing FORMSPREE_ENDPOINT env var');
+    return json({ errors: { message: 'Unable to send message at this time.' } }, { status: 500 });
+  }
   const formData = await request.formData();
   const isBot = String(formData.get('name'));
   const email = String(formData.get('email'));
@@ -63,9 +67,8 @@ export async function action({ request }) {
     return json({ errors });
   }
 
-  // Send email via Amazon SES
-  await axios.post('https://formspree.io/f/xpzvdgzd', formData);
-
+  // Send email via Formspree
+  await axios.post(formspreeEndpoint, formData);
 
   return json({ success: true });
 }

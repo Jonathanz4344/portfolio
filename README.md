@@ -37,6 +37,17 @@ I've set up the site using Cloudflare for hosting. Deploy the site to Cloudflare
 npm run deploy
 ``` -->
 
+## Environment variables
+
+Create a `.env` file (or add variables in the Vercel dashboard) using `.env.example` as a template:
+
+```
+SESSION_SECRET=generate-a-long-random-string
+FORMSPREE_ENDPOINT=https://formspree.io/f/mwpanbok
+```
+
+`SESSION_SECRET` secures the Remix session cookie, and `FORMSPREE_ENDPOINT` is the Formspree URL that receives contact form submissions.
+
 <!-- ## FAQs
 
 <details>
