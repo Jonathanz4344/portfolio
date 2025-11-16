@@ -1,7 +1,4 @@
-import {
-  unstable_vitePlugin as remix,
-  unstable_cloudflarePreset as cloudflare,
-} from '@remix-run/dev';
+import { unstable_vitePlugin as remix } from '@remix-run/dev';
 import { defineConfig } from 'vite';
 import jsconfigPaths from 'vite-jsconfig-paths';
 import mdx from '@mdx-js/rollup';
@@ -29,7 +26,6 @@ export default defineConfig({
     }),
     !isStorybook &&
       remix({
-        presets: [cloudflare()],
         routes(defineRoutes) {
           return defineRoutes(route => {
             route('/', 'routes/home/route.js', { index: true });
@@ -38,9 +34,4 @@ export default defineConfig({
       }),
     jsconfigPaths(),
   ],
-  ssr: {
-    resolve: {
-      externalConditions: ['workerd', 'worker'],
-    },
-  },
 });
