@@ -3,6 +3,11 @@
   "devCommand": "npm run dev",
   "framework": null,
   "outputDirectory": "public",
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "build/**"
+    }
+  },
   "rewrites": [
     { "source": "/build/(.*)", "destination": "/build/$1" },
     { "source": "/(.*)", "destination": "/api/index" }
