@@ -1,5 +1,5 @@
 import { createRequestHandler } from '@vercel/remix';
-import build from '../build/server/index.js';
+import * as build from '../build/server/index.js';
 
 export const config = {
   runtime: 'nodejs',
