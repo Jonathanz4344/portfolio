@@ -31,7 +31,7 @@ function App() {
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
-    const refs: Record<string, React.RefObject<HTMLDivElement>> = {
+    const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
       home: homeRef,
       projects: projectsRef,
       about: aboutRef,

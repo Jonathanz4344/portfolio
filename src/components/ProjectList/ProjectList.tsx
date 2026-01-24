@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Heart, Clock, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
+import { Play, Pause, Heart, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
 import type { Project } from '../../types';
 import './ProjectList.css';
 
@@ -35,7 +35,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const toggleLike = (index: number, e: React.MouseEvent) => {
+  const _toggleLike = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
     const newLiked = new Set(likedProjects);
     if (newLiked.has(index)) {

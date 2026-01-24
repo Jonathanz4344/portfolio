@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, Pause, Shuffle, Plus, MoreHorizontal, Linkedin, Github, Mail, Phone, Check, X, Send, FileText, Download } from 'lucide-react';
+import { Play, Pause, Shuffle, MoreHorizontal, Linkedin, Github, Mail, Phone, X, Send, FileText, Download } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Hero.css';
 

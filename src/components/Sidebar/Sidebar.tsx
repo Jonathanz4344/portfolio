@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Menu } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Sidebar.css';
 

@@ -41,7 +41,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   const fullPlayerMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isPlaying) {
       interval = setInterval(() => {
         setProgress((prev) => {
