@@ -66,7 +66,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
         onClick={() => setIsMobileOpen(true)}
         aria-label="Open menu"
       >
-        <img src="/profile.jpg" alt="JZ" className="mobile-menu-img" />
+        <img src="/profile.png" alt="JZ" className="mobile-menu-img" />
       </button>
 
       {/* Mobile Backdrop */}
@@ -85,7 +85,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
         <div className="sidebar-header">
           <div className="logo">
             <div className="logo-icon">
-              <img src="/profile.jpg" alt="JZ" className="logo-img" />
+              <img src="/profile.png" alt="JZ" className="logo-img" />
             </div>
             <div className="logo-text">
               <h1>{profile.name}</h1>

@@ -98,7 +98,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
           <div className="liked-songs-card">
             <div className="liked-profile-container">
               <div className="liked-profile-image">
-                <img src="/profile.jpg" alt="JZ" className="liked-profile-img" />
+                <img src="/profile.png" alt="JZ" className="liked-profile-img" />
               </div>
               <div className="liked-heart-badge">
                 <Heart size={14} fill="#1DB954" strokeWidth={0} />
@@ -266,7 +266,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
           <div className="liked-songs-card">
             <div className="liked-profile-container">
               <div className="liked-profile-image">
-                <img src="/profile.jpg" alt="JZ" className="liked-profile-img" />
+                <img src="/profile.png" alt="JZ" className="liked-profile-img" />
               </div>
               <div className="liked-heart-badge">
                 <Heart size={14} fill="#1DB954" strokeWidth={0} />

@@ -72,7 +72,7 @@ I've also built AI-driven automation and lead-discovery features that significan
       impact: "Unique personal branding",
       tech: ["React", "TypeScript", "Vite", "CSS"],
       type: "Frontend Development",
-      companyLogo: "/profile.jpg"
+      companyLogo: "/profile.png"
     },
     {
       title: "Automation & Analytics Platform",

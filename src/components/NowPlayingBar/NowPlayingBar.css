@@ -124,6 +124,7 @@
   height: 48px;
   border-radius: 4px;
   object-fit: cover;
+  object-position: center 20%;
 }
 
 .full-player-track-cover {
@@ -240,6 +241,7 @@
   height: 280px;
   border-radius: 8px;
   object-fit: cover;
+  object-position: center 20%;
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -365,6 +367,7 @@
   height: 56px;
   border-radius: 4px;
   object-fit: cover;
+  object-position: center 20%;
   flex-shrink: 0;
 }
 
