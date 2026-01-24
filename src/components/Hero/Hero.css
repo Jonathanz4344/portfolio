@@ -154,6 +154,15 @@
   outline: none;
 }
 
+.play-btn-large:focus {
+  outline: none;
+}
+
+.play-btn-large:active {
+  outline: none;
+  transform: scale(0.96);
+}
+
 .play-btn-large:hover {
   transform: scale(1.04);
   background: #1ed760;

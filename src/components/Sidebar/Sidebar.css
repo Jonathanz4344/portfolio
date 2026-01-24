@@ -90,6 +90,11 @@
   text-align: left;
   font-size: 14px;
   font-weight: 500;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
 }
 
 .nav-item:hover {
@@ -327,6 +332,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
   padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  outline: none;
 }
 
 .mobile-menu-btn:hover {

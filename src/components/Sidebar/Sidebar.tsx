@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Sidebar.css';
@@ -12,10 +12,37 @@ interface SidebarProps {
 const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const handleNavClick = (section: string) => {
     onSectionChange(section);
     setIsMobileOpen(false);
+  };
+
+  // Touch handlers for swipe to close
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setDragStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (dragStartX === null || !sidebarRef.current) return;
+    const deltaX = e.touches[0].clientX - dragStartX;
+    // Only allow dragging left (negative delta)
+    if (deltaX < 0) {
+      sidebarRef.current.style.transform = `translateX(${deltaX}px)`;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (dragStartX === null || !sidebarRef.current) return;
+    const deltaX = e.changedTouches[0].clientX - dragStartX;
+    sidebarRef.current.style.transform = '';
+    // Close if swiped left more than 80px
+    if (deltaX < -80) {
+      setIsMobileOpen(false);
+    }
+    setDragStartX(null);
   };
 
   const navItems = [
@@ -43,7 +70,13 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
         onClick={() => setIsMobileOpen(false)}
       />
 
-      <aside className={`sidebar ${isMobileOpen ? 'mobile-open' : ''}`}>
+      <aside 
+        ref={sidebarRef}
+        className={`sidebar ${isMobileOpen ? 'mobile-open' : ''}`}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="sidebar-header">
           <div className="logo">
             <div className="logo-icon">
