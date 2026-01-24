@@ -141,15 +141,15 @@ function App() {
               />
             </div>
 
+            <div ref={experienceRef}>
+              <ExperienceSection experience={profileData.experience} />
+            </div>
+
             <div ref={aboutRef}>
               <AboutSection about={profileData.about} />
             </div>
 
             <SkillsSection skills={profileData.skills} />
-
-            <div ref={experienceRef}>
-              <ExperienceSection experience={profileData.experience} />
-            </div>
 
             <div ref={educationRef}>
               <EducationSection education={profileData.education} />

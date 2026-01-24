@@ -102,6 +102,7 @@ I've also built AI-driven automation and lead-discovery features that significan
       company: "Citywide Eye Care",
       period: "Aug 2024 - Present",
       location: "Great Neck, NY",
+      logo: "/citywide-logo.png",
       highlights: [
         "Leading development of a custom EMR system used daily in a live optometry clinic, replacing manual PDF and Word based clinical documentation workflows",
         "Architected a FastAPI + PostgreSQL backend with role-based access control, audit logging and chart versioning",
@@ -127,6 +128,7 @@ I've also built AI-driven automation and lead-discovery features that significan
       company: "Citywide Eye Care",
       period: "May 2024 - July 2024",
       location: "Great Neck, NY",
+      logo: "/citywide-logo.png",
       highlights: [
         "Developed a patient-facing AI health chatbot using Python and Gemini API, automating FAQs and symptom triage and reducing front-desk workload by ~50%",
         "Rebuilt the clinic website using Next.js (React) and Material UI, improving accessibility, page load performance, and SEO, leading to increased organic traffic and patient inquiries",
@@ -139,6 +141,7 @@ I've also built AI-driven automation and lead-discovery features that significan
       company: "ADP",
       period: "Jun 2023 - Aug 2023",
       location: "Roseland, NJ",
+      logo: "/adp-logo.png",
       highlights: [
         "Built a status-reporting system, reducing manual reporting effort and improving decision turnaround by 20%",
         "Optimized CI/CD pipeline using Jenkins, reducing deployment time by 30%",

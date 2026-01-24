@@ -10,7 +10,7 @@ const EducationSection = ({ education }: EducationSectionProps) => {
   return (
     <section className="education-section">
       <div className="section-header">
-        <h2>Education</h2>
+        <h2>Albums</h2>
       </div>
 
       <div className="education-grid">

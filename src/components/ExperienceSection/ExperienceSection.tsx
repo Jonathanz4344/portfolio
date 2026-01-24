@@ -16,18 +16,26 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
   return (
     <section className="experience-section">
       <div className="section-header">
-        <h2>Experience</h2>
+        <h2>Featuring Jonathan</h2>
       </div>
 
       <div className="experience-list">
         {experience.map((exp, index) => (
           <div key={index} className="experience-card">
-            <div 
-              className="experience-logo"
-              style={{ background: companyColors[exp.company] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
-            >
-              <span>{exp.company.charAt(0)}</span>
-            </div>
+            {exp.logo ? (
+              <img 
+                src={exp.logo} 
+                alt={exp.company} 
+                className="experience-logo-img"
+              />
+            ) : (
+              <div 
+                className="experience-logo"
+                style={{ background: companyColors[exp.company] || 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+              >
+                <span>{exp.company.charAt(0)}</span>
+              </div>
+            )}
 
             <div className="experience-content">
               <div className="experience-header">

@@ -52,9 +52,9 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
 
   const navItems = [
     { id: 'home', icon: Home, label: 'Home' },
+    { id: 'experience', icon: Briefcase, label: 'Experience' },
     { id: 'projects', icon: FolderKanban, label: 'Projects' },
     { id: 'about', icon: User, label: 'About' },
-    { id: 'experience', icon: Briefcase, label: 'Experience' },
     { id: 'education', icon: GraduationCap, label: 'Education' },
   ];
 
