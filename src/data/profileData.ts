@@ -9,9 +9,9 @@ export const profileData: ProfileData = {
   githubUrl: "https://github.com/Jonathanz4344",
   linkedin: "jonathanzhuu",
   linkedinUrl: "https://linkedin.com/in/jonathanzhuu",
-  about: `I'm a full-stack software engineer who builds reliable, real-world systems with a focus on usability and impact. I enjoy taking complex problems, breaking them down, and shipping software that actually gets used.
+  about: `A full-stack software engineer who builds reliable, real-world systems with a focus on usability and impact. I enjoy taking complex problems, breaking them down, and shipping software that actually gets used.
 
-I've worked on production applications ranging from healthcare EMR platforms to AI-powered CRM tools, building across the stack with FastAPI, PostgreSQL, React, TypeScript, and AWS. I led the development of a live EMR system used daily in a clinical setting, helping reduce documentation time, improve data reliability, and streamline workflows for doctors and staff.
+My past experiences include production applications ranging from healthcare EMR platforms to AI-powered CRM tools, building across the stack with FastAPI, PostgreSQL, React, TypeScript, and AWS. I led the development of a live EMR system used daily in a medical clinical setting, helping reduce documentation time, improve data reliability, and streamline workflows for doctors and staff.
 
 I've also built AI-driven automation and lead-discovery features that significantly reduce manual effort and improve operational efficiency. I earned my B.S. in Software Engineering from Rochester Institute of Technology and will be furthering my education with an M.S. in Computer Science at Georgia Tech, where I plan to focus on machine learning and AI-driven systems.`,
 
@@ -90,10 +90,10 @@ I've also built AI-driven automation and lead-discovery features that significan
   skills: {
     "Languages": ["Python", "JavaScript", "TypeScript", "SQL"],
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
-    "Frontend": ["React", "Javascript","TypeScript", "Material UI", "Next.js"],
+    "Frontend": ["React", "Javascript", "TypeScript", "Material UI", "Next.js"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
     "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Lambda", "Secrets Manager", "CI/CD", "Jenkins"],
-    "Tools": ["OpenAI API", " Gemini API","Splunk", "Dynatrace"]
+    "Tools": ["OpenAI API", " Gemini API", "Splunk", "Dynatrace"]
   },
 
   experience: [
