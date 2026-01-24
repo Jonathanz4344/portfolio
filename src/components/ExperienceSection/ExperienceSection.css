@@ -1,0 +1,139 @@
+.experience-section {
+  padding: 40px;
+}
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.experience-card {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.experience-card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  border-color: rgba(29, 185, 84, 0.3);
+  transform: translateX(4px);
+}
+
+.experience-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.experience-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.experience-title-section {
+  min-width: 0;
+}
+
+.experience-role {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px 0;
+}
+
+.experience-company {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1DB954;
+}
+
+.experience-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #a7a7a7;
+}
+
+.meta-item svg {
+  color: #6b6b6b;
+}
+
+.experience-highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.experience-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: #b3b3b3;
+  line-height: 1.5;
+}
+
+.highlight-icon {
+  color: #1DB954;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+@media (max-width: 768px) {
+  .experience-section {
+    padding: 32px 24px;
+  }
+
+  .experience-card {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .experience-logo {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .experience-meta {
+    flex-direction: row;
+    gap: 16px;
+  }
+}

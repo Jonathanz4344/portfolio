@@ -1,0 +1,120 @@
+import { useState, useRef } from 'react';
+import {
+  Sidebar,
+  Hero,
+  ProjectList,
+  ProjectDetail,
+  SkillsSection,
+  ExperienceSection,
+  EducationSection,
+  AboutSection,
+  NowPlayingBar,
+} from './components';
+import { profileData } from './data/profileData';
+import './App.css';
+
+function App() {
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const [activeSection, setActiveSection] = useState('home');
+  const [showProjectDetail, setShowProjectDetail] = useState(false);
+  const [isShuffleOn, setIsShuffleOn] = useState(false);
+  
+  const projectsRef = useRef<HTMLDivElement>(null);
+
+  const handlePlayClick = () => {
+    projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const getRandomTrack = (excludeIndex: number) => {
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * profileData.projects.length);
+    } while (randomIndex === excludeIndex && profileData.projects.length > 1);
+    return randomIndex;
+  };
+
+  const handlePrevious = () => {
+    if (isShuffleOn) {
+      setCurrentTrack(getRandomTrack(currentTrack));
+    } else {
+      setCurrentTrack((prev) => (prev > 0 ? prev - 1 : profileData.projects.length - 1));
+    }
+  };
+
+  const handleNext = () => {
+    if (isShuffleOn) {
+      setCurrentTrack(getRandomTrack(currentTrack));
+    } else {
+      setCurrentTrack((prev) => (prev < profileData.projects.length - 1 ? prev + 1 : 0));
+    }
+  };
+
+  const handleTrackChange = (index: number) => {
+    setCurrentTrack(index);
+    setShowProjectDetail(true);
+  };
+
+  const handleShuffleToggle = () => {
+    setIsShuffleOn((prev) => !prev);
+  };
+
+  return (
+    <div className="app">
+      <div className="app-container">
+        <Sidebar
+          profile={profileData}
+          activeSection={activeSection}
+          onSectionChange={setActiveSection}
+        />
+
+        <main className="main-content">
+          <div className="main-scroll">
+            <Hero 
+              profile={profileData} 
+              onPlayClick={handlePlayClick} 
+              isShuffleOn={isShuffleOn}
+              onShuffleToggle={handleShuffleToggle}
+            />
+
+            <div ref={projectsRef}>
+              <ProjectList
+                projects={profileData.projects}
+                currentTrack={currentTrack}
+                onTrackChange={handleTrackChange}
+              />
+            </div>
+
+            <AboutSection about={profileData.about} />
+
+            <SkillsSection skills={profileData.skills} />
+
+            <ExperienceSection experience={profileData.experience} />
+
+            <EducationSection education={profileData.education} />
+
+            <div className="footer-spacer"></div>
+          </div>
+        </main>
+      </div>
+
+      <NowPlayingBar
+        project={profileData.projects[currentTrack]}
+        projects={profileData.projects}
+        currentIndex={currentTrack}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+        onTrackSelect={setCurrentTrack}
+        isShuffleOn={isShuffleOn}
+        onShuffleToggle={handleShuffleToggle}
+      />
+
+      <ProjectDetail
+        project={profileData.projects[currentTrack]}
+        isOpen={showProjectDetail}
+        onClose={() => setShowProjectDetail(false)}
+      />
+    </div>
+  );
+}
+
+export default App;

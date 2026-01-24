@@ -1,0 +1,9 @@
+export { default as Sidebar } from './Sidebar';
+export { default as Hero } from './Hero';
+export { default as ProjectList } from './ProjectList';
+export { default as ProjectDetail } from './ProjectDetail';
+export { default as SkillsSection } from './SkillsSection';
+export { default as ExperienceSection } from './ExperienceSection';
+export { default as EducationSection } from './EducationSection';
+export { default as AboutSection } from './AboutSection';
+export { default as NowPlayingBar } from './NowPlayingBar';
