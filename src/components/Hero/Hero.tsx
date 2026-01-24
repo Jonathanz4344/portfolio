@@ -194,7 +194,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
                   e.preventDefault();
                   setIsSending(true);
                   try {
-                    const response = await fetch(import.meta.env.VITE_FORMSPREE_URL || 'https://formspree.io/f/mwpanbok', {
+                    const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
