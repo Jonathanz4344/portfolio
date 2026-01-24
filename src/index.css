@@ -52,6 +52,24 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Remove blue highlight from all interactive elements on mobile */
+button,
+a,
+input,
+select,
+textarea,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  outline: none;
+}
+
+button:focus,
+a:focus,
+[role="button"]:focus {
+  outline: none;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
