@@ -25,22 +25,25 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
   // Track monthly listeners - increments on each unique visit
   useEffect(() => {
     const trackVisit = async () => {
-      // Check if user already visited in this session
       const hasVisited = sessionStorage.getItem('portfolio_visited');
       
-      if (!hasVisited) {
-        try {
-          // Using CountAPI to track visits persistently
-          const response = await fetch('https://api.countapi.xyz/hit/jonathanzhu-portfolio/visits');
+      try {
+        if (!hasVisited) {
+          // Increment counter for new visitor
+          const response = await fetch('/api/visitors', { method: 'POST' });
           const data = await response.json();
-          // Add base number to make it look more established
           const baseListeners = 1200;
-          setMonthlyListeners(baseListeners + data.value);
+          setMonthlyListeners(baseListeners + (data.count || 0));
           sessionStorage.setItem('portfolio_visited', 'true');
-        } catch (error) {
-          // If API fails, just show the default number
-          console.log('Counter API unavailable');
+        } else {
+          // Just get current count without incrementing
+          const response = await fetch('/api/visitors');
+          const data = await response.json();
+          const baseListeners = 1200;
+          setMonthlyListeners(baseListeners + (data.count || 0));
         }
+      } catch (error) {
+        console.log('Visitor counter unavailable');
       }
     };
     
