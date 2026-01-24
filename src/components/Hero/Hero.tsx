@@ -38,6 +38,12 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
       </div>
       
       <div className="hero-content">
+        <div className="hero-image">
+          <div className="profile-photo">
+            <img src="/profile.jpg" alt="Jonathan Zhu" className="profile-img" />
+          </div>
+        </div>
+
         <div className="hero-info">
           <div className="verified-badge">
             <span className="verified-icon">
@@ -53,12 +59,6 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
           
           <div className="hero-stats">
             <span className="monthly-listeners">{profile.projects.length} projects • Available for opportunities</span>
-          </div>
-        </div>
-
-        <div className="hero-image">
-          <div className="profile-photo">
-            <img src="/profile.jpg" alt="Jonathan Zhu" className="profile-img" />
           </div>
         </div>
       </div>

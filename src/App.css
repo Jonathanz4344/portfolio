@@ -91,6 +91,46 @@ body {
   height: 100px;
 }
 
+/* Mobile Sticky Header */
+.mobile-sticky-header {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px;
+  background: rgba(24, 24, 24, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 999;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-sticky-header.visible {
+  transform: translateY(0);
+}
+
+.sticky-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 16px;
+}
+
+.sticky-header-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .mobile-sticky-header {
+    display: block;
+  }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .app-container {

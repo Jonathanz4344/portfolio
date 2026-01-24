@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Sidebar,
   Hero,
@@ -20,12 +20,14 @@ function App() {
   const [isShuffleOn, setIsShuffleOn] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatOn, setIsRepeatOn] = useState(false);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
   
   const homeRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const educationRef = useRef<HTMLDivElement>(null);
+  const mainScrollRef = useRef<HTMLDivElement>(null);
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
@@ -85,8 +87,30 @@ function App() {
     setIsRepeatOn((prev) => !prev);
   };
 
+  // Mobile sticky header scroll detection
+  useEffect(() => {
+    const scrollContainer = mainScrollRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const scrollTop = scrollContainer.scrollTop;
+      // Show sticky header after scrolling past ~350px (after the hero action bar)
+      setShowStickyHeader(scrollTop > 350);
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll);
+    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="app">
+      {/* Mobile Sticky Header */}
+      <div className={`mobile-sticky-header ${showStickyHeader ? 'visible' : ''}`}>
+        <div className="sticky-header-content">
+          <span className="sticky-header-name">{profileData.name}</span>
+        </div>
+      </div>
+
       <div className="app-container">
         <Sidebar
           profile={profileData}
@@ -95,7 +119,7 @@ function App() {
         />
 
         <main className="main-content">
-          <div className="main-scroll">
+          <div className="main-scroll" ref={mainScrollRef}>
             <div ref={homeRef}>
               <Hero 
                 profile={profileData} 

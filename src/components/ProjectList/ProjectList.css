@@ -5,7 +5,7 @@
 
 .project-list-container {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: minmax(0, 900px) 240px;
   gap: 40px;
 }
 
@@ -167,8 +167,7 @@
   width: 40px;
   height: 40px;
   border-radius: 4px;
-  object-fit: contain;
-  background: #fff;
+  object-fit: cover;
 }
 
 .cover-gradient {
@@ -499,7 +498,7 @@
   }
 
   .popular-title {
-    display: block;
+    display: none;
   }
 
   .liked-column {

@@ -300,12 +300,20 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
       >
         {/* Track Info */}
         <div className="now-playing-left" onClick={() => setIsFullPlayer(true)}>
-          <div 
-            className="now-playing-cover"
-            data-type={project.type.toLowerCase().replace(/\s+/g, '-')}
-          >
-            <span>{project.title.charAt(0)}</span>
-          </div>
+          {project.companyLogo ? (
+            <img 
+              src={project.companyLogo} 
+              alt={project.artist} 
+              className="now-playing-cover-img"
+            />
+          ) : (
+            <div 
+              className="now-playing-cover"
+              data-type={project.type.toLowerCase().replace(/\s+/g, '-')}
+            >
+              <span>{project.title.charAt(0)}</span>
+            </div>
+          )}
           <div className="now-playing-info">
             <span className="now-playing-title">{project.title}</span>
             <span className="now-playing-artist">{project.artist}</span>

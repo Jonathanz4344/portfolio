@@ -118,6 +118,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
               <div
                 key={index}
                 className={`project-row ${currentTrack === index ? 'active' : ''}`}
+                onClick={() => onTrackChange(index)}
                 onDoubleClick={() => onTrackChange(index)}
                 onMouseEnter={() => setHoveredProject(index)}
                 onMouseLeave={() => setHoveredProject(null)}
