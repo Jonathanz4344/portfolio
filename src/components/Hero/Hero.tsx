@@ -87,7 +87,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
           <h1 className="hero-name">{profile.name.toUpperCase()}</h1>
           
           <div className="hero-stats">
-            <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly listeners</span>
+            <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly watchers</span>
           </div>
         </div>
       </div>
