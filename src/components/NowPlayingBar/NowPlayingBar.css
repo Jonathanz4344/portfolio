@@ -31,9 +31,18 @@
 .full-player-close {
   background: none;
   border: none;
-  color: #fff;
+  color: #a7a7a7;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.full-player-close:hover {
+  color: #fff;
+  transform: scale(1.1);
 }
 
 .full-player-header-name {
@@ -49,9 +58,18 @@
 .full-player-menu-btn {
   background: none;
   border: none;
-  color: #fff;
+  color: #a7a7a7;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.full-player-menu-btn:hover {
+  color: #fff;
+  transform: scale(1.1);
 }
 
 .full-player-dropdown {

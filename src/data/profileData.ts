@@ -67,7 +67,8 @@ export const profileData: ProfileData = {
       description: "Interactive developer portfolio designed with Spotify's UI/UX as inspiration, featuring dynamic animations and responsive design",
       impact: "Unique personal branding",
       tech: ["React", "TypeScript", "Vite", "CSS"],
-      type: "Frontend Development"
+      type: "Frontend Development",
+      companyLogo: "/profile.jpg"
     },
     {
       title: "Automation & Analytics Platform",

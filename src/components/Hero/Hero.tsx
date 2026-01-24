@@ -58,7 +58,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
 
         <div className="hero-image">
           <div className="profile-photo">
-            <span>JZ</span>
+            <img src="/profile.jpg" alt="Jonathan Zhu" className="profile-img" />
           </div>
         </div>
       </div>

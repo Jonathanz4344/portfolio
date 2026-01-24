@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check, FolderKanban, Building2, Copy, Share2 } from 'lucide-react';
 import type { Project } from '../../types';
 import './NowPlayingBar.css';
+
+// Company URLs for "Go to Company" option
+const companyUrls: Record<string, string> = {
+  'Citywide Eye Care': 'https://www.citywideeyecare.com/',
+  'ZALA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
+};
+
+// Companies without external links (greyed out)
+const companiesWithoutLinks = ['ADP', 'Personal Project'];
 
 interface NowPlayingBarProps {
   project: Project;
@@ -16,9 +25,10 @@ interface NowPlayingBarProps {
   onPlayingChange: (playing: boolean) => void;
   isRepeatOn: boolean;
   onRepeatToggle: () => void;
+  onViewDetails: () => void;
 }
 
-const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle, isPlaying, onPlayingChange, isRepeatOn, onRepeatToggle }: NowPlayingBarProps) => {
+const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle, isPlaying, onPlayingChange, isRepeatOn, onRepeatToggle, onViewDetails }: NowPlayingBarProps) => {
   const [isLiked, setIsLiked] = useState(true);
   const [volume, setVolume] = useState(70);
   const [progress, setProgress] = useState(0);
@@ -26,6 +36,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   const [isFullPlayer, setIsFullPlayer] = useState(false);
   const [showFullPlayerMenu, setShowFullPlayerMenu] = useState(false);
   const [dragStartY, setDragStartY] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
   const fullPlayerRef = useRef<HTMLDivElement>(null);
   const fullPlayerMenuRef = useRef<HTMLDivElement>(null);
 
@@ -124,15 +135,58 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
               </button>
               {showFullPlayerMenu && (
                 <div className="full-player-dropdown">
-                  <button className="dropdown-item" onClick={() => setShowFullPlayerMenu(false)}>
-                    <Heart size={16} fill={isLiked ? 'currentColor' : 'none'} />
-                    <span>{isLiked ? 'Unlike' : 'Like'}</span>
-                  </button>
-                  <button className="dropdown-item" onClick={() => setShowFullPlayerMenu(false)}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      onViewDetails();
+                      setShowFullPlayerMenu(false);
+                      setIsFullPlayer(false);
+                    }}
+                  >
+                    <FolderKanban size={16} />
                     <span>View Details</span>
                   </button>
-                  <button className="dropdown-item" onClick={() => setShowFullPlayerMenu(false)}>
-                    <span>Share</span>
+                  {companyUrls[project.artist] ? (
+                    <a
+                      href={companyUrls[project.artist]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="dropdown-item"
+                      onClick={() => setShowFullPlayerMenu(false)}
+                    >
+                      <Building2 size={16} />
+                      <span>Go to {project.artist.split(' (')[0]}</span>
+                    </a>
+                  ) : companiesWithoutLinks.includes(project.artist) ? (
+                    <div className="dropdown-item disabled">
+                      <Building2 size={16} />
+                      <span>Go to {project.artist.split(' (')[0]}</span>
+                    </div>
+                  ) : null}
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      const projectSlug = project.title.toLowerCase().replace(/\s+/g, '-');
+                      const url = `${window.location.origin}/#project-${projectSlug}`;
+                      navigator.clipboard.writeText(url);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2000);
+                      setShowFullPlayerMenu(false);
+                    }}
+                  >
+                    <Copy size={16} />
+                    <span>{copied ? 'Copied!' : 'Copy Link'}</span>
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => {
+                      const url = window.location.origin;
+                      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+                      setShowFullPlayerMenu(false);
+                    }}
+                  >
+                    <Share2 size={16} />
+                    <span>Share to LinkedIn</span>
                   </button>
                 </div>
               )}

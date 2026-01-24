@@ -96,9 +96,15 @@ body {
   .app-container {
     flex-direction: column;
   }
+}
 
+@media (max-width: 768px) {
   .sidebar {
     display: none;
+  }
+
+  .sidebar.mobile-open {
+    display: flex;
   }
 }
 

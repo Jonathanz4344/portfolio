@@ -149,6 +149,7 @@ function App() {
         onPlayingChange={setIsPlaying}
         isRepeatOn={isRepeatOn}
         onRepeatToggle={handleRepeatToggle}
+        onViewDetails={() => setShowProjectDetail(true)}
       />
 
       <ProjectDetail
