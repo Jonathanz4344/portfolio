@@ -19,7 +19,33 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [monthlyListeners, setMonthlyListeners] = useState<number>(1247);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Track monthly listeners - increments on each unique visit
+  useEffect(() => {
+    const trackVisit = async () => {
+      // Check if user already visited in this session
+      const hasVisited = sessionStorage.getItem('portfolio_visited');
+      
+      if (!hasVisited) {
+        try {
+          // Using CountAPI to track visits persistently
+          const response = await fetch('https://api.countapi.xyz/hit/jonathanzhu-portfolio/visits');
+          const data = await response.json();
+          // Add base number to make it look more established
+          const baseListeners = 1200;
+          setMonthlyListeners(baseListeners + data.value);
+          sessionStorage.setItem('portfolio_visited', 'true');
+        } catch (error) {
+          // If API fails, just show the default number
+          console.log('Counter API unavailable');
+        }
+      }
+    };
+    
+    trackVisit();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -58,7 +84,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
           <h1 className="hero-name">{profile.name.toUpperCase()}</h1>
           
           <div className="hero-stats">
-            <span className="monthly-listeners">{profile.projects.length} projects • Available for opportunities</span>
+            <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly listeners</span>
           </div>
         </div>
       </div>
