@@ -444,20 +444,28 @@
     gap: 12px;
   }
 
-  .section-titles {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .section-title {
-    display: none;
-  }
-
   .action-bar-controls {
-    gap: 16px;
+    gap: 12px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  /* Reorder controls for mobile: Following | Three dots | spacer | Shuffle | Play */
+  .follow-btn {
+    order: 1;
+  }
+
+  .more-menu {
+    order: 2;
+  }
+
+  .shuffle-btn {
+    order: 3;
+    margin-left: auto;
   }
 
   .play-btn-large {
+    order: 4;
     width: 48px;
     height: 48px;
   }

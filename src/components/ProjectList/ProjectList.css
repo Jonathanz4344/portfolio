@@ -11,13 +11,7 @@
 
 .mobile-liked-header {
   display: none;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 0 20px;
   margin-bottom: 16px;
 }
 
@@ -495,7 +489,13 @@
   }
 
   .mobile-liked-header {
+    display: block;
+  }
+
+  .mobile-liked-header .liked-songs-card {
     display: flex;
+    align-items: center;
+    gap: 16px;
   }
 
   .popular-title {

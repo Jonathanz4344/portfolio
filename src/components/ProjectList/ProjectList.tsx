@@ -90,10 +90,22 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
   return (
     <section className="project-list">
       <div className="project-list-container">
-        {/* Mobile Header - Liked Projects Count */}
+        {/* Mobile Header - Liked Projects Card (same as desktop) */}
         <div className="mobile-liked-header">
-          <Heart size={16} fill="#1DB954" strokeWidth={0} />
-          <span>You've liked {likedCount} projects</span>
+          <div className="liked-songs-card">
+            <div className="liked-profile-container">
+              <div className="liked-profile-image">
+                <span>JZ</span>
+              </div>
+              <div className="liked-heart-badge">
+                <Heart size={14} fill="#1DB954" strokeWidth={0} />
+              </div>
+            </div>
+            <div className="liked-songs-info">
+              <span className="liked-title">You've liked {likedCount} projects</span>
+              <span className="liked-artist">By Jonathan Zhu</span>
+            </div>
+          </div>
         </div>
 
         {/* Section Title */}
@@ -225,13 +237,6 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                           >
                             <Share2 size={16} />
                             <span>Share to LinkedIn</span>
-                          </button>
-                          <button
-                            className="dropdown-item"
-                            onClick={(e) => handleShare(project, 'twitter', e)}
-                          >
-                            <Share2 size={16} />
-                            <span>Share to X</span>
                           </button>
                         </div>
                       </>
