@@ -9,6 +9,26 @@
   gap: 40px;
 }
 
+.mobile-liked-header {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 16px;
+}
+
+.popular-title {
+  display: none;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 16px 0;
+}
+
 .column-title {
   font-size: 22px;
   font-weight: 700;
@@ -269,6 +289,10 @@
   position: relative;
 }
 
+.dropdown-backdrop {
+  display: none;
+}
+
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -461,9 +485,31 @@
 }
 
 @media (max-width: 640px) {
+  .project-list {
+    padding: 0 16px 32px;
+  }
+
+  .project-list-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .mobile-liked-header {
+    display: flex;
+  }
+
+  .popular-title {
+    display: block;
+  }
+
+  .liked-column {
+    display: none;
+  }
+
   .project-row {
     grid-template-columns: 1fr auto;
     gap: 12px;
+    padding: 12px 8px;
   }
 
   .col-number {
@@ -472,5 +518,63 @@
 
   .col-duration {
     gap: 8px;
+  }
+
+  .check-badge {
+    display: none;
+  }
+
+  .duration-text {
+    display: none;
+  }
+
+  .more-options {
+    opacity: 1;
+  }
+
+  .dropdown-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+
+  .dropdown-menu {
+    position: fixed;
+    top: auto;
+    bottom: 80px;
+    left: 16px;
+    right: 16px;
+    min-width: auto;
+    width: calc(100% - 32px);
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 8px;
+  }
+
+  .dropdown-item {
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .cover-logo,
+  .cover-gradient {
+    width: 48px;
+    height: 48px;
+  }
+
+  .project-name {
+    font-size: 16px;
+  }
+
+  .project-artist {
+    font-size: 14px;
+  }
+
+  .see-more-btn {
+    text-align: center;
+    display: block;
+    width: 100%;
   }
 }

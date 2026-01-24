@@ -1,16 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, Shuffle, Plus, MoreHorizontal, Linkedin, Github, Mail, Phone, Check, X, Send, FileText, Download } from 'lucide-react';
+import { Play, Pause, Shuffle, Plus, MoreHorizontal, Linkedin, Github, Mail, Phone, Check, X, Send, FileText, Download } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Hero.css';
 
 interface HeroProps {
   profile: ProfileData;
-  onPlayClick: () => void;
+  isPlaying: boolean;
+  onPlayToggle: () => void;
   isShuffleOn: boolean;
   onShuffleToggle: () => void;
 }
 
-const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps) => {
+const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }: HeroProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [showResumeModal, setShowResumeModal] = useState(false);
@@ -65,8 +66,8 @@ const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps)
       {/* Action Bar - Spotify Style */}
       <div className="hero-action-bar">
         <div className="action-bar-controls">
-          <button className="play-btn-large" onClick={onPlayClick}>
-            <Play size={28} fill="#000" />
+          <button className="play-btn-large" onClick={onPlayToggle}>
+            {isPlaying ? <Pause size={28} fill="#000" /> : <Play size={28} fill="#000" />}
           </button>
           
           <button 

@@ -303,3 +303,10 @@
   height: auto;
   display: block;
 }
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+}

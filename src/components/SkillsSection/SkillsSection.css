@@ -70,3 +70,34 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .skills-section {
+    padding: 24px 16px;
+  }
+
+  .skill-card {
+    padding: 20px;
+  }
+
+  .skill-card-header {
+    margin-bottom: 14px;
+  }
+
+  .skill-icon {
+    font-size: 20px;
+  }
+
+  .skill-category {
+    font-size: 15px;
+  }
+
+  .skill-tags {
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+}

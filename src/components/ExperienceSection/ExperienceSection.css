@@ -140,3 +140,34 @@
     justify-content: flex-start;
   }
 }
+
+@media (max-width: 640px) {
+  .experience-section {
+    padding: 24px 16px;
+  }
+
+  .experience-card {
+    padding: 16px;
+  }
+
+  .experience-role {
+    font-size: 15px;
+  }
+
+  .experience-company {
+    font-size: 13px;
+  }
+
+  .experience-meta {
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+
+  .meta-item {
+    font-size: 12px;
+  }
+
+  .experience-highlights li {
+    font-size: 13px;
+  }
+}

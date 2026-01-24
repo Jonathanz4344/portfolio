@@ -102,6 +102,25 @@ body {
   }
 }
 
+@media (max-width: 640px) {
+  .section-header {
+    margin-bottom: 16px;
+    padding: 0 16px;
+  }
+
+  .section-header h2 {
+    font-size: 20px;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+  }
+
+  .footer-spacer {
+    height: 80px;
+  }
+}
+
 /* Animations */
 @keyframes fadeInUp {
   from {

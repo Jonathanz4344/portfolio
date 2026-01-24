@@ -39,8 +39,8 @@ function App() {
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handlePlayClick = () => {
-    projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  const handlePlayToggle = () => {
+    setIsPlaying((prev) => !prev);
   };
 
   const getRandomTrack = (excludeIndex: number) => {
@@ -99,7 +99,8 @@ function App() {
             <div ref={homeRef}>
               <Hero 
                 profile={profileData} 
-                onPlayClick={handlePlayClick} 
+                isPlaying={isPlaying}
+                onPlayToggle={handlePlayToggle} 
                 isShuffleOn={isShuffleOn}
                 onShuffleToggle={handleShuffleToggle}
               />

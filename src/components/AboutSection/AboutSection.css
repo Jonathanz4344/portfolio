@@ -84,3 +84,32 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .about-section {
+    padding: 24px 16px;
+  }
+
+  .about-text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .highlight-card {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .highlight-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .highlight-value {
+    font-size: 13px;
+  }
+
+  .highlight-sub {
+    font-size: 12px;
+  }
+}

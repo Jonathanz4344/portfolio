@@ -90,6 +90,15 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
   return (
     <section className="project-list">
       <div className="project-list-container">
+        {/* Mobile Header - Liked Projects Count */}
+        <div className="mobile-liked-header">
+          <Heart size={16} fill="#1DB954" strokeWidth={0} />
+          <span>You've liked {likedCount} projects</span>
+        </div>
+
+        {/* Section Title */}
+        <h2 className="popular-title">Popular</h2>
+
         {/* Left Column - Popular Projects */}
         <div className="popular-column">
           <div className="projects-table">
@@ -172,57 +181,60 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                       <MoreHorizontal size={16} />
                     </button>
                     {openDropdown === index && (
-                      <div className="dropdown-menu">
-                        <button
-                          className="dropdown-item"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onViewDetails(index);
-                            setOpenDropdown(null);
-                          }}
-                        >
-                          <FolderKanban size={16} />
-                          <span>View Details</span>
-                        </button>
-                        {companyUrls[project.artist] ? (
-                          <a
-                            href={companyUrls[project.artist]}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                      <>
+                        <div className="dropdown-backdrop" onClick={() => setOpenDropdown(null)} />
+                        <div className="dropdown-menu">
+                          <button
                             className="dropdown-item"
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onViewDetails(index);
+                              setOpenDropdown(null);
+                            }}
                           >
-                            <Building2 size={16} />
-                            <span>Go to {project.artist.split(' (')[0]}</span>
-                          </a>
-                        ) : companiesWithoutLinks.includes(project.artist) ? (
-                          <div className="dropdown-item disabled">
-                            <Building2 size={16} />
-                            <span>Go to {project.artist.split(' (')[0]}</span>
-                          </div>
-                        ) : null}
-                        <button
-                          className="dropdown-item"
-                          onClick={(e) => handleCopyLink(project, index, e)}
-                        >
-                          <Copy size={16} />
-                          <span>{copiedIndex === index ? 'Copied!' : 'Copy Link'}</span>
-                        </button>
-                        <button
-                          className="dropdown-item"
-                          onClick={(e) => handleShare(project, 'linkedin', e)}
-                        >
-                          <Share2 size={16} />
-                          <span>Share to LinkedIn</span>
-                        </button>
-                        <button
-                          className="dropdown-item"
-                          onClick={(e) => handleShare(project, 'twitter', e)}
-                        >
-                          <Share2 size={16} />
-                          <span>Share to X</span>
-                        </button>
-                      </div>
+                            <FolderKanban size={16} />
+                            <span>View Details</span>
+                          </button>
+                          {companyUrls[project.artist] ? (
+                            <a
+                              href={companyUrls[project.artist]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="dropdown-item"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Building2 size={16} />
+                              <span>Go to {project.artist.split(' (')[0]}</span>
+                            </a>
+                          ) : companiesWithoutLinks.includes(project.artist) ? (
+                            <div className="dropdown-item disabled">
+                              <Building2 size={16} />
+                              <span>Go to {project.artist.split(' (')[0]}</span>
+                            </div>
+                          ) : null}
+                          <button
+                            className="dropdown-item"
+                            onClick={(e) => handleCopyLink(project, index, e)}
+                          >
+                            <Copy size={16} />
+                            <span>{copiedIndex === index ? 'Copied!' : 'Copy Link'}</span>
+                          </button>
+                          <button
+                            className="dropdown-item"
+                            onClick={(e) => handleShare(project, 'linkedin', e)}
+                          >
+                            <Share2 size={16} />
+                            <span>Share to LinkedIn</span>
+                          </button>
+                          <button
+                            className="dropdown-item"
+                            onClick={(e) => handleShare(project, 'twitter', e)}
+                          >
+                            <Share2 size={16} />
+                            <span>Share to X</span>
+                          </button>
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>

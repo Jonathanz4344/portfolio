@@ -104,3 +104,31 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 640px) {
+  .education-section {
+    padding: 24px 16px;
+  }
+
+  .education-card {
+    padding: 20px;
+  }
+
+  .education-icon,
+  .education-logo {
+    width: 56px;
+    height: 56px;
+  }
+
+  .education-school {
+    font-size: 16px;
+  }
+
+  .education-degree {
+    font-size: 14px;
+  }
+
+  .education-status {
+    font-size: 12px;
+  }
+}
