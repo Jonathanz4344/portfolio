@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check, FolderKanban, Building2, Copy, Share2 } from 'lucide-react';
+import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check, FolderKanban, Building2, Copy, Share2, Maximize2 } from 'lucide-react';
 import type { Project } from '../../types';
 import './NowPlayingBar.css';
 
@@ -37,8 +37,12 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   const [showFullPlayerMenu, setShowFullPlayerMenu] = useState(false);
   const [dragStartY, setDragStartY] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
+  const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
+  const [detailsDragStartY, setDetailsDragStartY] = useState<number | null>(null);
+  const [hasReachedTop, setHasReachedTop] = useState(false);
   const fullPlayerRef = useRef<HTMLDivElement>(null);
   const fullPlayerMenuRef = useRef<HTMLDivElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -62,6 +66,25 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   useEffect(() => {
     setProgress(0);
   }, [currentIndex]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (showFullPlayerMenu && fullPlayerMenuRef.current && !fullPlayerMenuRef.current.contains(e.target as Node)) {
+        setShowFullPlayerMenu(false);
+      }
+    };
+
+    if (showFullPlayerMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [showFullPlayerMenu]);
 
   const formatTime = (percentage: number) => {
     const totalSeconds = Math.floor((percentage / 100) * 204);
@@ -138,9 +161,9 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
                   <button
                     className="dropdown-item"
                     onClick={() => {
-                      onViewDetails();
                       setShowFullPlayerMenu(false);
-                      setIsFullPlayer(false);
+                      setIsDetailsExpanded(false);
+                      onViewDetails();
                     }}
                   >
                     <FolderKanban size={16} />
@@ -290,6 +313,105 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
               <Repeat size={24} />
             </button>
           </div>
+
+          {/* Lyrics Preview Panel */}
+          <div 
+            ref={detailsRef}
+            className={`lyrics-preview-panel ${isDetailsExpanded ? 'expanded' : ''}`}
+          >
+            <div 
+              className="lyrics-preview-box"
+              onClick={() => {
+                if (!isDetailsExpanded) {
+                  setIsDetailsExpanded(true);
+                  setHasReachedTop(false);
+                  // Scroll to show the lyrics content
+                  setTimeout(() => {
+                    detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }, 50);
+                }
+              }}
+            >
+              <div className="lyrics-header-row">
+                <span className="lyrics-label">Lyrics</span>
+                <button 
+                  className="lyrics-expand-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newExpanded = !isDetailsExpanded;
+                    setIsDetailsExpanded(newExpanded);
+                    setHasReachedTop(false);
+                    if (newExpanded) {
+                      setTimeout(() => {
+                        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 50);
+                    } else {
+                      // Scroll back to top when closing
+                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  <Maximize2 size={16} />
+                </button>
+              </div>
+              
+              <div 
+                className="lyrics-content"
+                onTouchStart={(e) => {
+                  if (isDetailsExpanded) {
+                    setDetailsDragStartY(e.touches[0].clientY);
+                  }
+                }}
+                onTouchMove={(e) => {
+                  if (!isDetailsExpanded || detailsDragStartY === null) return;
+                  const content = e.currentTarget;
+                  const deltaY = e.touches[0].clientY - detailsDragStartY;
+                  
+                  // Only track if we're at the top and dragging down
+                  if (content.scrollTop <= 0 && deltaY > 0) {
+                    e.preventDefault();
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  if (!isDetailsExpanded || detailsDragStartY === null) return;
+                  const content = e.currentTarget;
+                  const deltaY = e.changedTouches[0].clientY - detailsDragStartY;
+                  
+                  if (content.scrollTop <= 0 && deltaY > 0) {
+                    if (hasReachedTop) {
+                      // Second time at top dragging down - close
+                      setIsDetailsExpanded(false);
+                      setHasReachedTop(false);
+                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                      // First time - mark it
+                      setHasReachedTop(true);
+                    }
+                  }
+                  setDetailsDragStartY(null);
+                }}
+              >
+                <div className="lyrics-section">
+                  <h4>Description</h4>
+                  <p>{project.description}</p>
+                </div>
+                
+                <div className="lyrics-section">
+                  <h4>Impact</h4>
+                  <div className="lyrics-impact">{project.impact}</div>
+                </div>
+                
+                <div className="lyrics-section">
+                  <h4>Technologies</h4>
+                  <div className="lyrics-tech-tags">
+                    {project.tech.map((tech, index) => (
+                      <span key={index} className="lyrics-tech-tag">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -315,7 +437,18 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
             </div>
           )}
           <div className="now-playing-info">
-            <span className="now-playing-title">{project.title}</span>
+            <span 
+              className="now-playing-title clickable desktop-only-click" 
+              onClick={(e) => {
+                // Only trigger on desktop (window width > 640px)
+                if (window.innerWidth > 640) {
+                  e.stopPropagation();
+                  onViewDetails();
+                }
+              }}
+            >
+              {project.title}
+            </span>
             <span className="now-playing-artist">{project.artist}</span>
           </div>
           <button 

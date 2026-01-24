@@ -21,6 +21,9 @@
   padding: 16px 24px 40px;
   padding-bottom: calc(40px + constant(safe-area-inset-bottom));
   padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 .full-player-header {
@@ -274,6 +277,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px 16px 0;
+  padding-bottom: 80px;
 }
 
 .full-player-controls .control-btn {
@@ -318,6 +322,135 @@
 
 .full-player-play-btn:hover {
   transform: scale(1.04);
+}
+
+/* Lyrics Preview Panel - Spotify Style */
+.lyrics-preview-panel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+}
+
+.lyrics-preview-panel.expanded {
+  position: relative;
+  margin-top: 24px;
+}
+
+.lyrics-preview-box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px 8px 0 0;
+  padding: 12px 16px;
+  padding-bottom: 40px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.lyrics-preview-panel.expanded .lyrics-preview-box {
+  cursor: default;
+  border-radius: 8px;
+  padding-bottom: 16px;
+}
+
+.lyrics-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lyrics-preview-panel.expanded .lyrics-header-row {
+  margin-bottom: 16px;
+}
+
+.lyrics-label {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.lyrics-expand-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.3s ease;
+}
+
+.lyrics-expand-btn:active {
+  color: #fff;
+}
+
+.lyrics-preview-panel.expanded .lyrics-expand-btn {
+  transform: rotate(180deg);
+}
+
+.lyrics-content {
+  display: none;
+}
+
+.lyrics-preview-panel.expanded .lyrics-content {
+  display: block;
+}
+
+.lyrics-section {
+  margin-bottom: 20px;
+}
+
+.lyrics-section:last-child {
+  margin-bottom: 0;
+}
+
+.lyrics-section h4 {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+
+.lyrics-section p {
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.lyrics-impact {
+  background: linear-gradient(135deg, #1DB954 0%, #1ed760 100%);
+  color: #000;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+}
+
+.lyrics-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lyrics-tech-tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Hide lyrics panel on desktop */
+@media (min-width: 641px) {
+  .lyrics-preview-panel {
+    display: none;
+  }
 }
 
 /* Hide full player on desktop */
@@ -743,6 +876,12 @@
     white-space: normal;
     overflow: visible;
     text-overflow: unset;
+    pointer-events: none;
+  }
+
+  .now-playing-title:hover {
+    text-decoration: none;
+    cursor: default;
   }
 
   .now-playing-artist {

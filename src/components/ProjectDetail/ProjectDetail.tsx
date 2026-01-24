@@ -19,9 +19,17 @@ const ProjectDetail = ({ project, isOpen, onClose }: ProjectDetailProps) => {
         </button>
 
         <div className="modal-header">
-          <div className="modal-cover" data-type={project.type.toLowerCase().replace(/\s+/g, '-')}>
-            <span>{project.title.charAt(0)}</span>
-          </div>
+          {project.companyLogo ? (
+            <img 
+              src={project.companyLogo} 
+              alt={project.artist} 
+              className="modal-cover-img"
+            />
+          ) : (
+            <div className="modal-cover" data-type={project.type.toLowerCase().replace(/\s+/g, '-')}>
+              <span>{project.title.charAt(0)}</span>
+            </div>
+          )}
           <div className="modal-info">
             <span className="modal-type">{project.type}</span>
             <h2 className="modal-title">{project.title}</h2>
