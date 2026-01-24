@@ -9,7 +9,11 @@ export const profileData: ProfileData = {
   githubUrl: "https://github.com/Jonathanz4344",
   linkedin: "jonathanzhuu",
   linkedinUrl: "https://linkedin.com/in/jonathanzhuu",
-  about: `Jonathan is a Full-Stack Software Engineer who genuinely enjoys building things that work. Whether it's a production system handling real users or an AI-powered feature that makes someone's workflow easier. He finished his B.S. in Software Engineering at RIT in May 2026 and is heading to Georgia Tech for his M.S. in Computer Science this Fall, where he's excited to dive deeper into machine learning and AI. What drives him is the process: taking a complex problem, breaking it down, and shipping something that actually makes an impact. He's had the chance to build everything from EMR systems to AI-powered CRMs, and loves the challenge of making systems that are both technically solid and genuinely useful.`,
+  about: `I'm a full-stack software engineer who builds reliable, real-world systems with a focus on usability and impact. I enjoy taking complex problems, breaking them down, and shipping software that actually gets used.
+
+I've worked on production applications ranging from healthcare EMR platforms to AI-powered CRM tools, building across the stack with FastAPI, PostgreSQL, React, TypeScript, and AWS. I led the development of a live EMR system used daily in a clinical setting, helping reduce documentation time, improve data reliability, and streamline workflows for doctors and staff.
+
+I've also built AI-driven automation and lead-discovery features that significantly reduce manual effort and improve operational efficiency. I earned my B.S. in Software Engineering from Rochester Institute of Technology and will be furthering my education with an M.S. in Computer Science at Georgia Tech, where I plan to focus on machine learning and AI-driven systems.`,
 
   projects: [
     {
