@@ -18,6 +18,7 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [showProjectDetail, setShowProjectDetail] = useState(false);
   const [isShuffleOn, setIsShuffleOn] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   
   const projectsRef = useRef<HTMLDivElement>(null);
 
@@ -51,6 +52,11 @@ function App() {
 
   const handleTrackChange = (index: number) => {
     setCurrentTrack(index);
+    setIsPlaying(true);
+  };
+
+  const handleViewDetails = (index: number) => {
+    setCurrentTrack(index);
     setShowProjectDetail(true);
   };
 
@@ -80,7 +86,10 @@ function App() {
               <ProjectList
                 projects={profileData.projects}
                 currentTrack={currentTrack}
+                isPlaying={isPlaying}
                 onTrackChange={handleTrackChange}
+                onViewDetails={handleViewDetails}
+                onPause={() => setIsPlaying(false)}
               />
             </div>
 
@@ -106,6 +115,8 @@ function App() {
         onTrackSelect={setCurrentTrack}
         isShuffleOn={isShuffleOn}
         onShuffleToggle={handleShuffleToggle}
+        isPlaying={isPlaying}
+        onPlayingChange={setIsPlaying}
       />
 
       <ProjectDetail

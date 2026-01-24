@@ -1,4 +1,4 @@
-import { MapPin, Calendar, ChevronRight } from 'lucide-react';
+import { MapPin, Calendar } from 'lucide-react';
 import type { Experience } from '../../types';
 import './ExperienceSection.css';
 
@@ -8,7 +8,7 @@ interface ExperienceSectionProps {
 
 const companyColors: { [key: string]: string } = {
   "Citywide Eye Care": "linear-gradient(135deg, #1DB954 0%, #169c46 100%)",
-  "ZALA (Senior Capstone - Real Client)": "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+  "ZALA (Senior Capstone – Real Client)": "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
   "ADP": "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"
 };
 
@@ -17,7 +17,6 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
     <section className="experience-section">
       <div className="section-header">
         <h2>Experience</h2>
-        <span className="section-subtitle">My journey</span>
       </div>
 
       <div className="experience-list">
@@ -50,10 +49,7 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
 
               <ul className="experience-highlights">
                 {exp.highlights.map((highlight, hIndex) => (
-                  <li key={hIndex}>
-                    <ChevronRight size={14} className="highlight-icon" />
-                    <span>{highlight}</span>
-                  </li>
+                  <li key={hIndex}>{highlight}</li>
                 ))}
               </ul>
             </div>

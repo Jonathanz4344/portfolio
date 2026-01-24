@@ -32,9 +32,9 @@ const AboutSection = ({ about }: AboutSectionProps) => {
               <Target size={24} />
             </div>
             <div className="highlight-content">
-              <span className="highlight-label">Focus in Tech</span>
-              <span className="highlight-value">Software Engineering</span>
-              <span className="highlight-sub">ML / AI Integration</span>
+              <span className="highlight-label">Interests</span>
+              <span className="highlight-value">Machine Learning & AI</span>
+              <span className="highlight-sub">Full-Stack Development</span>
             </div>
           </div>
 

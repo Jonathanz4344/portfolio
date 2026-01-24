@@ -7,6 +7,8 @@ export interface Project {
   impact: string;
   tech: string[];
   type: string;
+  projectUrl?: string;
+  repoUrl?: string;
 }
 
 export interface Experience {

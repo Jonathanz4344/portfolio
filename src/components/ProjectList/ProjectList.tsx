@@ -1,24 +1,39 @@
-import { useState, useEffect } from 'react';
-import { Play, Heart, Clock, Check } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Play, Pause, Heart, Clock, Check, MoreHorizontal, Share2, Code2, Building2, Copy } from 'lucide-react';
 import type { Project } from '../../types';
 import './ProjectList.css';
 
 interface ProjectListProps {
   projects: Project[];
   currentTrack: number;
+  isPlaying: boolean;
   onTrackChange: (index: number) => void;
+  onViewDetails: (index: number) => void;
+  onPause: () => void;
 }
 
 // Project durations matching the "song length" style
-const projectDurations = ['4:04', '2:03', '2:16', '2:47'];
-const projectPlays = ['2,419,195,003', '703,453,943', '490,084,984', '284,345,124'];
+const projectDurations = ['4:04', '2:03', '2:16', '1:45', '2:30', '2:47'];
+const projectPlays = ['2,419,195,003', '703,453,943', '490,084,984', '356,721,458', '198,543,672', '284,345,124'];
 
-const ProjectList = ({ projects, currentTrack, onTrackChange }: ProjectListProps) => {
+// Company URLs for "Go to Company" option
+const companyUrls: Record<string, string> = {
+  'Citywide Eye Care': 'https://www.citywideeyecare.com/',
+  'ZALA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
+};
+
+// Companies without external links (greyed out)
+const companiesWithoutLinks = ['ADP', 'Personal Project'];
+
+const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewDetails, onPause }: ProjectListProps) => {
   // Initialize with all projects liked
   const [likedProjects, setLikedProjects] = useState<Set<number>>(
     new Set(projects.map((_, index) => index))
   );
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleLike = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -30,6 +45,45 @@ const ProjectList = ({ projects, currentTrack, onTrackChange }: ProjectListProps
     }
     setLikedProjects(newLiked);
   };
+
+  const handleDropdownToggle = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setOpenDropdown(openDropdown === index ? null : index);
+  };
+
+  const handleCopyLink = (project: Project, index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const projectSlug = project.title.toLowerCase().replace(/\s+/g, '-');
+    const url = `${window.location.origin}/#project-${projectSlug}`;
+    navigator.clipboard.writeText(url);
+    setCopiedIndex(index);
+    setTimeout(() => setCopiedIndex(null), 2000);
+    setOpenDropdown(null);
+  };
+
+  const handleShare = (project: Project, platform: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const text = `Check out ${project.title} by Jonathan Zhu`;
+    const url = window.location.origin;
+    
+    if (platform === 'linkedin') {
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+    } else if (platform === 'twitter') {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+    }
+    setOpenDropdown(null);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const likedCount = likedProjects.size;
 
@@ -43,16 +97,34 @@ const ProjectList = ({ projects, currentTrack, onTrackChange }: ProjectListProps
               <div
                 key={index}
                 className={`project-row ${currentTrack === index ? 'active' : ''}`}
-                onClick={() => onTrackChange(index)}
+                onDoubleClick={() => onTrackChange(index)}
                 onMouseEnter={() => setHoveredProject(index)}
                 onMouseLeave={() => setHoveredProject(null)}
               >
                 <div className="col-number">
-                  {hoveredProject === index || currentTrack === index ? (
+                  {currentTrack === index && isPlaying ? (
+                    <div 
+                      className="music-bars"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onPause();
+                      }}
+                    >
+                      <span className="bar"></span>
+                      <span className="bar"></span>
+                      <span className="bar"></span>
+                      <span className="bar"></span>
+                      <Pause size={14} fill="currentColor" className="pause-overlay" />
+                    </div>
+                  ) : hoveredProject === index || currentTrack === index ? (
                     <Play 
                       size={14} 
                       fill="currentColor" 
-                      className={currentTrack === index ? 'playing' : ''} 
+                      className="play-btn"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onTrackChange(index);
+                      }}
                     />
                   ) : (
                     <span>{index + 1}</span>
@@ -84,6 +156,67 @@ const ProjectList = ({ projects, currentTrack, onTrackChange }: ProjectListProps
                     <Check size={12} strokeWidth={3} />
                   </span>
                   <span className="duration-text">{projectDurations[index] || '3:24'}</span>
+                  <div className="more-options-container" ref={openDropdown === index ? dropdownRef : null}>
+                    <button
+                      className="more-options"
+                      onClick={(e) => handleDropdownToggle(index, e)}
+                    >
+                      <MoreHorizontal size={16} />
+                    </button>
+                    {openDropdown === index && (
+                      <div className="dropdown-menu">
+                        <button
+                          className="dropdown-item"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onViewDetails(index);
+                            setOpenDropdown(null);
+                          }}
+                        >
+                          <Code2 size={16} />
+                          <span>View Details</span>
+                        </button>
+                        {companyUrls[project.artist] ? (
+                          <a
+                            href={companyUrls[project.artist]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="dropdown-item"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <Building2 size={16} />
+                            <span>Go to {project.artist.split(' (')[0]}</span>
+                          </a>
+                        ) : companiesWithoutLinks.includes(project.artist) ? (
+                          <div className="dropdown-item disabled">
+                            <Building2 size={16} />
+                            <span>Go to {project.artist.split(' (')[0]}</span>
+                          </div>
+                        ) : null}
+                        <button
+                          className="dropdown-item"
+                          onClick={(e) => handleCopyLink(project, index, e)}
+                        >
+                          <Copy size={16} />
+                          <span>{copiedIndex === index ? 'Copied!' : 'Copy Link'}</span>
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={(e) => handleShare(project, 'linkedin', e)}
+                        >
+                          <Share2 size={16} />
+                          <span>Share to LinkedIn</span>
+                        </button>
+                        <button
+                          className="dropdown-item"
+                          onClick={(e) => handleShare(project, 'twitter', e)}
+                        >
+                          <Share2 size={16} />
+                          <span>Share to X</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

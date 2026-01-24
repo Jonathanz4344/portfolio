@@ -29,7 +29,7 @@
 
 .project-row {
   display: grid;
-  grid-template-columns: 40px 1fr 150px 80px;
+  grid-template-columns: 40px 1fr 150px 110px;
   gap: 16px;
   padding: 8px;
   border-radius: 4px;
@@ -57,10 +57,85 @@
 
 .col-number svg {
   color: #fff;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.col-number svg:hover {
+  transform: scale(1.1);
 }
 
 .col-number svg.playing {
   color: #1DB954;
+}
+
+.col-number .play-btn {
+  pointer-events: auto;
+}
+
+/* Music Bars Animation */
+.music-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+  height: 14px;
+  cursor: pointer;
+  position: relative;
+}
+
+.music-bars .bar {
+  width: 3px;
+  background: #1DB954;
+  border-radius: 1px;
+  animation: musicBars 0.5s ease-in-out infinite alternate;
+}
+
+.music-bars .bar:nth-child(1) {
+  height: 4px;
+  animation-delay: 0s;
+}
+
+.music-bars .bar:nth-child(2) {
+  height: 8px;
+  animation-delay: 0.1s;
+}
+
+.music-bars .bar:nth-child(3) {
+  height: 12px;
+  animation-delay: 0.2s;
+}
+
+.music-bars .bar:nth-child(4) {
+  height: 6px;
+  animation-delay: 0.3s;
+}
+
+@keyframes musicBars {
+  0% {
+    transform: scaleY(0.3);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.music-bars .pause-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  color: #fff;
+  transition: opacity 0.2s ease;
+}
+
+.music-bars:hover .bar {
+  opacity: 0.3;
+}
+
+.music-bars:hover .pause-overlay {
+  opacity: 1;
 }
 
 .col-title {
@@ -101,6 +176,14 @@
 
 .cover-gradient[data-type="infrastructure"] {
   background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+}
+
+.cover-gradient[data-type="frontend-development"] {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+.cover-gradient[data-type="web-development"] {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
 }
 
 .project-info {
@@ -151,6 +234,95 @@
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
+}
+
+.more-options {
+  opacity: 0;
+  color: #a7a7a7;
+  cursor: pointer;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+
+.more-options:hover {
+  color: #fff;
+}
+
+.project-row:hover .more-options {
+  opacity: 1;
+}
+
+.more-options-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #282828;
+  border-radius: 4px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  padding: 4px;
+  z-index: 1000;
+  animation: dropdownFade 0.1s ease;
+}
+
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.2s ease;
+  text-decoration: none;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-item svg {
+  color: #a7a7a7;
+  flex-shrink: 0;
+}
+
+.dropdown-item:hover svg {
+  color: #fff;
+}
+
+.dropdown-item.disabled {
+  color: #535353;
+  cursor: default;
+  pointer-events: none;
+}
+
+.dropdown-item.disabled svg {
+  color: #535353;
 }
 
 .check-badge {

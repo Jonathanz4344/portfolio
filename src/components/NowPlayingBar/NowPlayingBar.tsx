@@ -12,10 +12,11 @@ interface NowPlayingBarProps {
   onTrackSelect: (index: number) => void;
   isShuffleOn: boolean;
   onShuffleToggle: () => void;
+  isPlaying: boolean;
+  onPlayingChange: (playing: boolean) => void;
 }
 
-const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle }: NowPlayingBarProps) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle, isPlaying, onPlayingChange }: NowPlayingBarProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [volume, setVolume] = useState(70);
   const [progress, setProgress] = useState(0);
@@ -30,7 +31,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
             onNext();
             return 0;
           }
-          return prev + 0.5;
+          return prev + 0.049; // ~0.049% per 100ms = 204 seconds total (3:24)
         });
       }, 100);
     }
@@ -85,7 +86,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
           </button>
           <button 
             className="play-pause-btn"
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={() => onPlayingChange(!isPlaying)}
           >
             {isPlaying ? (
               <Pause size={20} fill="currentColor" />

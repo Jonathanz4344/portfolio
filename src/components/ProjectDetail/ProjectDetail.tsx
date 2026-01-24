@@ -1,4 +1,4 @@
-import { X, ExternalLink, Github } from 'lucide-react';
+import { X } from 'lucide-react';
 import type { Project } from '../../types';
 import './ProjectDetail.css';
 
@@ -51,17 +51,6 @@ const ProjectDetail = ({ project, isOpen, onClose }: ProjectDetailProps) => {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="modal-actions">
-          <button className="action-btn primary">
-            <ExternalLink size={18} />
-            <span>View Project</span>
-          </button>
-          <button className="action-btn secondary">
-            <Github size={18} />
-            <span>Source Code</span>
-          </button>
         </div>
       </div>
     </div>
