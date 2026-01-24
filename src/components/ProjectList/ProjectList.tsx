@@ -35,7 +35,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const _toggleLike = (index: number, e: React.MouseEvent) => {
+  const toggleLike = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
     const newLiked = new Set(likedProjects);
     if (newLiked.has(index)) {
@@ -45,6 +45,9 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
     }
     setLikedProjects(newLiked);
   };
+
+  // Suppress unused variable warning - toggleLike is available for future use
+  void toggleLike;
 
   const handleDropdownToggle = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
