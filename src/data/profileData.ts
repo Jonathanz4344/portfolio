@@ -62,10 +62,10 @@ automation.`,
   skills: {
     "Languages": ["Python", "JavaScript", "TypeScript", "SQL"],
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
-    "Frontend": ["React", "TypeScript", "Material UI", "Next.js"],
+    "Frontend": ["React", "Javascript","TypeScript", "Material UI", "Next.js"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS (EC2, S3, RDS, Lambda, Secrets Manager)", "CI/CD", "Jenkins"],
-    "Tools": ["OpenAI & Gemini APIs", "Splunk", "Dynatrace"]
+    "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Lambda", "Secrets Manager", "CI/CD", "Jenkins"],
+    "Tools": ["OpenAI API", " Gemini API","Splunk", "Dynatrace"]
   },
 
   experience: [
@@ -121,12 +121,14 @@ automation.`,
     {
       school: "Rochester Institute of Technology",
       degree: "B.S. in Software Engineering",
-      status: "Expected May 2026"
+      status: "Expected May 2026",
+      logo: "/rit-logo.png"
     },
     {
       school: "Georgia Institute of Technology",
       degree: "M.S. in Computer Science",
-      status: "Admitted, Fall 2026"
+      status: "Admitted, Fall 2026",
+      logo: "/gt-logo.png"
     }
   ]
 };

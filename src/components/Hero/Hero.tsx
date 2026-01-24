@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Play, Shuffle, Plus, MoreHorizontal, Linkedin, Github, Mail, Phone, Check, X, Send } from 'lucide-react';
+import { Play, Shuffle, Plus, MoreHorizontal, Linkedin, Github, Mail, Phone, Check, X, Send, FileText, Download } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Hero.css';
 
@@ -13,6 +13,7 @@ interface HeroProps {
 const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
+  const [showResumeModal, setShowResumeModal] = useState(false);
   const [senderEmail, setSenderEmail] = useState('');
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
@@ -130,6 +131,16 @@ const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps)
                 <Phone size={18} />
                 <span>Call {profile.phone}</span>
               </a>
+              <button 
+                onClick={() => {
+                  setShowResumeModal(true);
+                  setShowDropdown(false);
+                }}
+                className="dropdown-item"
+              >
+                <FileText size={18} />
+                <span>View Resume</span>
+              </button>
             </div>
           )}
         </div>
@@ -242,6 +253,46 @@ const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps)
                 </button>
               </form>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Resume Modal */}
+      {showResumeModal && (
+        <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+          <div className="resume-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-modal-header">
+              <h3>Resume</h3>
+              <div className="resume-modal-actions">
+                <a 
+                  href="/Jonathan_Zhu_Resume.pdf"
+                  download="Jonathan_Zhu_Resume.pdf"
+                  className="resume-download-btn"
+                >
+                  <Download size={18} />
+                  <span>Download</span>
+                </a>
+                <button 
+                  className="modal-close-btn"
+                  onClick={() => setShowResumeModal(false)}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <div className="resume-modal-content">
+              <object
+                data="/Jonathan_Zhu_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                type="application/pdf"
+                className="resume-iframe"
+              >
+                <img 
+                  src="/Jonathan_Zhu_Resume.png" 
+                  alt="Jonathan Zhu Resume"
+                  className="resume-image"
+                />
+              </object>
+            </div>
           </div>
         </div>
       )}

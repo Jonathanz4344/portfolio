@@ -1,5 +1,6 @@
 .project-list {
-  padding: 0 40px 40px;
+  padding: 0 40px 0;
+  margin-top: 0;
 }
 
 .project-list-container {
@@ -193,6 +194,7 @@
 /* Liked Songs Column */
 .liked-column {
   min-width: 0;
+  align-self: start;
 }
 
 .liked-songs-card {

@@ -21,6 +21,7 @@ export interface Education {
   school: string;
   degree: string;
   status: string;
+  logo?: string;
 }
 
 export interface Skills {

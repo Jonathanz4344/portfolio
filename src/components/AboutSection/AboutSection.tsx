@@ -32,9 +32,9 @@ const AboutSection = ({ about }: AboutSectionProps) => {
               <Target size={24} />
             </div>
             <div className="highlight-content">
-              <span className="highlight-label">Focus Areas</span>
-              <span className="highlight-value">Healthcare Tech & AI</span>
-              <span className="highlight-sub">Production Systems</span>
+              <span className="highlight-label">Focus in Tech</span>
+              <span className="highlight-value">Software Engineering</span>
+              <span className="highlight-sub">ML / AI Integration</span>
             </div>
           </div>
 
@@ -44,7 +44,7 @@ const AboutSection = ({ about }: AboutSectionProps) => {
             </div>
             <div className="highlight-content">
               <span className="highlight-label">Based in</span>
-              <span className="highlight-value">New York</span>
+              <span className="highlight-value">New York City</span>
               <span className="highlight-sub">Open to opportunities</span>
             </div>
           </div>

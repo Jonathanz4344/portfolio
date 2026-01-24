@@ -17,8 +17,10 @@ const EducationSection = ({ education }: EducationSectionProps) => {
       <div className="education-grid">
         {education.map((edu, index) => (
           <div key={index} className="education-card">
-            <div className="education-icon">
-              {edu.status.includes('Admitted') ? (
+            <div className="education-logo">
+              {edu.logo ? (
+                <img src={edu.logo} alt={`${edu.school} logo`} />
+              ) : edu.status.includes('Admitted') ? (
                 <Award size={32} />
               ) : (
                 <GraduationCap size={32} />

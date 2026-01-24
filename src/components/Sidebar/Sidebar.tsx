@@ -1,4 +1,5 @@
-import { Github, Linkedin, Mail, Phone, Briefcase, Code, GraduationCap, User, Home } from 'lucide-react';
+import { useState } from 'react';
+import { Github, Linkedin, Mail, Phone, Briefcase, Code, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Sidebar.css';
 
@@ -9,6 +10,8 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
+  const [showResumeModal, setShowResumeModal] = useState(false);
+
   const navItems = [
     { id: 'home', icon: Home, label: 'Home' },
     { id: 'about', icon: User, label: 'About' },
@@ -73,8 +76,52 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
             <Phone size={18} />
             <span>{profile.phone}</span>
           </a>
+          <button onClick={() => setShowResumeModal(true)} className="contact-link resume-link">
+            <FileText size={18} />
+            <span>View Resume</span>
+          </button>
         </div>
       </div>
+
+      {/* Resume Modal */}
+      {showResumeModal && (
+        <div className="resume-modal-overlay" onClick={() => setShowResumeModal(false)}>
+          <div className="resume-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="resume-modal-header">
+              <h3>Resume</h3>
+              <div className="resume-modal-actions">
+                <a 
+                  href="/Jonathan_Zhu_Resume.pdf"
+                  download="Jonathan_Zhu_Resume.pdf"
+                  className="resume-download-btn"
+                >
+                  <Download size={18} />
+                  <span>Download</span>
+                </a>
+                <button 
+                  className="modal-close-btn"
+                  onClick={() => setShowResumeModal(false)}
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <div className="resume-modal-content">
+              <object
+                data="/Jonathan_Zhu_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                type="application/pdf"
+                className="resume-iframe"
+              >
+                <img 
+                  src="/Jonathan_Zhu_Resume.png" 
+                  alt="Jonathan Zhu Resume"
+                  className="resume-image"
+                />
+              </object>
+            </div>
+          </div>
+        </div>
+      )}
     </aside>
   );
 };
