@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Play, Pause, Heart, Clock, Check, MoreHorizontal, Share2, Code2, Building2, Copy } from 'lucide-react';
+import { Play, Pause, Heart, Clock, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
 import type { Project } from '../../types';
 import './ProjectList.css';
 
@@ -133,9 +133,17 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
 
                 <div className="col-title">
                   <div className="project-cover">
-                    <div className="cover-gradient" data-type={project.type.toLowerCase().replace(/\s+/g, '-')}>
-                      {project.title.charAt(0)}
-                    </div>
+                    {project.companyLogo ? (
+                      <img 
+                        src={project.companyLogo} 
+                        alt={project.artist} 
+                        className="cover-logo"
+                      />
+                    ) : (
+                      <div className="cover-gradient" data-type={project.type.toLowerCase().replace(/\s+/g, '-')}>
+                        {project.artist.charAt(0)}
+                      </div>
+                    )}
                   </div>
                   <div className="project-info">
                     <span className={`project-name ${currentTrack === index ? 'highlight' : ''}`}>
@@ -173,7 +181,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                             setOpenDropdown(null);
                           }}
                         >
-                          <Code2 size={16} />
+                          <FolderKanban size={16} />
                           <span>View Details</span>
                         </button>
                         {companyUrls[project.artist] ? (

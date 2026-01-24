@@ -21,7 +21,8 @@ export const profileData: ProfileData = {
       impact: "75% documentation time reduction",
       tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS"],
       type: "Full-Stack Development",
-      projectUrl: "https://www.citywideeyecare.com/"
+      projectUrl: "https://www.citywideeyecare.com/",
+      companyLogo: "/citywide-logo.png"
     },
     {
       title: "AI-Powered CRM Platform",
@@ -43,7 +44,8 @@ export const profileData: ProfileData = {
       impact: "~50% workload reduction",
       tech: ["Python", "Gemini API", "Next.js", "Material UI"],
       type: "AI & Healthcare",
-      repoUrl: "https://www.citywideeyecare.com/"
+      repoUrl: "https://www.citywideeyecare.com/",
+      companyLogo: "/citywide-logo.png"
     },
     {
       title: "SEO-Optimized Clinic Website",
@@ -54,7 +56,8 @@ export const profileData: ProfileData = {
       impact: "Increased organic traffic & inquiries",
       tech: ["Next.js", "React", "Material UI", "SEO", "AWS"],
       type: "Frontend Development",
-      repoUrl: "https://www.citywideeyecare.com/"
+      repoUrl: "https://www.citywideeyecare.com/",
+      companyLogo: "/citywide-logo.png"
     },
     {
       title: "Spotify-Inspired Portfolio",
@@ -74,7 +77,8 @@ export const profileData: ProfileData = {
       description: "Built status-reporting system reducing manual reporting effort by 20% and optimized Jenkins CI/CD pipeline for faster deployments",
       impact: "30% deployment time reduction",
       tech: ["Jenkins", "MySQL", "AWS S3", "Splunk", "Dynatrace"],
-      type: "Infrastructure"
+      type: "Infrastructure",
+      companyLogo: "/adp-logo.png"
     }
   ],
 

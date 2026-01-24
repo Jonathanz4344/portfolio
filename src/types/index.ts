@@ -9,6 +9,7 @@ export interface Project {
   type: string;
   projectUrl?: string;
   repoUrl?: string;
+  companyLogo?: string;
 }
 
 export interface Experience {

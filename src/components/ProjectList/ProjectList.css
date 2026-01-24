@@ -149,6 +149,14 @@
   flex-shrink: 0;
 }
 
+.cover-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: contain;
+  background: #fff;
+}
+
 .cover-gradient {
   width: 40px;
   height: 40px;

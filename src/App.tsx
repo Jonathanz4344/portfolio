@@ -19,6 +19,7 @@ function App() {
   const [showProjectDetail, setShowProjectDetail] = useState(false);
   const [isShuffleOn, setIsShuffleOn] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isRepeatOn, setIsRepeatOn] = useState(false);
   
   const projectsRef = useRef<HTMLDivElement>(null);
 
@@ -62,6 +63,10 @@ function App() {
 
   const handleShuffleToggle = () => {
     setIsShuffleOn((prev) => !prev);
+  };
+
+  const handleRepeatToggle = () => {
+    setIsRepeatOn((prev) => !prev);
   };
 
   return (
@@ -117,6 +122,8 @@ function App() {
         onShuffleToggle={handleShuffleToggle}
         isPlaying={isPlaying}
         onPlayingChange={setIsPlaying}
+        isRepeatOn={isRepeatOn}
+        onRepeatToggle={handleRepeatToggle}
       />
 
       <ProjectDetail

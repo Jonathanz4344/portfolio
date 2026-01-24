@@ -19,7 +19,6 @@ const SkillsSection = ({ skills }: SkillsSectionProps) => {
     <section className="skills-section">
       <div className="section-header">
         <h2>Tech Stack</h2>
-        <span className="section-subtitle">Skills & Technologies</span>
       </div>
 
       <div className="skills-grid">

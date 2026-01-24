@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, Linkedin, Mail, Phone, Briefcase, Code, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Sidebar.css';
 
@@ -16,7 +16,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
     { id: 'home', icon: Home, label: 'Home' },
     { id: 'about', icon: User, label: 'About' },
     { id: 'experience', icon: Briefcase, label: 'Experience' },
-    { id: 'projects', icon: Code, label: 'Projects' },
+    { id: 'projects', icon: FolderKanban, label: 'Projects' },
     { id: 'education', icon: GraduationCap, label: 'Education' },
   ];
 

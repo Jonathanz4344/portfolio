@@ -14,9 +14,11 @@ interface NowPlayingBarProps {
   onShuffleToggle: () => void;
   isPlaying: boolean;
   onPlayingChange: (playing: boolean) => void;
+  isRepeatOn: boolean;
+  onRepeatToggle: () => void;
 }
 
-const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle, isPlaying, onPlayingChange }: NowPlayingBarProps) => {
+const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn, onShuffleToggle, isPlaying, onPlayingChange, isRepeatOn, onRepeatToggle }: NowPlayingBarProps) => {
   const [isLiked, setIsLiked] = useState(false);
   const [volume, setVolume] = useState(70);
   const [progress, setProgress] = useState(0);
@@ -28,6 +30,9 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
       interval = setInterval(() => {
         setProgress((prev) => {
           if (prev >= 100) {
+            if (isRepeatOn) {
+              return 0; // Restart the same track
+            }
             onNext();
             return 0;
           }
@@ -36,7 +41,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
       }, 100);
     }
     return () => clearInterval(interval);
-  }, [isPlaying, onNext]);
+  }, [isPlaying, onNext, isRepeatOn]);
 
   useEffect(() => {
     setProgress(0);
@@ -97,7 +102,11 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
           <button className="control-btn" onClick={onNext}>
             <SkipForward size={20} fill="currentColor" />
           </button>
-          <button className="control-btn repeat">
+          <button 
+            className={`control-btn repeat ${isRepeatOn ? 'active' : ''}`}
+            onClick={onRepeatToggle}
+            title={isRepeatOn ? 'Disable repeat' : 'Enable repeat'}
+          >
             <Repeat size={18} />
           </button>
         </div>

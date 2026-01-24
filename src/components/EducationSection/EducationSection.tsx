@@ -11,7 +11,6 @@ const EducationSection = ({ education }: EducationSectionProps) => {
     <section className="education-section">
       <div className="section-header">
         <h2>Education</h2>
-        <span className="section-subtitle">Academic background</span>
       </div>
 
       <div className="education-grid">
