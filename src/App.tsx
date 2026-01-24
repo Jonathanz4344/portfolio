@@ -21,7 +21,23 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatOn, setIsRepeatOn] = useState(false);
   
+  const homeRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
+  const educationRef = useRef<HTMLDivElement>(null);
+
+  const handleSectionChange = (section: string) => {
+    setActiveSection(section);
+    const refs: Record<string, React.RefObject<HTMLDivElement>> = {
+      home: homeRef,
+      projects: projectsRef,
+      about: aboutRef,
+      experience: experienceRef,
+      education: educationRef,
+    };
+    refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handlePlayClick = () => {
     projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -75,17 +91,19 @@ function App() {
         <Sidebar
           profile={profileData}
           activeSection={activeSection}
-          onSectionChange={setActiveSection}
+          onSectionChange={handleSectionChange}
         />
 
         <main className="main-content">
           <div className="main-scroll">
-            <Hero 
-              profile={profileData} 
-              onPlayClick={handlePlayClick} 
-              isShuffleOn={isShuffleOn}
-              onShuffleToggle={handleShuffleToggle}
-            />
+            <div ref={homeRef}>
+              <Hero 
+                profile={profileData} 
+                onPlayClick={handlePlayClick} 
+                isShuffleOn={isShuffleOn}
+                onShuffleToggle={handleShuffleToggle}
+              />
+            </div>
 
             <div ref={projectsRef}>
               <ProjectList
@@ -98,13 +116,19 @@ function App() {
               />
             </div>
 
-            <AboutSection about={profileData.about} />
+            <div ref={aboutRef}>
+              <AboutSection about={profileData.about} />
+            </div>
 
             <SkillsSection skills={profileData.skills} />
 
-            <ExperienceSection experience={profileData.experience} />
+            <div ref={experienceRef}>
+              <ExperienceSection experience={profileData.experience} />
+            </div>
 
-            <EducationSection education={profileData.education} />
+            <div ref={educationRef}>
+              <EducationSection education={profileData.education} />
+            </div>
 
             <div className="footer-spacer"></div>
           </div>

@@ -51,7 +51,7 @@ const Hero = ({ profile, onPlayClick, isShuffleOn, onShuffleToggle }: HeroProps)
           <h1 className="hero-name">{profile.name.toUpperCase()}</h1>
           
           <div className="hero-stats">
-            <span className="monthly-listeners">4 production projects • Available for opportunities</span>
+            <span className="monthly-listeners">{profile.projects.length} projects • Available for opportunities</span>
           </div>
         </div>
 

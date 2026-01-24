@@ -36,7 +36,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
 
       <nav className="sidebar-nav">
         <div className="nav-section">
-          <span className="nav-section-title">Menu</span>
+          <span className="nav-section-title">Your Library</span>
           {navItems.map((item) => (
             <button
               key={item.id}
