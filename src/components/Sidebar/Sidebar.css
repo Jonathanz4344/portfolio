@@ -210,6 +210,195 @@
   cursor: pointer;
 }
 
+.contact-link.message-link {
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.contact-link.message-link:hover {
+  color: #1DB954;
+}
+
+/* Message Modal */
+.message-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.message-modal {
+  background: #282828;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 450px;
+  padding: 24px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.2s ease;
+  margin: 16px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.message-modal-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.message-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.message-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.message-form input,
+.message-form textarea {
+  background: #3e3e3e;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 14px;
+  color: #fff;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.message-form input:focus,
+.message-form textarea:focus {
+  outline: none;
+  border-color: #1DB954;
+}
+
+.message-form input::placeholder,
+.message-form textarea::placeholder {
+  color: #a7a7a7;
+}
+
+.message-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.message-form .error-message {
+  color: #f15e6c;
+  font-size: 14px;
+  margin: 0;
+}
+
+.message-form .send-btn {
+  background: #1DB954;
+  color: #000;
+  border: none;
+  border-radius: 9999px;
+  padding: 14px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.message-form .send-btn:hover:not(:disabled) {
+  background: #1ed760;
+  transform: scale(1.02);
+}
+
+.message-form .send-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message-success {
+  text-align: center;
+  padding: 24px 0;
+}
+
+.message-success .success-icon {
+  width: 64px;
+  height: 64px;
+  background: #1DB954;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  color: #000;
+  margin: 0 auto 16px;
+}
+
+.message-success h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.message-success p {
+  color: #a7a7a7;
+  font-size: 14px;
+  margin: 0 0 24px;
+}
+
+.message-success .close-success-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.message-success .close-success-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* Resume Modal */
 .resume-modal-overlay {
   position: fixed;

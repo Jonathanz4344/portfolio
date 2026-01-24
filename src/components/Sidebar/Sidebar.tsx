@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send } from 'lucide-react';
 import type { ProfileData } from '../../types';
 import './Sidebar.css';
 
@@ -11,6 +11,11 @@ interface SidebarProps {
 
 const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
   const [showResumeModal, setShowResumeModal] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [senderEmail, setSenderEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
   const sidebarRef = useRef<HTMLElement>(null);
@@ -131,6 +136,10 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
             <Phone size={18} />
             <span>{profile.phone}</span>
           </a>
+          <button onClick={() => setShowMessageModal(true)} className="contact-link message-link">
+            <Send size={18} />
+            <span>Send Message</span>
+          </button>
           <button onClick={() => setShowResumeModal(true)} className="contact-link resume-link">
             <FileText size={18} />
             <span>View Resume</span>
@@ -175,6 +184,108 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
                 />
               </object>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Message Modal */}
+      {showMessageModal && (
+        <div className="message-modal-overlay" onClick={() => {
+          setShowMessageModal(false);
+          setSendStatus('idle');
+          setSenderEmail('');
+          setMessage('');
+        }}>
+          <div className="message-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="message-modal-header">
+              <h3>Send a Message</h3>
+              <button 
+                className="modal-close-btn"
+                onClick={() => {
+                  setShowMessageModal(false);
+                  setSendStatus('idle');
+                  setSenderEmail('');
+                  setMessage('');
+                }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+            {sendStatus === 'success' ? (
+              <div className="message-success">
+                <div className="success-icon">✓</div>
+                <h4>Message Sent!</h4>
+                <p>Thanks for reaching out. I'll get back to you soon.</p>
+                <button 
+                  className="close-success-btn"
+                  onClick={() => {
+                    setShowMessageModal(false);
+                    setSendStatus('idle');
+                    setSenderEmail('');
+                    setMessage('');
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            ) : (
+              <form 
+                className="message-form"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setIsSending(true);
+                  try {
+                    const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        email: senderEmail,
+                        message: message,
+                      }),
+                    });
+                    if (response.ok) {
+                      setSendStatus('success');
+                    } else {
+                      setSendStatus('error');
+                    }
+                  } catch {
+                    setSendStatus('error');
+                  }
+                  setIsSending(false);
+                }}
+              >
+                <div className="form-group">
+                  <label htmlFor="sidebar-sender-email">Your Email</label>
+                  <input
+                    type="email"
+                    id="sidebar-sender-email"
+                    value={senderEmail}
+                    onChange={(e) => setSenderEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="sidebar-message">Message</label>
+                  <textarea
+                    id="sidebar-message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Hi Jonathan, I'd like to discuss..."
+                    rows={4}
+                    required
+                  />
+                </div>
+                {sendStatus === 'error' && (
+                  <p className="error-message">Failed to send. Please try again.</p>
+                )}
+                <button type="submit" className="send-btn" disabled={isSending}>
+                  {isSending ? 'Sending...' : 'Send Message'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       )}
