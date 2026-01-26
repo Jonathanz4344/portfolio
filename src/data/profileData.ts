@@ -100,7 +100,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     {
       role: "Full-Stack Software Engineer",
       company: "Citywide Eye Care",
-      period: "Aug 2024 - Present",
+      period: "Jan 2024 - Present",
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
@@ -114,7 +114,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     {
       role: "Full-Stack Software Engineer",
       company: "ZALA (Senior Capstone – Real Client)",
-      period: "Aug 2025 - May 2026",
+      period: "Aug 2025 - Present",
       location: "Rochester, NY",
       highlights: [
         "Built a production-ready CRM platform for a real estate employer as part of a 5-person team, supporting lead, property, campaign, and agent workflows",
@@ -126,7 +126,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     {
       role: "Software Engineer Intern",
       company: "Citywide Eye Care",
-      period: "May 2024 - July 2024",
+      period: "Sep 2023 - Dec 2023",
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
