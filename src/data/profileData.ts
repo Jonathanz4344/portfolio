@@ -104,16 +104,16 @@ I've also built AI-driven automation and lead-discovery features that significan
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
-        "Leading development of a custom EMR system used daily in a live optometry clinic, replacing manual PDF and Word based clinical documentation workflows",
-        "Architected a FastAPI + PostgreSQL backend with role-based access control, audit logging and chart versioning",
+        "Lead end-to-end development of a production EMR platform used daily in a live healthcare environment, replacing manual documentation workflows",
+        "Architected and owned a FastAPI + PostgreSQL backend, including authentication, role-based access control, audit logging, and versioned clinical records",
         "Built structured clinical charting workflows with auto-save and copy-forward, reducing documentation time by 75%",
-        "Designed automated hourly backup and recovery systems, reducing data loss risk to near zero",
-        "Collaborating directly with doctors and staff to gather requirements, deploy updates, and support production usage"
+        "Designed and maintained automated backup and recovery systems, reducing data loss risk to near zero in a production environment",
+        "Collaborated with clinicians and staff to gather requirements, deploy updates, and support live production usage"
       ]
     },
     {
       role: "Full-Stack Software Engineer",
-      company: "ZALA (Senior Capstone – Real Client)",
+      company: "ZALA (Client Contract – AI-Enabled CRM Platform)",
       period: "Aug 2025 - Present",
       location: "Rochester, NY",
       highlights: [
