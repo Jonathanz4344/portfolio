@@ -90,10 +90,10 @@ I've also built AI-driven automation and lead-discovery features that significan
   skills: {
     "Languages": ["Python", "JavaScript", "TypeScript", "SQL"],
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
-    "Frontend": ["React", "Javascript", "TypeScript", "Material UI", "Next.js"],
+    "Frontend": ["React", "Material UI", "Next.js"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Lambda", "Secrets Manager", "CI/CD", "Jenkins"],
-    "Tools": ["OpenAI API", " Gemini API", "Splunk", "Dynatrace"]
+    "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Cognito", "API Gateway", "Amplify", "Lambda", "Secrets Manager", "VPC","CI/CD"],
+    "Tools": ["OpenAI API", " Gemini API", "Jenkins", "Splunk", "Dynatrace"]
   },
 
   experience: [
