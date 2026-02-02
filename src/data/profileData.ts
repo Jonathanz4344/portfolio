@@ -104,11 +104,12 @@ I've also built AI-driven automation and lead-discovery features that significan
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
-        "Lead end-to-end development of a production EMR platform used daily in a live healthcare environment, replacing manual documentation workflows",
-        "Architected and owned a FastAPI + PostgreSQL backend, including authentication, role-based access control, audit logging, and versioned clinical records",
+        "Lead end-to-end development of a production EMR platform used daily in a live healthcare environment, migrating from on-premise servers to AWS cloud infrastructure (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
+        "Architected a secure, HIPAA-compliant cloud backend with FastAPI + PostgreSQL on AWS, implementing multi-layer security: IP whitelisting, Cognito JWT authentication, and role-based access control.",
         "Built structured clinical charting workflows with auto-save and copy-forward, reducing documentation time by 75%",
-        "Designed and maintained automated backup and recovery systems, reducing data loss risk to near zero in a production environment",
-        "Collaborated with clinicians and staff to gather requirements, deploy updates, and support live production usage"
+        " Designed cloud-native document storage using S3 with pre-signed URLs, migrating patient attachments from local storage to secure, scalable cloud storage.",
+        "Deployed production infrastructure with AWS Amplify (React frontend), API Gateway with DDoS protection, and WireGuard VPN for secure remote staff access.",
+        "Collaborated closely with clinicians and staff to gather requirements, deploy updates, and support live cloud-based production usage."
       ]
     },
     {
