@@ -95,6 +95,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Cognito", "API Gateway", "Amplify", "Lambda", "Secrets Manager", "VPC","CI/CD"],
     "Tools": ["Anthropic API", "OpenAI API", " Gemini API", "Jenkins", "Splunk", "Dynatrace"]
   },
+  
 
   experience: [
     {
