@@ -6,7 +6,7 @@ import './NowPlayingBar.css';
 // Company URLs for "Go to Company" option
 const companyUrls: Record<string, string> = {
   'Citywide Eye Care': 'https://www.citywideeyecare.com/',
-  'ZALA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
+  'ZLA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
 };
 
 // Companies without external links (greyed out)

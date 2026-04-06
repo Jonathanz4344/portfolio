@@ -8,7 +8,7 @@ interface ExperienceSectionProps {
 
 const companyColors: { [key: string]: string } = {
   "Citywide Eye Care": "linear-gradient(135deg, #1DB954 0%, #169c46 100%)",
-  "ZALA (Senior Capstone – Real Client)": "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
+  "ZLA (Senior Capstone – Real Client)": "linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)",
   "ADP": "linear-gradient(135deg, #ef4444 0%, #dc2626 100%)"
 };
 

@@ -30,7 +30,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     },
     {
       title: "AI-Powered CRM Platform",
-      artist: "ZALA (Senior Capstone)",
+      artist: "ZLA (Senior Capstone)",
       album: "Real Estate Tech",
       duration: "Aug 2025 - May 2026",
       description: "Production-ready CRM for real estate with AI lead discovery integrating OpenAI, Google Places, Geocoding, and Brave Search",
@@ -134,7 +134,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     },
     {
       role: "Full-Stack Software Engineer",
-      company: "ZALA (Client Contract – AI-Enabled CRM Platform)",
+      company: "ZLA (Client Contract – AI-Enabled CRM Platform)",
       period: "Aug 2025 - Present",
       location: "Rochester, NY",
       highlights: [

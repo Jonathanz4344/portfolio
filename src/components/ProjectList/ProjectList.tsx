@@ -19,7 +19,7 @@ const projectPlays = ['2,419,195,003', '703,453,943', '490,084,984', '356,721,45
 // Company URLs for "Go to Company" option
 const companyUrls: Record<string, string> = {
   'Citywide Eye Care': 'https://www.citywideeyecare.com/',
-  'ZALA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
+  'ZLA (Senior Capstone)': 'https://github.com/Jonathanz4344/BigRealEstate',
 };
 
 // Companies without external links (greyed out)
