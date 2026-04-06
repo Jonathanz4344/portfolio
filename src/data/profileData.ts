@@ -64,6 +64,26 @@ I've also built AI-driven automation and lead-discovery features that significan
       companyLogo: "/citywide-logo.png"
     },
     {
+      title: "RemitAI",
+      artist: "Personal Project",
+      album: "Healthcare AI",
+      duration: "2025",
+      description: "HIPAA-compliant AI platform for healthcare RCM using Amazon Nova Pro on AWS Bedrock (BAA); processes EOB/ERA PDFs via multimodal pipeline, classifies denials by CARC/RARC codes, generates appeal strategies, and builds a self-learning payer knowledge base",
+      impact: "Automated denial management",
+      tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS Bedrock", "Amazon Nova Pro"],
+      type: "AI & Healthcare"
+    },
+    {
+      title: "Enlighten Learning",
+      artist: "Personal Project",
+      album: "Nonprofit Tech",
+      duration: "2025",
+      description: "Full-stack nonprofit site built in React, TypeScript, and Material UI with serverless API integration (Google Apps Script), dark/light mode, animated UI, and donation tracking; supports tutoring programs for students in underserved communities across Long Island",
+      impact: "Community education support",
+      tech: ["React", "TypeScript", "Material UI", "Google Apps Script"],
+      type: "Full-Stack Development"
+    },
+    {
       title: "Spotify-Inspired Portfolio",
       artist: "Personal Project",
       album: "Creative Development",
@@ -90,10 +110,11 @@ I've also built AI-driven automation and lead-discovery features that significan
   skills: {
     "Languages": ["Python", "Java", "JavaScript", "TypeScript", "SQL"],
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
-    "Frontend": ["React", "Material UI", "Next.js"],
+    "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI", "React Query", "Framer Motion"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS", "EC2", "S3", "RDS", "Cognito", "API Gateway", "Amplify", "Lambda", "Secrets Manager", "VPC","CI/CD"],
-    "Tools": ["Anthropic API", "OpenAI API", " Gemini API", "Jenkins", "Splunk", "Dynatrace"]
+    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "WireGuard VPN"],
+    "AI / ML": ["Amazon Nova Pro", "Anthropic API", "OpenAI API", "Gemini API", "Prompt Engineering", "Multimodal LLMs"],
+    "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "pdf2image", "asyncpg"]
   },
   
 
@@ -105,12 +126,10 @@ I've also built AI-driven automation and lead-discovery features that significan
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
-        "Lead end-to-end development of a production EMR platform used daily in a live healthcare environment, migrating from on-premise servers to AWS cloud infrastructure (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
-        "Architected a secure, HIPAA-compliant cloud backend with FastAPI + PostgreSQL on AWS, implementing multi-layer security: IP whitelisting, Cognito JWT authentication, and role-based access control.",
-        "Built structured clinical charting workflows with auto-save and copy-forward, reducing documentation time by 75%",
-        " Designed cloud-native document storage using S3 with pre-signed URLs, migrating patient attachments from local storage to secure, scalable cloud storage.",
-        "Deployed production infrastructure with AWS Amplify (React frontend), API Gateway with DDoS protection, and WireGuard VPN for secure remote staff access.",
-        "Collaborated closely with clinicians and staff to gather requirements, deploy updates, and support live cloud-based production usage."
+        "Lead engineer for a production EMR platform used daily by clinical staff, architecting a zero-downtime migration from on-premise servers to AWS (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
+        "Owned HIPAA security architecture end to end: Cognito JWT auth, IP whitelisting, role-based access control, and WireGuard VPN, passing all external compliance reviews with zero audit findings",
+        "Reduced physician documentation time by 75% by engineering structured charting workflows with auto-save, copy-forward, and S3-backed document storage via pre-signed URLs",
+        "Partnered directly with clinicians to define requirements and iterate on features, accelerating feedback cycles and cutting rework across all major releases"
       ]
     },
     {
@@ -119,10 +138,9 @@ I've also built AI-driven automation and lead-discovery features that significan
       period: "Aug 2025 - Present",
       location: "Rochester, NY",
       highlights: [
-        "Built a production-ready CRM platform for a real estate employer as part of a 5-person team, supporting lead, property, campaign, and agent workflows",
-        "Designed and implemented a FastAPI + PostgreSQL backend with normalized schemas and complex relationships across core business entities",
-        "Developed AI-powered lead discovery pipelines integrating Google Places, Geocoding, Brave Search, and OpenAI, reducing manual prospect research by 60%",
-        "Built responsive React + TypeScript interfaces including Kanban-style deal pipelines and map-based lead search, collaborating in Agile sprints with shared architectural ownership"
+        "Built a production CRM from scratch on a 5-person Agile team, delivering lead management, property tracking, campaign workflows, and agent dashboards within tight contract timelines",
+        "Engineered an AI-powered lead discovery pipeline integrating Google Places API, Geocoding, Brave Search, and OpenAI, cutting manual prospect research time by 60%",
+        "Architected a normalized FastAPI and PostgreSQL backend with complex relational schemas; built a React/TypeScript frontend with Kanban pipelines and map-based lead search"
       ]
     },
     {
@@ -132,10 +150,9 @@ I've also built AI-driven automation and lead-discovery features that significan
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
-        "Developed a patient-facing AI health chatbot using Python and Gemini API, automating FAQs and symptom triage and reducing front-desk workload by ~50%",
-        "Rebuilt the clinic website using Next.js (React) and Material UI, improving accessibility, page load performance, and SEO, leading to increased organic traffic and patient inquiries",
-        "Implemented appointment scheduling and digital intake workflows, increasing patient conversion rates by ~25%",
-        "Deployed and supported production services on AWS (EC2, S3, RDS, Secrets Manager)"
+        "Built and deployed an AI health chatbot using Python and Gemini API, autonomously handling patient FAQs and symptom triage, cutting front-desk call volume by 50%",
+        "Rebuilt the patient-facing website in Next.js and Material UI, improving SEO and driving a 25% increase in appointment conversion rates",
+        "Implemented digital intake and scheduling workflows on AWS (EC2, S3, RDS, Secrets Manager), replacing all manual paper-based processes"
       ]
     },
     {
@@ -145,10 +162,9 @@ I've also built AI-driven automation and lead-discovery features that significan
       location: "Roseland, NJ",
       logo: "/adp-logo.png",
       highlights: [
-        "Built a status-reporting system, reducing manual reporting effort and improving decision turnaround by 20%",
-        "Optimized CI/CD pipeline using Jenkins, reducing deployment time by 30%",
-        "Improved MySQL query performance and cloud integrations (S3, Splunk, Dynatrace) to support internal analytics",
-        "Recognized by leadership for improving team workflow efficiency and operational visibility"
+        "Built an automated status-reporting tool adopted across the team, eliminating manual report generation and cutting decision turnaround time by 20%",
+        "Reduced deployment time by 30% by optimizing the Jenkins CI/CD pipeline and improving MySQL query performance across internal analytics integrations",
+        "Enhanced S3, Splunk, and Dynatrace integrations supporting internal analytics; recognized by engineering leadership for measurable impact on team velocity"
       ]
     }
   ],
