@@ -64,6 +64,9 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.svg',
   },
+  verification: {
+    google: 'RUGCm2kP-g6upWPISM4gI6KJMhEzcbvxE9SBOKUQCu0',
+  },
 };
 
 export default function RootLayout({
@@ -71,9 +74,56 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Jonathan Zhu',
+    url: 'https://jonathanzhu.dev',
+    image: 'https://jonathanzhu.dev/profile.png',
+    jobTitle: 'Full-Stack Software Engineer',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Citywide Eye Care',
+    },
+    alumniOf: [
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'Rochester Institute of Technology',
+      },
+      {
+        '@type': 'CollegeOrUniversity',
+        name: 'Georgia Institute of Technology',
+      },
+    ],
+    knowsAbout: [
+      'React',
+      'TypeScript',
+      'FastAPI',
+      'PostgreSQL',
+      'AWS',
+      'Python',
+      'Next.js',
+      'Machine Learning',
+    ],
+    sameAs: [
+      'https://github.com/Jonathanz4344',
+      'https://linkedin.com/in/jonathanzhuu',
+    ],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'New York City',
+      addressRegion: 'NY',
+      addressCountry: 'US',
+    },
+  };
+
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
         <SpeedInsights />
       </body>
