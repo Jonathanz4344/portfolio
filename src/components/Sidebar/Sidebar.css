@@ -118,6 +118,119 @@
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* Recently Played */
+.recently-played {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recently-played-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #a7a7a7;
+  padding: 0 0 8px;
+}
+
+.recently-played-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.recently-played-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.recently-played-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.recently-played-item.active {
+  background: rgba(29, 185, 84, 0.12);
+}
+
+.rp-cover-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  object-fit: cover;
+  object-position: center 20%;
+  flex-shrink: 0;
+}
+
+.rp-cover {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.rp-cover[data-type="full-stack-development"] {
+  background: linear-gradient(135deg, #1DB954 0%, #169c46 100%);
+}
+
+.rp-cover[data-type="ai-integration"] {
+  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+}
+
+.rp-cover[data-type="ai-&-healthcare"] {
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+}
+
+.rp-cover[data-type="infrastructure"] {
+  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+}
+
+.rp-cover[data-type="frontend-development"] {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+}
+
+.rp-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.rp-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rp-artist {
+  font-size: 11px;
+  color: #a7a7a7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .contact-divider {
   height: 1px;
   background: rgba(255, 255, 255, 0.1);

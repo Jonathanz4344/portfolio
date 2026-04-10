@@ -1,15 +1,18 @@
-import { useState, useRef } from 'react';
-import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send } from 'lucide-react';
-import type { ProfileData } from '@/types';
+import { useState, useRef, useEffect } from 'react';
+import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send, Clock } from 'lucide-react';
+import type { ProfileData, Project } from '@/types';
 import './Sidebar.css';
 
 interface SidebarProps {
   profile: ProfileData;
   activeSection: string;
   onSectionChange: (section: string) => void;
+  currentTrack?: number;
+  projects?: Project[];
+  onTrackSelect?: (index: number) => void;
 }
 
-const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
+const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projects, onTrackSelect }: SidebarProps) => {
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [senderEmail, setSenderEmail] = useState('');
@@ -18,7 +21,27 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
   const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [dragStartX, setDragStartX] = useState<number | null>(null);
+  const [recentlyPlayed, setRecentlyPlayed] = useState<number[]>([]);
   const sidebarRef = useRef<HTMLElement>(null);
+
+  // Load recently played from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('recentlyPlayed');
+      if (stored) setRecentlyPlayed(JSON.parse(stored));
+    } catch { /* ignore */ }
+  }, []);
+
+  // Track current track changes
+  useEffect(() => {
+    if (currentTrack === undefined || !projects) return;
+    setRecentlyPlayed((prev) => {
+      const filtered = prev.filter((i) => i !== currentTrack);
+      const updated = [currentTrack, ...filtered].slice(0, 5);
+      try { localStorage.setItem('recentlyPlayed', JSON.stringify(updated)); } catch { /* ignore */ }
+      return updated;
+    });
+  }, [currentTrack, projects]);
 
   const handleNavClick = (section: string) => {
     onSectionChange(section);
@@ -109,6 +132,44 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
             ))}
           </div>
         </nav>
+
+      {/* Recently Played */}
+      {projects && recentlyPlayed.length > 0 && (
+        <div className="recently-played">
+          <span className="recently-played-title">
+            <Clock size={14} />
+            Recently Played
+          </span>
+          <div className="recently-played-list">
+            {recentlyPlayed.map((idx) => {
+              const p = projects[idx];
+              if (!p) return null;
+              return (
+                <button
+                  key={idx}
+                  className={`recently-played-item ${currentTrack === idx ? 'active' : ''}`}
+                  onClick={() => {
+                    onTrackSelect?.(idx);
+                    setIsMobileOpen(false);
+                  }}
+                >
+                  {p.companyLogo ? (
+                    <img src={p.companyLogo} alt={p.artist} className="rp-cover-img" />
+                  ) : (
+                    <div className="rp-cover" data-type={p.type.toLowerCase().replace(/\s+/g, '-')}>
+                      {p.title.charAt(0)}
+                    </div>
+                  )}
+                  <div className="rp-info">
+                    <span className="rp-title">{p.title}</span>
+                    <span className="rp-artist">{p.artist}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className="sidebar-footer">
         <div className="now-playing-card">

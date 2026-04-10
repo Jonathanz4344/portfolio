@@ -19,7 +19,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [monthlyListeners, setMonthlyListeners] = useState<number>(1247);
+  const [monthlyListeners, setMonthlyListeners] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Track monthly listeners - increments on each unique visit
@@ -87,7 +87,11 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
           <h1 className="hero-name">{profile.name.toUpperCase()}</h1>
           
           <div className="hero-stats">
-            <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly watchers</span>
+            {monthlyListeners === null ? (
+              <span className="monthly-listeners-skeleton" />
+            ) : (
+              <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly watchers</span>
+            )}
           </div>
         </div>
       </div>

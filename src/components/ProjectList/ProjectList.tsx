@@ -169,6 +169,19 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                         {project.artist.charAt(0)}
                       </div>
                     )}
+                    <button
+                      className={`cover-play-btn ${currentTrack === index && isPlaying ? 'visible' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onTrackChange(index);
+                      }}
+                    >
+                      {currentTrack === index && isPlaying ? (
+                        <Pause size={16} fill="#000" />
+                      ) : (
+                        <Play size={16} fill="#000" style={{ marginLeft: 2 }} />
+                      )}
+                    </button>
                   </div>
                   <div className="project-info">
                     <span className={`project-name ${currentTrack === index ? 'highlight' : ''}`}>

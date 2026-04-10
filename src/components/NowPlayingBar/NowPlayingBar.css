@@ -527,6 +527,48 @@
   min-width: 0;
 }
 
+.now-playing-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.equalizer-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.equalizer-bars .eq-bar {
+  width: 3px;
+  background: #1DB954;
+  border-radius: 1px;
+  animation: eqBounce 0.45s ease-in-out infinite alternate;
+}
+
+.equalizer-bars .eq-bar:nth-child(1) {
+  height: 4px;
+  animation-delay: 0s;
+}
+
+.equalizer-bars .eq-bar:nth-child(2) {
+  height: 10px;
+  animation-delay: 0.15s;
+}
+
+.equalizer-bars .eq-bar:nth-child(3) {
+  height: 6px;
+  animation-delay: 0.3s;
+}
+
+@keyframes eqBounce {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
 .now-playing-title {
   font-size: 14px;
   font-weight: 500;

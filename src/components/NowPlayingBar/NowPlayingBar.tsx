@@ -437,18 +437,27 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
             </div>
           )}
           <div className="now-playing-info">
-            <span 
-              className="now-playing-title clickable desktop-only-click" 
-              onClick={(e) => {
-                // Only trigger on desktop (window width > 640px)
-                if (window.innerWidth > 640) {
-                  e.stopPropagation();
-                  onViewDetails();
-                }
-              }}
-            >
-              {project.title}
-            </span>
+            <div className="now-playing-title-row">
+              {isPlaying && (
+                <span className="equalizer-bars">
+                  <span className="eq-bar"></span>
+                  <span className="eq-bar"></span>
+                  <span className="eq-bar"></span>
+                </span>
+              )}
+              <span 
+                className="now-playing-title clickable desktop-only-click" 
+                onClick={(e) => {
+                  // Only trigger on desktop (window width > 640px)
+                  if (window.innerWidth > 640) {
+                    e.stopPropagation();
+                    onViewDetails();
+                  }
+                }}
+              >
+                {project.title}
+              </span>
+            </div>
             <span className="now-playing-artist">{project.artist}</span>
           </div>
           <button 

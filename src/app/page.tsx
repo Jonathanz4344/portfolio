@@ -116,6 +116,9 @@ export default function Home() {
           profile={profileData}
           activeSection={activeSection}
           onSectionChange={handleSectionChange}
+          currentTrack={currentTrack}
+          projects={profileData.projects}
+          onTrackSelect={handleTrackChange}
         />
 
         <main className="main-content">
