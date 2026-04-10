@@ -112,7 +112,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
     "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI", "React Query", "Framer Motion"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "WireGuard VPN"],
+    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "Terraform", "WireGuard VPN"],
     "AI / ML": ["Amazon Nova Pro", "Anthropic API", "OpenAI API", "Gemini API", "Prompt Engineering", "Multimodal LLMs"],
     "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "pdf2image", "asyncpg"]
   },
@@ -140,7 +140,8 @@ I've also built AI-driven automation and lead-discovery features that significan
       highlights: [
         "Built a production CRM from scratch on a 5-person Agile team, delivering lead management, property tracking, campaign workflows, and agent dashboards within tight contract timelines",
         "Engineered an AI-powered lead discovery pipeline integrating Google Places API, Geocoding, Brave Search, and OpenAI, cutting manual prospect research time by 60%",
-        "Architected a normalized FastAPI and PostgreSQL backend with complex relational schemas; built a React/TypeScript frontend with Kanban pipelines and map-based lead search"
+        "Architected a normalized FastAPI and PostgreSQL backend with complex relational schemas; built a React/TypeScript frontend with Kanban pipelines and map-based lead search",
+        "• Provisioned and managed AWS infrastructure with Terraform (Amplify, EC2 with Elastic IP, API Gateway, Lambda) and built anadmin dashboard for one-click backend server management"
       ]
     },
     {
