@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check, FolderKanban, Building2, Copy, Share2, Maximize2 } from 'lucide-react';
-import type { Project } from '../../types';
+import type { Project } from '@/types';
 import './NowPlayingBar.css';
 
 // Company URLs for "Go to Company" option

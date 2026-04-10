@@ -1,5 +1,5 @@
 import { GraduationCap, Award } from 'lucide-react';
-import type { Education } from '../../types';
+import type { Education } from '@/types';
 import './EducationSection.css';
 
 interface EducationSectionProps {

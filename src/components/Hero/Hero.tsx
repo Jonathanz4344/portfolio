@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Shuffle, MoreHorizontal, Linkedin, Github, Mail, Phone, X, Send, FileText, Download } from 'lucide-react';
-import type { ProfileData } from '../../types';
+import type { ProfileData } from '@/types';
 import './Hero.css';
 
 interface HeroProps {
@@ -223,7 +223,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
                   e.preventDefault();
                   setIsSending(true);
                   try {
-                    const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
+                    const response = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_URL!, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',

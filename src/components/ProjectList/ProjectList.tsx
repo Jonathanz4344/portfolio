@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Heart, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
-import type { Project } from '../../types';
+import type { Project } from '@/types';
 import './ProjectList.css';
 
 interface ProjectListProps {

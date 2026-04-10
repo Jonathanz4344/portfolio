@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useEffect } from 'react';
 import {
   Sidebar,
@@ -9,11 +11,10 @@ import {
   EducationSection,
   AboutSection,
   NowPlayingBar,
-} from './components';
-import { profileData } from './data/profileData';
-import './App.css';
+} from '@/components';
+import { profileData } from '@/data/profileData';
 
-function App() {
+export default function Home() {
   const [currentTrack, setCurrentTrack] = useState(0);
   const [activeSection, setActiveSection] = useState('home');
   const [showProjectDetail, setShowProjectDetail] = useState(false);
@@ -94,7 +95,6 @@ function App() {
 
     const handleScroll = () => {
       const scrollTop = scrollContainer.scrollTop;
-      // Show sticky header after scrolling past ~350px (after the hero action bar)
       setShowStickyHeader(scrollTop > 350);
     };
 
@@ -184,5 +184,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

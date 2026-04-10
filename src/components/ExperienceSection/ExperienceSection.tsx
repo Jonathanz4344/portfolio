@@ -1,5 +1,5 @@
 import { MapPin, Calendar } from 'lucide-react';
-import type { Experience } from '../../types';
+import type { Experience } from '@/types';
 import './ExperienceSection.css';
 
 interface ExperienceSectionProps {

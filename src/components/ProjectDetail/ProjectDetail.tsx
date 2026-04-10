@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import type { Project } from '../../types';
+import type { Project } from '@/types';
 import './ProjectDetail.css';
 
 interface ProjectDetailProps {

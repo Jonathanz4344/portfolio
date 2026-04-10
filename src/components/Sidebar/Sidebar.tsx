@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send } from 'lucide-react';
-import type { ProfileData } from '../../types';
+import type { ProfileData } from '@/types';
 import './Sidebar.css';
 
 interface SidebarProps {
@@ -235,7 +235,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange }: SidebarProps) => {
                   e.preventDefault();
                   setIsSending(true);
                   try {
-                    const response = await fetch(import.meta.env.VITE_FORMSPREE_URL, {
+                    const response = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_URL!, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
