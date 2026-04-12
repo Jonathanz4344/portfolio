@@ -61,9 +61,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  icons: {
-    icon: '/favicon.svg',
-  },
   verification: {
     google: 'RUGCm2kP-g6upWPISM4gI6KJMhEzcbvxE9SBOKUQCu0',
   },
