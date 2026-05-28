@@ -157,31 +157,31 @@ I've also built AI-driven automation and lead-discovery features that significan
       ]
     },
     {
-      role: "Application Developer Intern",
+      role: "Site Reliability Engineer Intern",
       company: "ADP",
       period: "Jun 2023 - Aug 2023",
       location: "Roseland, NJ",
       logo: "/adp-logo.png",
       highlights: [
-        "Built an automated status-reporting tool adopted across the team, eliminating manual report generation and cutting decision turnaround time by 20%",
-        "Reduced deployment time by 30% by optimizing the Jenkins CI/CD pipeline and improving MySQL query performance across internal analytics integrations",
-        "Enhanced S3, Splunk, and Dynatrace integrations supporting internal analytics; recognized by engineering leadership for measurable impact on team velocity"
+        "Developed an automated service health and status-reporting tool integrated with Splunk and Dynatrace, eliminating manual monitoring workflows and reducing incident response turnaround time by 20%",
+        "Improved deployment reliability and reduced release cycle time by 30% by optimizing Jenkins CI/CD pipelines and tuning MySQL query performance across internal analytics services",
+        "Owned observability integrations across S3, Splunk, and Dynatrace to surface system-level metrics, logs, and alerts; recognized by engineering leadership for measurable impact on operational visibility and team velocity"
       ]
     }
   ],
 
   education: [
     {
+      school: "Georgia Institute of Technology",
+      degree: "M.S. in Computer Science",
+      status: "Expected May 2028",
+      logo: "/gt-logo.png"
+    },
+    {
       school: "Rochester Institute of Technology",
       degree: "B.S. in Software Engineering",
       status: "Expected May 2026",
       logo: "/rit-logo.png"
-    },
-    {
-      school: "Georgia Institute of Technology",
-      degree: "M.S. in Computer Science",
-      status: "Admitted, Fall 2026",
-      logo: "/gt-logo.png"
     }
   ]
 };

@@ -27,3 +27,8 @@ out
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
