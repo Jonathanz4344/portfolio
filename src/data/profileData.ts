@@ -120,9 +120,18 @@ I've also built AI-driven automation and lead-discovery features that significan
 
   experience: [
     {
+      role: "Application Developer",
+      company: "IBM",
+      period: "Jun 2026 - Present",
+      location: "Baton Rouge, LA",
+      logo: "/ibm-logo.png",
+      highlights: [
+      ]
+    },
+    {
       role: "Full-Stack Software Engineer",
       company: "Citywide Eye Care",
-      period: "Jan 2024 - Present",
+      period: "Jan 2024 - Jun 2026",
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
@@ -134,8 +143,8 @@ I've also built AI-driven automation and lead-discovery features that significan
     },
     {
       role: "Full-Stack Software Engineer",
-      company: "ZLA (Client Contract – AI-Enabled CRM Platform)",
-      period: "Aug 2025 - Present",
+      company: "ZLA - AI-Enabled CRM Platform",
+      period: "Aug 2025 - May 2026",
       location: "Rochester, NY",
       highlights: [
         "Built a production CRM from scratch on a 5-person Agile team, delivering lead management, property tracking, campaign workflows, and agent dashboards within tight contract timelines",
