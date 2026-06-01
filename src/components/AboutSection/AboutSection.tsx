@@ -22,8 +22,8 @@ const AboutSection = ({ about }: AboutSectionProps) => {
             </div>
             <div className="highlight-content">
               <span className="highlight-label">Currently</span>
-              <span className="highlight-value">Full-Stack Software Engineer</span>
-              <span className="highlight-sub">@ Citywide Eye Care</span>
+              <span className="highlight-value">Application Developer</span>
+              <span className="highlight-sub">@ IBM</span>
             </div>
           </div>
 

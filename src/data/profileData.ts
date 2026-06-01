@@ -20,7 +20,7 @@ I've also built AI-driven automation and lead-discovery features that significan
       title: "Custom EMR System",
       artist: "Citywide Eye Care",
       album: "Production Systems",
-      duration: "Aug 2024 - Present",
+      duration: "Aug 2024 - Jun 2026",
       description: "Leading development of a custom EMR system used daily in a live optometry clinic, replacing manual PDF and Word based clinical documentation workflows",
       impact: "75% documentation time reduction",
       tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS"],
