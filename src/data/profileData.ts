@@ -189,7 +189,7 @@ I've also built AI-driven automation and lead-discovery features that significan
     {
       school: "Rochester Institute of Technology",
       degree: "B.S. in Software Engineering",
-      status: "Expected May 2026",
+      status: "May 2026",
       logo: "/rit-logo.png"
     }
   ]
