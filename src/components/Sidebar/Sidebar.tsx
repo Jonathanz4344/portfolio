@@ -176,7 +176,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
           <div className="now-playing-pulse"></div>
           <div className="now-playing-content">
             <span className="now-playing-label">Currently Building</span>
-            <span className="now-playing-text">Cloud @ IBM</span>
+            <span className="now-playing-text">EMR @ Citywide Eye Care</span>
           </div>
         </div>
 

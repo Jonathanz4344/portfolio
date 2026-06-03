@@ -120,24 +120,15 @@ I've also built AI-driven automation and lead-discovery features that significan
 
   experience: [
     {
-      role: "Application Developer",
-      company: "IBM",
-      period: "Jun 2026 - Present",
-      location: "Baton Rouge, LA",
-      logo: "/ibm-logo.png",
-      highlights: [
-      ]
-    },
-    {
       role: "Full-Stack Software Engineer",
       company: "Citywide Eye Care",
-      period: "Jan 2024 - Jun 2026",
+      period: "Jan 2024 - Present",
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
         "Lead engineer for a production EMR platform used daily by clinical staff, architecting a zero-downtime migration from on-premise servers to AWS (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
         "Owned HIPAA security architecture end to end: Cognito JWT auth, IP whitelisting, role-based access control, and WireGuard VPN, passing all external compliance reviews with zero audit findings",
-        "Reduced physician documentation time by 75% by engineering structured charting workflows with auto-save, copy-forward, and S3-backed document storage via pre-signed URLs",
+        "Reduced physician documentation time by 95% by engineering structured charting workflows with auto-save, copy-forward, and S3-backed document storage via pre-signed URLs",
         "Partnered directly with clinicians to define requirements and iterate on features, accelerating feedback cycles and cutting rework across all major releases"
       ]
     },
@@ -166,31 +157,31 @@ I've also built AI-driven automation and lead-discovery features that significan
       ]
     },
     {
-      role: "Site Reliability Engineer Intern",
+      role: "Application Developer Intern",
       company: "ADP",
       period: "Jun 2023 - Aug 2023",
       location: "Roseland, NJ",
       logo: "/adp-logo.png",
       highlights: [
-        "Developed an automated service health and status-reporting tool integrated with Splunk and Dynatrace, eliminating manual monitoring workflows and reducing incident response turnaround time by 20%",
-        "Improved deployment reliability and reduced release cycle time by 30% by optimizing Jenkins CI/CD pipelines and tuning MySQL query performance across internal analytics services",
-        "Owned observability integrations across S3, Splunk, and Dynatrace to surface system-level metrics, logs, and alerts; recognized by engineering leadership for measurable impact on operational visibility and team velocity"
+        "Built an automated status-reporting tool adopted across the team, eliminating manual report generation and cutting decision turnaround time by 20%",
+        "Reduced deployment time by 30% by optimizing the Jenkins CI/CD pipeline and improving MySQL query performance across internal analytics integrations",
+        "Enhanced S3, Splunk, and Dynatrace integrations supporting internal analytics; recognized by engineering leadership for measurable impact on team velocity"
       ]
     }
   ],
 
   education: [
     {
-      school: "Georgia Institute of Technology",
-      degree: "M.S. in Computer Science",
-      status: "Expected May 2028",
-      logo: "/gt-logo.png"
-    },
-    {
       school: "Rochester Institute of Technology",
       degree: "B.S. in Software Engineering",
       status: "May 2026",
       logo: "/rit-logo.png"
+    },
+    {
+      school: "Georgia Institute of Technology",
+      degree: "M.S. in Computer Science",
+      status: "Admitted, Fall 2026",
+      logo: "/gt-logo.png"
     }
   ]
 };

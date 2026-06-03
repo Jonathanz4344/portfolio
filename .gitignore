@@ -32,3 +32,4 @@ out
 *.pyc
 __pycache__/
 *.pyo
+next-env.d.ts

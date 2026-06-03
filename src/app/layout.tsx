@@ -80,7 +80,7 @@ export default function RootLayout({
     jobTitle: 'Full-Stack Software Engineer',
     worksFor: {
       '@type': 'Organization',
-      name: 'IBM',
+      name: 'Citywide Eye Care',
     },
     alumniOf: [
       {
