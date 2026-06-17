@@ -71,7 +71,8 @@ I've also built AI-driven automation and lead-discovery features that significan
       description: "HIPAA-compliant AI platform for healthcare RCM using Amazon Nova Pro on AWS Bedrock (BAA); processes EOB/ERA PDFs via multimodal pipeline, classifies denials by CARC/RARC codes, generates appeal strategies, and builds a self-learning payer knowledge base",
       impact: "Automated denial management",
       tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS Bedrock", "Amazon Nova Pro"],
-      type: "AI & Healthcare"
+      type: "AI & Healthcare",
+      repoUrl: "https://github.com/Jonathanz4344/RemitAI"
     },
     {
       title: "Enlighten Learning",
@@ -110,11 +111,11 @@ I've also built AI-driven automation and lead-discovery features that significan
   skills: {
     "Languages": ["Python", "Java", "JavaScript", "TypeScript", "SQL"],
     "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
-    "Frontend": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Material UI", "React Query", "Framer Motion"],
+    "Frontend": ["React", "Next.js", "Tailwind CSS", "Material UI", "React Query", "Framer Motion"],
     "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "Terraform", "WireGuard VPN"],
-    "AI / ML": ["Amazon Nova Pro", "Anthropic API", "OpenAI API", "Gemini API", "Prompt Engineering", "Multimodal LLMs"],
-    "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "pdf2image", "asyncpg"]
+    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "Azure (App Service, Blob Storage, Functions, API Management, Key Vault, Active Directory, Virtual Network)", "Terraform", "WireGuard VPN"],
+    "AI / ML": ["Claude API","Amazon Nova Pro", "OpenAI API", "Gemini API", "Prompt Engineering", "Multimodal LLMs", "Agentic Pipelines"],
+    "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "Docker"]
   },
   
 
@@ -129,7 +130,8 @@ I've also built AI-driven automation and lead-discovery features that significan
         "Lead engineer for a production EMR platform used daily by clinical staff, architecting a zero-downtime migration from on-premise servers to AWS (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
         "Owned HIPAA security architecture end to end: Cognito JWT auth, IP whitelisting, role-based access control, and WireGuard VPN, passing all external compliance reviews with zero audit findings",
         "Reduced physician documentation time by 95% by engineering structured charting workflows with auto-save, copy-forward, and S3-backed document storage via pre-signed URLs",
-        "Partnered directly with clinicians to define requirements and iterate on features, accelerating feedback cycles and cutting rework across all major releases"
+        "Trained clinical staff on the EMR system and built an interactive tutorial system to onboard new users, partnering directly with clinicians to iterate on features and accelerate adoption across all major releases",
+        " Architected for high availability and fault tolerance on AWS using VPC-isolated services, S3 redundant document storage, and Multi-AZ RDS with automated backups ensuring 24/7 uptime for clinical operations"
       ]
     },
     {
@@ -141,7 +143,7 @@ I've also built AI-driven automation and lead-discovery features that significan
         "Built a production CRM from scratch on a 5-person Agile team, delivering lead management, property tracking, campaign workflows, and agent dashboards within tight contract timelines",
         "Engineered an AI-powered lead discovery pipeline integrating Google Places API, Geocoding, Brave Search, and OpenAI, cutting manual prospect research time by 60%",
         "Architected a normalized FastAPI and PostgreSQL backend with complex relational schemas; built a React/TypeScript frontend with Kanban pipelines and map-based lead search",
-        "• Provisioned and managed AWS infrastructure with Terraform (Amplify, EC2 with Elastic IP, API Gateway, Lambda) and built anadmin dashboard for one-click backend server management"
+        "Provisioned and managed AWS infrastructure with Terraform (Amplify, EC2 with Elastic IP, API Gateway, Lambda) and built anadmin dashboard for one-click backend server management"
       ]
     },
     {
@@ -157,31 +159,31 @@ I've also built AI-driven automation and lead-discovery features that significan
       ]
     },
     {
-      role: "Application Developer Intern",
+      role: "Site Reliability Engineer Intern",
       company: "ADP",
       period: "Jun 2023 - Aug 2023",
       location: "Roseland, NJ",
       logo: "/adp-logo.png",
       highlights: [
-        "Built an automated status-reporting tool adopted across the team, eliminating manual report generation and cutting decision turnaround time by 20%",
-        "Reduced deployment time by 30% by optimizing the Jenkins CI/CD pipeline and improving MySQL query performance across internal analytics integrations",
-        "Enhanced S3, Splunk, and Dynatrace integrations supporting internal analytics; recognized by engineering leadership for measurable impact on team velocity"
+        "Developed an automated service health and status-reporting tool integrated with Splunk and Dynatrace, eliminating manual monitoring workflows and reducing incident response turnaround time by 20%",
+        "Improved deployment reliability and reduced release cycle time by 30% by optimizing Jenkins CI/CD pipelines and tuning MySQL query performance across internal analytics services",
+        "Owned observability integrations across S3, Splunk, and Dynatrace to surface system-level metrics, logs, and alerts; recognized by engineering leadership for measurable impact on operational visibility and team velocity"
       ]
     }
   ],
 
   education: [
+        {
+      school: "Georgia Institute of Technology",
+      degree: "M.S. in Computer Science",
+      status: "Expected May 2028",
+      logo: "/gt-logo.png"
+    },
     {
       school: "Rochester Institute of Technology",
       degree: "B.S. in Software Engineering",
       status: "May 2026",
       logo: "/rit-logo.png"
-    },
-    {
-      school: "Georgia Institute of Technology",
-      degree: "M.S. in Computer Science",
-      status: "Admitted, Fall 2026",
-      logo: "/gt-logo.png"
     }
   ]
 };
