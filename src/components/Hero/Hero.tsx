@@ -1,7 +1,10 @@
 import { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Play, Pause, Shuffle, MoreHorizontal, Linkedin, Github, Mail, Phone, X, Send, FileText, Download } from 'lucide-react';
 import type { ProfileData } from '@/types';
 import './Hero.css';
+
+const AudioVisualizer = dynamic(() => import('@/components/AudioVisualizer'), { ssr: false });
 
 interface HeroProps {
   profile: ProfileData;
@@ -64,6 +67,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
     <section className="hero">
       <div className="hero-background">
         <div className="hero-gradient"></div>
+        <AudioVisualizer isPlaying={isPlaying} />
       </div>
       
       <div className="hero-content">

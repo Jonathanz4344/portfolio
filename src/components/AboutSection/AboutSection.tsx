@@ -1,4 +1,5 @@
 import { MapPin, Briefcase, Target } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './AboutSection.css';
 
 interface AboutSectionProps {
@@ -12,44 +13,54 @@ const AboutSection = ({ about }: AboutSectionProps) => {
         <h2>About</h2>
       </div>
 
-      <div className="about-content">
+      <motion.div
+        className="about-content"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5, ease: 'easeOut' as const }}
+      >
         <p className="about-text">{about}</p>
 
         <div className="about-highlights">
-          <div className="highlight-card">
-            <div className="highlight-icon">
-              <Briefcase size={24} />
-            </div>
-            <div className="highlight-content">
-              <span className="highlight-label">Currently</span>
-              <span className="highlight-value">Full-Stack Software Engineer</span>
-              <span className="highlight-sub">@ Citywide Eye Care</span>
-            </div>
-          </div>
-
-          <div className="highlight-card">
-            <div className="highlight-icon">
-              <Target size={24} />
-            </div>
-            <div className="highlight-content">
-              <span className="highlight-label">Interests</span>
-              <span className="highlight-value">Machine Learning & AI</span>
-              <span className="highlight-sub">Full-Stack Development</span>
-            </div>
-          </div>
-
-          <div className="highlight-card">
-            <div className="highlight-icon">
-              <MapPin size={24} />
-            </div>
-            <div className="highlight-content">
-              <span className="highlight-label">Based in</span>
-              <span className="highlight-value">New York City</span>
-              <span className="highlight-sub">Open to opportunities</span>
-            </div>
-          </div>
+          {[
+            {
+              icon: <Briefcase size={24} />,
+              label: 'Currently',
+              value: 'Full-Stack Software Engineer',
+              sub: '@ Citywide Eye Care',
+            },
+            {
+              icon: <Target size={24} />,
+              label: 'Interests',
+              value: 'Machine Learning & AI',
+              sub: 'Full-Stack Development',
+            },
+            {
+              icon: <MapPin size={24} />,
+              label: 'Based in',
+              value: 'New York City',
+              sub: 'Open to opportunities',
+            },
+          ].map((item, i) => (
+            <motion.div
+              key={i}
+              className="highlight-card"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20px' }}
+              transition={{ duration: 0.4, delay: i * 0.1, ease: 'easeOut' as const }}
+            >
+              <div className="highlight-icon">{item.icon}</div>
+              <div className="highlight-content">
+                <span className="highlight-label">{item.label}</span>
+                <span className="highlight-value">{item.value}</span>
+                <span className="highlight-sub">{item.sub}</span>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

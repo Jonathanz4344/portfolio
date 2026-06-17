@@ -1,4 +1,5 @@
 import { MapPin, Calendar } from 'lucide-react';
+import { motion } from 'framer-motion';
 import type { Experience } from '@/types';
 import './ExperienceSection.css';
 
@@ -19,9 +20,21 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
         <h2>Featuring Jonathan</h2>
       </div>
 
-      <div className="experience-list">
+      <motion.div
+        className="experience-list"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px' }}
+      >
         {experience.map((exp, index) => (
-          <div key={index} className="experience-card">
+          <motion.div
+            key={index}
+            className="experience-card"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.5, delay: index * 0.12, ease: 'easeOut' as const }}
+          >
             {exp.logo ? (
               <img 
                 src={exp.logo} 
@@ -61,9 +74,9 @@ const ExperienceSection = ({ experience }: ExperienceSectionProps) => {
                 ))}
               </ul>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 };

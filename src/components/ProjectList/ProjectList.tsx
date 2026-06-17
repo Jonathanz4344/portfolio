@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Play, Pause, Heart, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
 import type { Project } from '@/types';
 import './ProjectList.css';
+
 
 interface ProjectListProps {
   projects: Project[];
@@ -118,8 +120,12 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
         <div className="popular-column">
           <div className="projects-table">
             {projects.map((project, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.38, delay: index * 0.07, ease: 'easeOut' as const }}
                 className={`project-row ${currentTrack === index ? 'active' : ''}`}
                 onClick={() => onTrackChange(index)}
                 onDoubleClick={() => onTrackChange(index)}
@@ -260,11 +266,11 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                     )}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
-          <a 
+          <a
             href="https://github.com/Jonathanz4344" 
             target="_blank" 
             rel="noopener noreferrer"
