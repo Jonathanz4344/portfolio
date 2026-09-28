@@ -462,8 +462,8 @@
 
 .now-playing-bar {
   height: 90px;
-  background: #181818;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
+  border-top: none;
   display: flex;
   align-items: center;
   justify-content: space-between;

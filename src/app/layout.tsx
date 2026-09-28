@@ -5,7 +5,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Jonathan Zhu | Full-Stack Software Engineer',
   description:
-    'Jonathan Zhu — Full-Stack Software Engineer specializing in React, TypeScript, FastAPI, PostgreSQL, and AWS. View projects, experience, and skills.',
+    'Jonathan Zhu — Application Developer at IBM and full-stack software engineer building production systems with React, TypeScript, FastAPI, PostgreSQL, AWS, Azure, and AI. View projects, experience, and certifications.',
   keywords: [
     'Jonathan Zhu',
     'Software Engineer',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jonathan Zhu | Full-Stack Software Engineer',
     description:
-      'Full-Stack Software Engineer specializing in React, TypeScript, FastAPI, PostgreSQL, and AWS.',
+      'Application Developer at IBM and full-stack software engineer working across React, TypeScript, FastAPI, PostgreSQL, AWS, Azure, and AI.',
     url: 'https://jonathanzhu.dev',
     siteName: 'Jonathan Zhu Portfolio',
     locale: 'en_US',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'Jonathan Zhu | Full-Stack Software Engineer',
     description:
-      'Full-Stack Software Engineer specializing in React, TypeScript, FastAPI, PostgreSQL, and AWS.',
+      'Application Developer at IBM and full-stack software engineer working across React, TypeScript, FastAPI, PostgreSQL, AWS, Azure, and AI.',
     images: ['/profile.png'],
   },
   robots: {
@@ -77,10 +77,10 @@ export default function RootLayout({
     name: 'Jonathan Zhu',
     url: 'https://jonathanzhu.dev',
     image: 'https://jonathanzhu.dev/profile.png',
-    jobTitle: 'Full-Stack Software Engineer',
+    jobTitle: 'Application Developer',
     worksFor: {
       '@type': 'Organization',
-      name: 'Citywide Eye Care',
+      name: 'IBM',
     },
     alumniOf: [
       {

@@ -25,7 +25,7 @@ const companyUrls: Record<string, string> = {
 };
 
 // Companies without external links (greyed out)
-const companiesWithoutLinks = ['ADP', 'Personal Project'];
+const companiesWithoutLinks = ['ADP', 'IBM', 'Personal Project'];
 
 const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewDetails, onPause }: ProjectListProps) => {
   // Initialize with all projects liked

@@ -2,73 +2,204 @@
   padding: 24px 40px 40px;
 }
 
-.about-content {
+/* Spotify-style About card: full-bleed photo with bio overlay */
+.about-card {
+  position: relative;
+  display: block;
+  width: 100%;
   max-width: 900px;
+  height: 460px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #282828;
+  color: #fff;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
-.about-text {
-  font-size: 16px;
-  line-height: 1.7;
-  color: #b3b3b3;
-  margin: 0 0 24px 0;
-  white-space: pre-line;
+.about-card-backdrop {
+  position: absolute;
+  inset: -40px;
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  object-fit: cover;
+  filter: blur(40px) brightness(0.55) saturate(1.2);
 }
 
-.about-highlights {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+.about-card-image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 35%);
+  transition: transform 0.4s ease;
 }
 
-.highlight-card {
+.about-card:hover .about-card-image {
+  transform: scale(1.02);
+}
+
+.about-card-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%);
+}
+
+.about-rank {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+  background: #509bf5;
   display: flex;
-  gap: 14px;
-  padding: 16px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  transition: background 0.2s ease;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.highlight-card:hover {
-  background: rgba(255, 255, 255, 0.08);
+.about-rank-number {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
 }
 
-.highlight-icon {
-  width: 44px;
-  height: 44px;
-  background: rgba(29, 185, 84, 0.1);
-  border-radius: 8px;
+.about-rank-label {
+  font-size: 12px;
+  font-weight: 700;
+  max-width: 80px;
+}
+
+.about-card-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.about-card-stat {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.about-card-text {
+  margin: 0;
+  max-width: 672px;
+  font-size: 16px;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Full bio modal */
+.about-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1DB954;
-  flex-shrink: 0;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.7);
 }
 
-.highlight-content {
+.about-modal {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  background: #121212;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+
+.about-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-modal-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: scale(1.04);
+}
+
+.about-modal-image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.about-modal-body {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+  padding: 32px 40px 40px;
+}
+
+.about-modal-stats {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 24px;
 }
 
-.highlight-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #6b6b6b;
+.about-modal-stat {
+  display: flex;
+  flex-direction: column;
 }
 
-.highlight-value {
-  font-size: 14px;
+.about-modal-stat-value {
+  font-size: 16px;
   font-weight: 700;
   color: #fff;
 }
 
-.highlight-sub {
-  font-size: 13px;
-  color: #a7a7a7;
-  font-weight: 400;
+.about-modal-stat-sub {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.about-modal-stat-label {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.about-modal-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #b3b3b3;
+  white-space: pre-line;
 }
 
 @media (max-width: 768px) {
@@ -76,11 +207,72 @@
     padding: 32px 24px;
   }
 
-  .about-text {
-    font-size: 15px;
+  .about-card {
+    height: 400px;
   }
 
-  .about-highlights {
+  .about-card-image {
+    width: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .about-card-body {
+    padding: 24px;
+  }
+
+  .about-rank {
+    top: 16px;
+    right: 16px;
+    width: 88px;
+    height: 88px;
+  }
+
+  .about-rank-number {
+    font-size: 24px;
+  }
+
+  .about-rank-label {
+    font-size: 10px;
+  }
+
+  .about-modal-body {
     grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .about-modal-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px 32px;
+  }
+
+  .about-modal-image {
+    height: 300px;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section {
+    padding: 24px 16px;
+  }
+
+  .about-card {
+    height: 360px;
+  }
+
+  .about-card-text {
+    font-size: 14px;
+  }
+
+  .about-modal-overlay {
+    padding: 0;
+  }
+
+  .about-modal {
+    max-height: 100vh;
+    height: 100%;
+    border-radius: 0;
   }
 }

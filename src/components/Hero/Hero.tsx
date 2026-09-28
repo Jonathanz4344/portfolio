@@ -23,6 +23,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
   const [isSending, setIsSending] = useState(false);
   const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [monthlyListeners, setMonthlyListeners] = useState<number | null>(null);
+  const [listenersUnavailable, setListenersUnavailable] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Track monthly listeners - increments on each unique visit
@@ -45,8 +46,8 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
           const baseListeners = 1200;
           setMonthlyListeners(baseListeners + (data.count || 0));
         }
-      } catch (error) {
-        console.log('Visitor counter unavailable');
+      } catch {
+        setListenersUnavailable(true);
       }
     };
     
@@ -88,15 +89,17 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
             <span>Verified Engineer</span>
           </div>
           
-          <h1 className="hero-name">{profile.name.toUpperCase()}</h1>
+          <h1 className="hero-name">{profile.name}</h1>
           
-          <div className="hero-stats">
-            {monthlyListeners === null ? (
-              <span className="monthly-listeners-skeleton" />
-            ) : (
-              <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly watchers</span>
-            )}
-          </div>
+          {!listenersUnavailable && (
+            <div className="hero-stats">
+              {monthlyListeners === null ? (
+                <span className="monthly-listeners-skeleton" />
+              ) : (
+                <span className="monthly-listeners">{monthlyListeners.toLocaleString()} monthly watchers</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -246,7 +249,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
                     } else {
                       setSendStatus('error');
                     }
-                  } catch (error) {
+                  } catch {
                     setSendStatus('error');
                   }
                   setIsSending(false);
@@ -324,11 +327,18 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
                 type="application/pdf"
                 className="resume-iframe"
               >
-                <img 
-                  src="/Jonathan_Zhu_Resume.png" 
-                  alt="Jonathan Zhu Resume"
-                  className="resume-image"
-                />
+                <div className="resume-fallback">
+                  <FileText size={40} />
+                  <p>This browser can&apos;t preview PDFs inline.</p>
+                  <a
+                    href="/Jonathan_Zhu_Resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="resume-download-btn"
+                  >
+                    Open Resume
+                  </a>
+                </div>
               </object>
             </div>
           </div>

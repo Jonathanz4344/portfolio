@@ -9,6 +9,8 @@ import {
   SkillsSection,
   ExperienceSection,
   EducationSection,
+  CertificationsSection,
+  TopBar,
   AboutSection,
   NowPlayingBar,
 } from '@/components';
@@ -28,6 +30,8 @@ export default function Home() {
   const aboutRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const educationRef = useRef<HTMLDivElement>(null);
+  const certificationsRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null);
   const mainScrollRef = useRef<HTMLDivElement>(null);
 
   const handleSectionChange = (section: string) => {
@@ -38,6 +42,8 @@ export default function Home() {
       about: aboutRef,
       experience: experienceRef,
       education: educationRef,
+      certifications: certificationsRef,
+      skills: skillsRef,
     };
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -111,6 +117,12 @@ export default function Home() {
         </div>
       </div>
 
+      <TopBar
+        profile={profileData}
+        onSectionChange={handleSectionChange}
+        onProjectSelect={handleViewDetails}
+      />
+
       <div className="app-container">
         <Sidebar
           profile={profileData}
@@ -152,10 +164,16 @@ export default function Home() {
               <AboutSection about={profileData.about} />
             </div>
 
-            <SkillsSection skills={profileData.skills} />
+            <div ref={skillsRef}>
+              <SkillsSection skills={profileData.skills} />
+            </div>
 
             <div ref={educationRef}>
               <EducationSection education={profileData.education} />
+            </div>
+
+            <div ref={certificationsRef}>
+              <CertificationsSection certifications={profileData.certifications} />
             </div>
 
             <div className="footer-spacer"></div>

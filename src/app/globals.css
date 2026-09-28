@@ -178,7 +178,7 @@ img {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: linear-gradient(180deg, #1e1e1e 0%, #181818 300px);
+  background: #121212;
 }
 
 .main-scroll {
@@ -340,4 +340,26 @@ a {
 
 a:hover {
   color: #fff;
+}
+
+/* Spotify app shell: black frame with rounded, gapped panels (desktop) */
+@media (min-width: 769px) {
+  body,
+  .app {
+    background: #000;
+  }
+
+  .app-container {
+    gap: 8px;
+    padding: 0 8px;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-radius: 8px;
+  }
+
+  .main-content {
+    border-radius: 8px;
+  }
 }

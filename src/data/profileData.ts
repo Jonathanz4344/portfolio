@@ -11,41 +11,63 @@ export const profileData: ProfileData = {
   linkedinUrl: "https://linkedin.com/in/jonathanzhuu",
   about: `A full-stack software engineer who builds reliable, real-world systems with a focus on usability and impact. I enjoy taking complex problems, breaking them down, and shipping software that actually gets used.
 
-My past experiences include production applications ranging from healthcare EMR platforms to AI-powered CRM tools, building across the stack with FastAPI, PostgreSQL, React, TypeScript, and AWS. I led the development of a live EMR system used daily in a medical clinical setting, helping reduce documentation time, improve data reliability, and streamline workflows for doctors and staff.
+I'm currently an Application Developer at IBM, building the Oracle migration path of a self-service Azure DBaaS platform that cuts database provisioning from weeks to minutes. Before that, I was the sole engineer at Citywide Eye Care, where I designed and shipped a production EMR and practice-management system (React/TypeScript, FastAPI, PostgreSQL, AWS) that cut physician documentation time by 85% and passed every HIPAA compliance review with zero findings.
 
-I've also built AI-driven automation and lead-discovery features that significantly reduce manual effort and improve operational efficiency. I earned my B.S. in Software Engineering from Rochester Institute of Technology and will be furthering my education with an M.S. in Computer Science at Georgia Tech, where I plan to focus on machine learning and AI-driven systems.`,
+I've also built AI-driven tools, from lead-discovery pipelines to a claims-denial agent on Claude and AWS Bedrock. I earned my B.S. in Software Engineering from Rochester Institute of Technology and am pursuing an M.S. in Computer Science at Georgia Tech, focusing on machine learning and AI-driven systems.`,
 
   projects: [
     {
       title: "Custom EMR System",
       artist: "Citywide Eye Care",
       album: "Production Systems",
-      duration: "Aug 2024 - Jun 2026",
-      description: "Leading development of a custom EMR system used daily in a live optometry clinic, replacing manual PDF and Word based clinical documentation workflows",
-      impact: "75% documentation time reduction",
+      duration: "Jan 2024 - Jun 2026",
+      description: "Production EMR and practice-management system for 60–90 patient visits a week, with structured charting, optical ordering, billing, inventory, and a login-free patient intake flow with e-signatures; led its zero-downtime on-prem-to-AWS migration",
+      impact: "85% documentation time reduction",
       tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS"],
       type: "Full-Stack Development",
       projectUrl: "https://www.citywideeyecare.com/",
       companyLogo: "/citywide-logo.png"
     },
     {
+      title: "Self-Service Azure DBaaS",
+      artist: "IBM",
+      album: "Cloud Automation",
+      duration: "Jun 2026 - Present",
+      description: "Oracle migration path of a self-service Azure DBaaS platform for Lumen Technologies, with automated VM right-sizing from live on-prem metrics, license-compliant placement on dedicated hosts, and fail-closed protection against duplicate migrations",
+      impact: "Provisioning cut from weeks to minutes",
+      tech: ["Azure", "Terraform", "Ansible/AWX", "GitHub Actions", "ServiceNow", "Oracle"],
+      type: "Infrastructure",
+      companyLogo: "/ibm-logo.png"
+    },
+    {
       title: "AI-Powered CRM Platform",
       artist: "ZLA (Senior Capstone)",
       album: "Real Estate Tech",
       duration: "Aug 2025 - May 2026",
-      description: "Production-ready CRM for real estate with AI lead discovery integrating OpenAI, Google Places, Geocoding, and Brave Search",
+      description: "Production CRM with lead pipelines, campaign workflows, and map-based search, plus an AI lead discovery pipeline integrating Google Places, Brave Search, and OpenAI",
       impact: "60% reduction in manual research",
-      tech: ["FastAPI", "PostgreSQL", "OpenAI", "React", "TypeScript"],
+      tech: ["FastAPI", "PostgreSQL", "OpenAI", "React", "TypeScript", "Terraform"],
       type: "AI Integration",
       repoUrl: "https://github.com/Jonathanz4344/BigRealEstate"
+    },
+    {
+      title: "RemitAI",
+      artist: "Personal Project",
+      album: "Healthcare AI",
+      duration: "2025",
+      description: "HIPAA-compliant claims-denial agent on Claude and Amazon Nova Pro (AWS Bedrock, BAA) that reads EOB/ERA PDFs, classifies denials by CARC/RARC codes, drafts appeal strategies, and learns payer patterns over time",
+      impact: "Automated denial management",
+      tech: ["FastAPI", "PostgreSQL", "React", "Claude API", "AWS Bedrock", "Amazon Nova Pro"],
+      type: "AI & Healthcare",
+      repoUrl: "https://github.com/Jonathanz4344/RemitAI"
     },
     {
       title: "AI Health Chatbot",
       artist: "Citywide Eye Care",
       album: "Patient Care Solutions",
       duration: "May 2024 - July 2024",
-      description: "Patient-facing AI chatbot automating FAQs and symptom triage using Python and Gemini API, reducing front-desk workload",
-      impact: "~50% workload reduction",
+      description: "Serverless patient-facing chat assistant on the Gemini API that answers patient FAQs and handles symptom triage, reducing front-desk workload",
+      impact: "50% fewer front-desk calls",
       tech: ["Python", "Gemini API", "Next.js", "Material UI"],
       type: "AI & Healthcare",
       repoUrl: "https://www.citywideeyecare.com/",
@@ -56,42 +78,32 @@ I've also built AI-driven automation and lead-discovery features that significan
       artist: "Citywide Eye Care",
       album: "Web Development",
       duration: "May 2024 - July 2024",
-      description: "Modern Next.js website rebuilt for performance, accessibility, and search engine optimization, driving increased organic traffic and patient engagement",
-      impact: "Increased organic traffic & inquiries",
+      description: "Next.js rebuild of the patient-facing website for performance, accessibility, and search engine optimization, driving more patient engagement and bookings",
+      impact: "25% more appointment conversions",
       tech: ["Next.js", "React", "Material UI", "SEO", "AWS"],
       type: "Frontend Development",
       repoUrl: "https://www.citywideeyecare.com/",
       companyLogo: "/citywide-logo.png"
     },
     {
-      title: "RemitAI",
-      artist: "Personal Project",
-      album: "Healthcare AI",
-      duration: "2025",
-      description: "HIPAA-compliant AI platform for healthcare RCM using Amazon Nova Pro on AWS Bedrock (BAA); processes EOB/ERA PDFs via multimodal pipeline, classifies denials by CARC/RARC codes, generates appeal strategies, and builds a self-learning payer knowledge base",
-      impact: "Automated denial management",
-      tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS Bedrock", "Amazon Nova Pro"],
-      type: "AI & Healthcare",
-      repoUrl: "https://github.com/Jonathanz4344/RemitAI"
-    },
-    {
       title: "Enlighten Learning",
       artist: "Personal Project",
       album: "Nonprofit Tech",
       duration: "2025",
-      description: "Full-stack nonprofit site built in React, TypeScript, and Material UI with serverless API integration (Google Apps Script), dark/light mode, animated UI, and donation tracking; supports tutoring programs for students in underserved communities across Long Island",
+      description: "Co-founded a nonprofit tutoring platform with donation tracking and program management; trained volunteers on AI tools and taught sessions for underserved students across Long Island",
       impact: "Community education support",
-      tech: ["React", "TypeScript", "Material UI", "Google Apps Script"],
-      type: "Full-Stack Development"
+      tech: ["React", "TypeScript", "Claude API", "Material UI"],
+      type: "Full-Stack Development",
+      projectUrl: "https://enlightenlearning.vercel.app"
     },
     {
       title: "Spotify-Inspired Portfolio",
       artist: "Personal Project",
       album: "Creative Development",
       duration: "Jan 2026",
-      description: "Interactive developer portfolio designed with Spotify's UI/UX as inspiration, featuring dynamic animations and responsive design",
+      description: "Interactive developer portfolio designed with Spotify's UI/UX as inspiration, featuring an audio visualizer, framer-motion animations, and responsive design",
       impact: "Unique personal branding",
-      tech: ["React", "TypeScript", "Vite", "CSS"],
+      tech: ["Next.js", "React", "TypeScript", "Framer Motion", "CSS"],
       type: "Frontend Development",
       companyLogo: "/profile.png"
     },
@@ -100,8 +112,8 @@ I've also built AI-driven automation and lead-discovery features that significan
       artist: "ADP",
       album: "Enterprise Solutions",
       duration: "Jun 2023 - Aug 2023",
-      description: "Built status-reporting system reducing manual reporting effort by 20% and optimized Jenkins CI/CD pipeline for faster deployments",
-      impact: "30% deployment time reduction",
+      description: "Automated service-health reporting tool integrated with Splunk and Dynatrace, plus Jenkins CI/CD pipeline optimization and MySQL query tuning",
+      impact: "20% faster incident response",
       tech: ["Jenkins", "MySQL", "AWS S3", "Splunk", "Dynatrace"],
       type: "Infrastructure",
       companyLogo: "/adp-logo.png"
@@ -110,40 +122,51 @@ I've also built AI-driven automation and lead-discovery features that significan
 
   skills: {
     "Languages": ["Python", "Java", "JavaScript", "TypeScript", "SQL"],
-    "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy"],
+    "Backend / Systems": ["FastAPI", "Node.js", "Express.js", "REST APIs", "JWT", "OAuth2", "Pydantic", "SQLAlchemy", "Spring Boot"],
     "Frontend": ["React", "Next.js", "Tailwind CSS", "Material UI", "React Query", "Framer Motion"],
-    "Databases": ["PostgreSQL", "MySQL", "MongoDB"],
-    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "Azure (App Service, Blob Storage, Functions, API Management, Key Vault, Active Directory, Virtual Network)", "Terraform", "WireGuard VPN"],
-    "AI / ML": ["Claude API","Amazon Nova Pro", "OpenAI API", "Gemini API", "Prompt Engineering", "Multimodal LLMs", "Agentic Pipelines"],
-    "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "Docker"]
+    "Databases": ["PostgreSQL", "Oracle", "MySQL", "MongoDB"],
+    "Cloud / Infrastructure": ["AWS (EC2, RDS, S3, Bedrock, Cognito, API Gateway, Amplify, Lambda, Secrets Manager, VPC)", "Azure (App Service, Blob Storage, Functions, API Management, Key Vault, Active Directory, Virtual Network)", "Terraform", "Ansible/AWX", "GitHub Actions", "WireGuard VPN"],
+    "AI / ML": ["Claude API","Amazon Nova Pro", "OpenAI API", "Gemini API", "Whisper", "Prompt Engineering", "Multimodal LLMs", "Agentic Pipelines"],
+    "Tools & Compliance": ["Jenkins", "Splunk", "Dynatrace", "HIPAA Compliance", "BAA", "Docker", "ServiceNow"]
   },
   
 
   experience: [
     {
-      role: "Full-Stack Software Engineer",
-      company: "Citywide Eye Care",
-      period: "Jan 2024 - Present",
-      location: "Great Neck, NY",
-      logo: "/citywide-logo.png",
+      role: "Application Developer",
+      company: "IBM",
+      period: "Jun 2026 - Present",
+      location: "Baton Rouge, LA",
+      logo: "/ibm-logo.png",
       highlights: [
-        "Lead engineer for a production EMR platform used daily by clinical staff, architecting a zero-downtime migration from on-premise servers to AWS (EC2, RDS, S3, Cognito, API Gateway, Amplify)",
-        "Owned HIPAA security architecture end to end: Cognito JWT auth, IP whitelisting, role-based access control, and WireGuard VPN, passing all external compliance reviews with zero audit findings",
-        "Reduced physician documentation time by 95% by engineering structured charting workflows with auto-save, copy-forward, and S3-backed document storage via pre-signed URLs",
-        "Trained clinical staff on the EMR system and built an interactive tutorial system to onboard new users, partnering directly with clinicians to iterate on features and accelerate adoption across all major releases",
-        " Architected for high availability and fault tolerance on AWS using VPC-isolated services, S3 redundant document storage, and Multi-AZ RDS with automated backups ensuring 24/7 uptime for clinical operations"
+        "Cut database provisioning for Lumen Technologies from weeks in the DBA backlog to minutes by building the Oracle migration path of a self-service Azure DBaaS platform (ServiceNow, GitHub Actions, Terraform, Ansible/AWX)",
+        "Automated Oracle VM right-sizing from live on-prem metrics, replacing manual sizing for stacked and RAC databases",
+        "Designed production safeguards for automated migrations: license-compliant Oracle placement on dedicated hosts and fail-closed protection against duplicate migrations",
+        "Surfaced hidden failures in 12-job AWX onboarding workflows via step-level tracking; wrote a 57-error-code runbook"
       ]
     },
     {
       role: "Full-Stack Software Engineer",
-      company: "ZLA - AI-Enabled CRM Platform",
+      company: "Citywide Eye Care",
+      period: "Jan 2024 - Jun 2026",
+      location: "Great Neck, NY",
+      logo: "/citywide-logo.png",
+      highlights: [
+        "Sole engineer embedded with clinical staff; designed and shipped a production EMR and practice-management system (React/TypeScript, FastAPI, PostgreSQL) for 60–90 patient visits a week and led its zero-downtime on-prem-to-AWS migration",
+        "Cut physician documentation time 85% with structured charting (copy-forward, autosave, version history), and drove adoption through staff training and in-app guided tutorials",
+        "Digitized optical ordering, billing, and a login-free patient intake flow with e-signatures, cutting front-desk time on orders and payments 75%, intake paperwork 95%, and order pickup from 5 minutes to 1",
+        "Cut inventory discrepancies 85% by linking stock directly to optical orders so counts update automatically with every sale",
+        "Owned HIPAA security end to end (Cognito MFA, RBAC, IP allowlisting, WireGuard VPN, audit logging), passing all external compliance reviews with zero findings"
+      ]
+    },
+    {
+      role: "Full-Stack Software Engineer",
+      company: "ZLA - Senior Capstone Project",
       period: "Aug 2025 - May 2026",
       location: "Rochester, NY",
       highlights: [
-        "Built a production CRM from scratch on a 5-person Agile team, delivering lead management, property tracking, campaign workflows, and agent dashboards within tight contract timelines",
-        "Engineered an AI-powered lead discovery pipeline integrating Google Places API, Geocoding, Brave Search, and OpenAI, cutting manual prospect research time by 60%",
-        "Architected a normalized FastAPI and PostgreSQL backend with complex relational schemas; built a React/TypeScript frontend with Kanban pipelines and map-based lead search",
-        "Provisioned and managed AWS infrastructure with Terraform (Amplify, EC2 with Elastic IP, API Gateway, Lambda) and built anadmin dashboard for one-click backend server management"
+        "Shipped a production CRM for ZLA on a 5-person Agile team (React/TypeScript, FastAPI, PostgreSQL, Terraform on AWS) with lead pipelines, campaign workflows, and map-based search",
+        "Engineered an AI lead discovery pipeline (Google Places, Brave Search, OpenAI) that cut manual prospect research 60%"
       ]
     },
     {
@@ -159,15 +182,14 @@ I've also built AI-driven automation and lead-discovery features that significan
       ]
     },
     {
-      role: "Site Reliability Engineer Intern",
+      role: "Application Developer Intern",
       company: "ADP",
       period: "Jun 2023 - Aug 2023",
       location: "Roseland, NJ",
       logo: "/adp-logo.png",
       highlights: [
-        "Developed an automated service health and status-reporting tool integrated with Splunk and Dynatrace, eliminating manual monitoring workflows and reducing incident response turnaround time by 20%",
-        "Improved deployment reliability and reduced release cycle time by 30% by optimizing Jenkins CI/CD pipelines and tuning MySQL query performance across internal analytics services",
-        "Owned observability integrations across S3, Splunk, and Dynatrace to surface system-level metrics, logs, and alerts; recognized by engineering leadership for measurable impact on operational visibility and team velocity"
+        "Cut incident response time 20% with an automated service-health reporting tool integrated with Splunk and Dynatrace",
+        "Cut release cycle time 30% by optimizing Jenkins CI/CD pipelines and tuning MySQL queries"
       ]
     }
   ],
@@ -184,6 +206,56 @@ I've also built AI-driven automation and lead-discovery features that significan
       degree: "B.S. in Software Engineering",
       status: "May 2026",
       logo: "/rit-logo.png"
+    }
+  ],
+
+  certifications: [
+    {
+      name: "Microsoft Certified: Azure Fundamentals",
+      issuer: "Microsoft",
+      date: "Issued Jul 2026",
+      tier: "platinum",
+      badge: "/certs/azure-fundamentals.svg",
+      verifyUrl: "https://learn.microsoft.com/api/credentials/share/en-us/JonathanZhu-7642/96474D632106D51E?sharingId=4E70970DC850604"
+    },
+    {
+      name: "Certified Partner Specialist: Gemini Enterprise Agent Development",
+      issuer: "Google Cloud",
+      date: "Issued Jul 2026",
+      tier: "platinum",
+      badge: "/certs/gemini-agent-dev.png",
+      verifyUrl: "https://www.credly.com/badges/93febdb2-7a93-4b92-8859-c593377a1d25/public_url"
+    },
+    {
+      name: "Certified Partner Specialist: Gemini Enterprise Deployment",
+      issuer: "Google Cloud",
+      date: "Issued Jul 2026",
+      tier: "platinum",
+      badge: "/certs/gemini-deployment.png",
+      verifyUrl: "https://www.credly.com/badges/3dd2687d-c36d-42cb-878b-7b191a3705fe/public_url"
+    },
+    {
+      name: "Claude Partner Badge: Claude Code",
+      issuer: "Anthropic",
+      date: "Issued Jul 2026",
+      tier: "platinum",
+      badge: "/certs/claude-code.png",
+      verifyUrl: "https://www.credly.com/badges/543ed9b8-b3e1-4f64-9ddb-62a12b271717/public_url"
+    },
+    {
+      name: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services",
+      date: "Issued 2026",
+      tier: "platinum",
+      badge: "/certs/aws.svg"
+    },
+    {
+      name: "IBM Generative & Agentic AI Developer",
+      issuer: "IBM",
+      date: "Issued Jul 2026",
+      tier: "gold",
+      badge: "/certs/ibm-genai-developer.png",
+      verifyUrl: "https://www.credly.com/badges/e12267e3-37e4-4a74-a942-5f3f64342ac7/public_url"
     }
   ]
 };

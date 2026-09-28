@@ -28,6 +28,15 @@ export interface Education {
   logo?: string;
 }
 
+export interface Certification {
+  name: string;
+  issuer: string;
+  date: string;
+  tier: 'platinum' | 'gold' | 'presave';
+  badge?: string;
+  verifyUrl?: string;
+}
+
 export interface Skills {
   [category: string]: string[];
 }
@@ -46,4 +55,5 @@ export interface ProfileData {
   skills: Skills;
   experience: Experience[];
   education: Education[];
+  certifications: Certification[];
 }

@@ -46,6 +46,9 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
 
     const totalWidth = (NUM_BARS - 1) * BAR_SPACING;
     const barPairs: BarPair[] = [];
+    const coreGeo = new THREE.BoxGeometry(0.13, 1, 0.13);
+    const glowGeo = new THREE.BoxGeometry(0.6, 1, 0.6);
+    const materials: THREE.Material[] = [];
 
     for (let i = 0; i < NUM_BARS; i++) {
       const t = i / (NUM_BARS - 1);
@@ -62,13 +65,11 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
       const zArc = -((i - NUM_BARS / 2) ** 2) * 0.003;
       const xPos = i * BAR_SPACING - totalWidth / 2;
 
-      const coreGeo = new THREE.BoxGeometry(0.13, 1, 0.13);
       const coreMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.88 });
       const core = new THREE.Mesh(coreGeo, coreMat);
       core.position.set(xPos, 0, zArc);
       scene.add(core);
 
-      const glowGeo = new THREE.BoxGeometry(0.6, 1, 0.6);
       const glowMat = new THREE.MeshBasicMaterial({
         color,
         transparent: true,
@@ -79,6 +80,7 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
       const glow = new THREE.Mesh(glowGeo, glowMat);
       glow.position.set(xPos, 0, zArc);
       scene.add(glow);
+      materials.push(coreMat, glowMat);
 
       barPairs.push({
         core,
@@ -92,14 +94,15 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
 
     let currentIntensity = 0.1;
     let fadeIn = 0;
-    let animId: number;
+    let animId: number | null = null;
+    let isVisible = true;
     const clock = new THREE.Clock();
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const animate = () => {
-      animId = requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
 
-      fadeIn = Math.min(1, fadeIn + 0.016);
+      fadeIn = reducedMotion ? 1 : Math.min(1, fadeIn + 0.016);
       const target = isPlayingRef.current ? 1.0 : 0.18;
       currentIntensity += (target - currentIntensity) * 0.035;
 
@@ -120,9 +123,34 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
       });
 
       renderer.render(scene, camera);
+      animId = reducedMotion ? null : requestAnimationFrame(animate);
     };
 
-    animate();
+    // Only run the render loop while the hero is on screen and the tab is visible
+    const start = () => {
+      if (animId === null && isVisible && !document.hidden) {
+        clock.getDelta();
+        animate();
+      }
+    };
+    const stop = () => {
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) start();
+      else stop();
+    });
+    observer.observe(mount);
+
+    const handleVisibility = () => (document.hidden ? stop() : start());
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    start();
 
     const handleResize = () => {
       const nw = mount.clientWidth;
@@ -130,13 +158,19 @@ export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
       camera.aspect = nw / nh;
       camera.updateProjectionMatrix();
       renderer.setSize(nw, nh);
+      if (reducedMotion) renderer.render(scene, camera);
     };
     window.addEventListener('resize', handleResize);
 
     return () => {
-      cancelAnimationFrame(animId);
+      stop();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       window.removeEventListener('resize', handleResize);
       if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
+      coreGeo.dispose();
+      glowGeo.dispose();
+      materials.forEach((m) => m.dispose());
       renderer.dispose();
     };
   }, []);

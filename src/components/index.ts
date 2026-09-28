@@ -5,5 +5,7 @@ export { default as ProjectDetail } from './ProjectDetail';
 export { default as SkillsSection } from './SkillsSection';
 export { default as ExperienceSection } from './ExperienceSection';
 export { default as EducationSection } from './EducationSection';
+export { default as CertificationsSection } from './CertificationsSection';
+export { default as TopBar } from './TopBar';
 export { default as AboutSection } from './AboutSection';
 export { default as NowPlayingBar } from './NowPlayingBar';

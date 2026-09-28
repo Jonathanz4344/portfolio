@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send, Clock } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Briefcase, FolderKanban, GraduationCap, User, Home, FileText, Download, X, Send, Clock, Award } from 'lucide-react';
 import type { ProfileData, Project } from '@/types';
 import './Sidebar.css';
 
@@ -28,6 +28,8 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
   useEffect(() => {
     try {
       const stored = localStorage.getItem('recentlyPlayed');
+      // localStorage is only available after hydration, so this read has to happen in an effect
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (stored) setRecentlyPlayed(JSON.parse(stored));
     } catch { /* ignore */ }
   }, []);
@@ -35,6 +37,8 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
   // Track current track changes
   useEffect(() => {
     if (currentTrack === undefined || !projects) return;
+    // Merges with the list loaded from localStorage above, so it must run after that effect
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRecentlyPlayed((prev) => {
       const filtered = prev.filter((i) => i !== currentTrack);
       const updated = [currentTrack, ...filtered].slice(0, 5);
@@ -79,6 +83,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
     { id: 'projects', icon: FolderKanban, label: 'Projects' },
     { id: 'about', icon: User, label: 'About' },
     { id: 'education', icon: GraduationCap, label: 'Education' },
+    { id: 'certifications', icon: Award, label: 'Certifications' },
   ];
 
   return (
@@ -176,7 +181,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
           <div className="now-playing-pulse"></div>
           <div className="now-playing-content">
             <span className="now-playing-label">Currently Building</span>
-            <span className="now-playing-text">EMR @ Citywide Eye Care</span>
+            <span className="now-playing-text">Cloud @ IBM</span>
           </div>
         </div>
 

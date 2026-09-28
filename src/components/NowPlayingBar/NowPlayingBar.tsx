@@ -10,7 +10,7 @@ const companyUrls: Record<string, string> = {
 };
 
 // Companies without external links (greyed out)
-const companiesWithoutLinks = ['ADP', 'Personal Project'];
+const companiesWithoutLinks = ['ADP', 'IBM', 'Personal Project'];
 
 interface NowPlayingBarProps {
   project: Project;
@@ -63,9 +63,12 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
     return () => clearInterval(interval);
   }, [isPlaying, onNext, isRepeatOn]);
 
-  useEffect(() => {
+  // Reset progress when the track changes (adjusting state during render avoids an extra effect pass)
+  const [progressTrack, setProgressTrack] = useState(currentIndex);
+  if (progressTrack !== currentIndex) {
+    setProgressTrack(currentIndex);
     setProgress(0);
-  }, [currentIndex]);
+  }
 
   // Close dropdown when clicking outside
   useEffect(() => {
