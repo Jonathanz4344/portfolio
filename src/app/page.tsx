@@ -6,14 +6,15 @@ import {
   Hero,
   ProjectList,
   ProjectDetail,
-  SkillsSection,
-  ExperienceSection,
-  EducationSection,
-  CertificationsSection,
+  DiscographySection,
+  FeaturingSection,
+  ArtistPlaylistsSection,
   TopBar,
+  Footer,
   AboutSection,
   NowPlayingBar,
 } from '@/components';
+import type { DiscographyTab } from '@/components/DiscographySection';
 import { profileData } from '@/data/profileData';
 
 export default function Home() {
@@ -24,25 +25,28 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatOn, setIsRepeatOn] = useState(false);
   const [showStickyHeader, setShowStickyHeader] = useState(false);
-  
+  const [discographyTab, setDiscographyTab] = useState<DiscographyTab>('popular');
+
   const homeRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
-  const educationRef = useRef<HTMLDivElement>(null);
-  const certificationsRef = useRef<HTMLDivElement>(null);
+  const discographyRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const mainScrollRef = useRef<HTMLDivElement>(null);
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
+    // Education and certifications live in Discography as the Albums / Singles and EPs tabs
+    if (section === 'education') setDiscographyTab('albums');
+    if (section === 'certifications') setDiscographyTab('singles');
     const refs: Record<string, React.RefObject<HTMLDivElement | null> | null> = {
       home: homeRef,
       projects: projectsRef,
       about: aboutRef,
       experience: experienceRef,
-      education: educationRef,
-      certifications: certificationsRef,
+      education: discographyRef,
+      certifications: discographyRef,
       skills: skillsRef,
     };
     refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
@@ -156,8 +160,17 @@ export default function Home() {
               />
             </div>
 
+            <div ref={discographyRef}>
+              <DiscographySection
+                education={profileData.education}
+                certifications={profileData.certifications}
+                tab={discographyTab}
+                onTabChange={setDiscographyTab}
+              />
+            </div>
+
             <div ref={experienceRef}>
-              <ExperienceSection experience={profileData.experience} />
+              <FeaturingSection experience={profileData.experience} />
             </div>
 
             <div ref={aboutRef}>
@@ -165,16 +178,10 @@ export default function Home() {
             </div>
 
             <div ref={skillsRef}>
-              <SkillsSection skills={profileData.skills} />
+              <ArtistPlaylistsSection skills={profileData.skills} />
             </div>
 
-            <div ref={educationRef}>
-              <EducationSection education={profileData.education} />
-            </div>
-
-            <div ref={certificationsRef}>
-              <CertificationsSection certifications={profileData.certifications} />
-            </div>
+            <Footer profile={profileData} />
 
             <div className="footer-spacer"></div>
           </div>

@@ -1,0 +1,199 @@
+.detail-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.detail-modal {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  max-height: 88vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  background: #121212;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+
+.detail-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-modal-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.detail-modal-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 48px 32px 24px;
+  background: linear-gradient(to bottom, var(--detail-accent) 0%, color-mix(in srgb, var(--detail-accent) 35%, #121212) 70%, #121212 100%);
+}
+
+.detail-modal-cover {
+  width: 180px;
+  height: 180px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+
+.detail-modal-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.detail-modal-eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.detail-modal-title {
+  margin: 0;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.detail-modal-meta {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.detail-modal-body {
+  padding: 16px 32px 32px;
+}
+
+.detail-modal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-modal-list li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 8px;
+  padding: 10px 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.detail-modal-list li:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.detail-modal-list-index {
+  color: #b3b3b3;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-modal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-modal-chip {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.07);
+  font-size: 14px;
+  color: #fff;
+}
+
+.detail-modal-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  background: #1ed760;
+  color: #000;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.1s ease;
+}
+
+.detail-modal-action:hover {
+  transform: scale(1.04);
+}
+
+.detail-modal-note {
+  margin: 0 0 16px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #b3b3b3;
+}
+
+/* Mobile: full-screen sheet, like opening an album in the Spotify app */
+@media (max-width: 640px) {
+  .detail-modal-overlay {
+    padding: 0;
+  }
+
+  .detail-modal {
+    max-width: none;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .detail-modal-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 20px 20px;
+  }
+
+  .detail-modal-cover {
+    width: 220px;
+    height: 220px;
+  }
+
+  .detail-modal-info {
+    align-items: center;
+  }
+
+  .detail-modal-title {
+    font-size: 26px;
+  }
+
+  .detail-modal-body {
+    padding: 8px 12px 32px;
+  }
+
+  .detail-modal-list li {
+    grid-template-columns: 24px 1fr;
+    font-size: 14px;
+  }
+}

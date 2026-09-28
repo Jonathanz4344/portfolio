@@ -27,12 +27,17 @@ const companyUrls: Record<string, string> = {
 // Companies without external links (greyed out)
 const companiesWithoutLinks = ['ADP', 'IBM', 'Personal Project'];
 
+// Spotify shows the top 5 tracks until "See more" is clicked
+const POPULAR_COLLAPSED_COUNT = 5;
+
 const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewDetails, onPause }: ProjectListProps) => {
   // Initialize with all projects liked
   const [likedProjects, setLikedProjects] = useState<Set<number>>(
     new Set(projects.map((_, index) => index))
   );
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [showAllProjects, setShowAllProjects] = useState(false);
+  const visibleProjects = showAllProjects ? projects : projects.slice(0, POPULAR_COLLAPSED_COUNT);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -119,7 +124,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
         {/* Left Column - Popular Projects */}
         <div className="popular-column">
           <div className="projects-table">
-            {projects.map((project, index) => (
+            {visibleProjects.map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 18 }}
@@ -270,14 +275,14 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
             ))}
           </div>
 
-          <a
-            href="https://github.com/Jonathanz4344" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="see-more-btn"
-          >
-            See more
-          </a>
+          {projects.length > POPULAR_COLLAPSED_COUNT && (
+            <button
+              className="see-more-btn"
+              onClick={() => setShowAllProjects((prev) => !prev)}
+            >
+              {showAllProjects ? 'Show less' : 'See more'}
+            </button>
+          )}
         </div>
 
         {/* Right Column - Liked Songs Card */}
