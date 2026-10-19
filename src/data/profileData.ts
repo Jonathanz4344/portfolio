@@ -211,6 +211,14 @@ I've also built AI-driven tools, from lead-discovery pipelines to a claims-denia
 
   certifications: [
     {
+      name: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services",
+      date: "Issued Oct 2026",
+      tier: "platinum",
+      badge: "/certs/aws-cloud-practitioner.png",
+      verifyUrl: "https://www.credly.com/badges/cec5f5bb-8de4-4bdb-b994-146167076610/public_url"
+    },
+    {
       name: "Microsoft Certified: Azure Fundamentals",
       issuer: "Microsoft",
       date: "Issued Jul 2026",
@@ -241,13 +249,6 @@ I've also built AI-driven tools, from lead-discovery pipelines to a claims-denia
       tier: "platinum",
       badge: "/certs/claude-code.png",
       verifyUrl: "https://www.credly.com/badges/543ed9b8-b3e1-4f64-9ddb-62a12b271717/public_url"
-    },
-    {
-      name: "AWS Certified Cloud Practitioner",
-      issuer: "Amazon Web Services",
-      date: "Issued 2026",
-      tier: "platinum",
-      badge: "/certs/aws.svg"
     },
     {
       name: "IBM Generative & Agentic AI Developer",
