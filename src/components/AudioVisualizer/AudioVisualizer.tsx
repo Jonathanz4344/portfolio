@@ -1,189 +1,157 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import { motionAllowed } from '@/components/motion';
 
-const NUM_BARS = 52;
-const BAR_SPACING = 0.36;
+const BAR = 2;
+const GAP = 4;
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
 }
 
+/**
+ * A hairline waveform along the foot of the hero, drawn in the theme's text and accent colors.
+ * It rests as a still, quiet shape and only moves while a project is playing.
+ */
 export default function AudioVisualizer({ isPlaying }: AudioVisualizerProps) {
-  const mountRef = useRef<HTMLDivElement>(null);
-  const isPlayingRef = useRef(isPlaying);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const playingRef = useRef(isPlaying);
+  const wakeRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-    isPlayingRef.current = isPlaying;
+    playingRef.current = isPlaying;
+    wakeRef.current();
   }, [isPlaying]);
 
   useEffect(() => {
-    const mount = mountRef.current;
-    if (!mount) return;
+    const canvas = canvasRef.current;
+    const context = canvas?.getContext('2d');
+    if (!canvas || !context) return;
+    const root = document.documentElement;
 
-    const scene = new THREE.Scene();
-    const w = mount.clientWidth;
-    const h = mount.clientHeight;
-    const camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
-    camera.position.set(0, 3, 11);
-    camera.lookAt(0, 0.5, 0);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(w, h);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-    mount.appendChild(renderer.domElement);
-
-    interface BarPair {
-      core: THREE.Mesh;
-      glow: THREE.Mesh;
-      freq1: number;
-      freq2: number;
-      freq3: number;
-      phase: number;
-    }
-
-    const totalWidth = (NUM_BARS - 1) * BAR_SPACING;
-    const barPairs: BarPair[] = [];
-    const coreGeo = new THREE.BoxGeometry(0.13, 1, 0.13);
-    const glowGeo = new THREE.BoxGeometry(0.6, 1, 0.6);
-    const materials: THREE.Material[] = [];
-
-    for (let i = 0; i < NUM_BARS; i++) {
-      const t = i / (NUM_BARS - 1);
-
-      // Color: blue-navy → spotify-green → deep-purple
-      const color = new THREE.Color();
-      if (t < 0.5) {
-        color.lerpColors(new THREE.Color('#1e3264'), new THREE.Color('#1DB954'), t * 2);
-      } else {
-        color.lerpColors(new THREE.Color('#1DB954'), new THREE.Color('#4a1d8a'), (t - 0.5) * 2);
-      }
-
-      // Subtle z-arc so center bars are slightly closer to camera
-      const zArc = -((i - NUM_BARS / 2) ** 2) * 0.003;
-      const xPos = i * BAR_SPACING - totalWidth / 2;
-
-      const coreMat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.88 });
-      const core = new THREE.Mesh(coreGeo, coreMat);
-      core.position.set(xPos, 0, zArc);
-      scene.add(core);
-
-      const glowMat = new THREE.MeshBasicMaterial({
-        color,
-        transparent: true,
-        opacity: 0.13,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-      });
-      const glow = new THREE.Mesh(glowGeo, glowMat);
-      glow.position.set(xPos, 0, zArc);
-      scene.add(glow);
-      materials.push(coreMat, glowMat);
-
-      barPairs.push({
-        core,
-        glow,
-        freq1: 0.35 + (i % 7) * 0.14,
-        freq2: 0.55 + (i % 5) * 0.22,
-        freq3: 0.18 + (i % 3) * 0.08,
-        phase: i * 0.23,
-      });
-    }
-
-    let currentIntensity = 0.1;
-    let fadeIn = 0;
-    let animId: number | null = null;
-    let isVisible = true;
-    const clock = new THREE.Clock();
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const animate = () => {
-      const t = clock.getElapsedTime();
-
-      fadeIn = reducedMotion ? 1 : Math.min(1, fadeIn + 0.016);
-      const target = isPlayingRef.current ? 1.0 : 0.18;
-      currentIntensity += (target - currentIntensity) * 0.035;
-
-      const speed = 0.45 + currentIntensity * 1.6;
-      const amplitude = 0.25 + currentIntensity * 2.4;
-
-      barPairs.forEach(({ core, glow, freq1, freq2, freq3, phase }) => {
-        const noise =
-          Math.sin(t * speed * freq1 + phase) * 0.5 +
-          Math.sin(t * speed * freq2 + phase * 1.7) * 0.3 +
-          Math.sin(t * speed * freq3 + phase * 0.6) * 0.2;
-
-        const height = Math.max(0.04, (0.1 + Math.abs(noise) * amplitude) * fadeIn);
-        core.scale.y = height;
-        core.position.y = height / 2;
-        glow.scale.y = height;
-        glow.position.y = height / 2;
-      });
-
-      renderer.render(scene, camera);
-      animId = reducedMotion ? null : requestAnimationFrame(animate);
+    let colors = { base: '', accent: '' };
+    const readColors = () => {
+      const styles = getComputedStyle(root);
+      colors = { base: styles.getPropertyValue('--text').trim(), accent: styles.getPropertyValue('--waveform').trim() };
     };
 
-    // Only run the render loop while the hero is on screen and the tab is visible
-    const start = () => {
-      if (animId === null && isVisible && !document.hidden) {
-        clock.getDelta();
-        animate();
-      }
+    let width = 0;
+    let height = 0;
+    let count = 0;
+    let heights: number[] = [];
+    let energy = playingRef.current ? 1 : 0;
+
+    // The resting shape: a soft swell toward the middle with a little texture
+    const rest = (i: number) => {
+      const t = i / Math.max(1, count - 1);
+      return 0.07 + 0.16 * Math.sin(Math.PI * t) * Math.abs(Math.sin(t * 9.4 + 0.6)) + 0.04 * Math.abs(Math.sin(t * 37));
     };
-    const stop = () => {
-      if (animId !== null) {
-        cancelAnimationFrame(animId);
-        animId = null;
-      }
+    const live = (i: number, seconds: number) => {
+      const t = i / Math.max(1, count - 1);
+      const swell = 0.35 + 0.65 * Math.sin(Math.PI * t);
+      const noise =
+        Math.abs(Math.sin(seconds * (0.9 + (i % 7) * 0.21) + i * 0.23)) * 0.5 +
+        Math.abs(Math.sin(seconds * (1.4 + (i % 5) * 0.33) + i * 0.41)) * 0.3 +
+        Math.abs(Math.sin(seconds * (0.5 + (i % 3) * 0.17) + i * 0.13)) * 0.2;
+      return 0.1 + 0.82 * noise * swell;
     };
 
-    const observer = new IntersectionObserver(([entry]) => {
-      isVisible = entry.isIntersecting;
-      if (isVisible) start();
-      else stop();
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+      const offset = (width - (count * (BAR + GAP) - GAP)) / 2;
+      const bar = (i: number) => {
+        const h = Math.max(2, heights[i] * height);
+        context.beginPath();
+        context.roundRect(offset + i * (BAR + GAP), height - h, BAR, h, 1);
+        context.fill();
+      };
+      context.fillStyle = colors.base;
+      for (let i = 0; i < count; i++) {
+        const envelope = Math.sin((Math.PI * i) / Math.max(1, count - 1));
+        context.globalAlpha = 0.1 + 0.12 * envelope;
+        bar(i);
+      }
+      context.fillStyle = colors.accent;
+      for (let i = 0; i < count; i++) {
+        const envelope = Math.sin((Math.PI * i) / Math.max(1, count - 1));
+        context.globalAlpha = envelope * envelope * (0.28 + 0.6 * energy);
+        bar(i);
+      }
+      context.globalAlpha = 1;
+    };
+
+    const resize = () => {
+      const box = canvas.getBoundingClientRect();
+      const ratio = Math.min(devicePixelRatio, 2);
+      width = box.width;
+      height = box.height;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      count = Math.max(0, Math.floor((width + GAP) / (BAR + GAP)));
+      heights = Array.from({ length: count }, (_, i) => heights[i] ?? rest(i));
+    };
+
+    let frame = 0;
+    let visible = true;
+    const step = (now: number) => {
+      const seconds = now / 1000;
+      energy += ((playingRef.current ? 1 : 0) - energy) * 0.045;
+      for (let i = 0; i < count; i++) heights[i] = rest(i) * (1 - energy) + live(i, seconds) * energy;
+      draw();
+      const settled = !playingRef.current && energy < 0.002;
+      frame = visible && !settled && !document.hidden ? requestAnimationFrame(step) : 0;
+    };
+
+    const wake = () => {
+      if (!motionAllowed()) {
+        // Still frames only: a taller shape while playing, the resting shape otherwise
+        energy = playingRef.current ? 1 : 0;
+        heights = Array.from({ length: count }, (_, i) => rest(i) * (1 - energy) + live(i, i * 0.37) * energy);
+        draw();
+        return;
+      }
+      if (!frame && visible && !document.hidden) frame = requestAnimationFrame(step);
+    };
+    wakeRef.current = wake;
+
+    readColors();
+    resize();
+    draw();
+    wake();
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      draw();
     });
-    observer.observe(mount);
+    resizeObserver.observe(canvas);
 
-    const handleVisibility = () => (document.hidden ? stop() : start());
-    document.addEventListener('visibilitychange', handleVisibility);
+    const visibility = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) wake();
+    });
+    visibility.observe(canvas);
 
-    start();
+    // Repaint in the new colors when the theme or season changes
+    const themeObserver = new MutationObserver(() => {
+      readColors();
+      draw();
+    });
+    themeObserver.observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-season', 'data-season-style'] });
 
-    const handleResize = () => {
-      const nw = mount.clientWidth;
-      const nh = mount.clientHeight;
-      camera.aspect = nw / nh;
-      camera.updateProjectionMatrix();
-      renderer.setSize(nw, nh);
-      if (reducedMotion) renderer.render(scene, camera);
-    };
-    window.addEventListener('resize', handleResize);
+    const onVisibilityChange = () => !document.hidden && wake();
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     return () => {
-      stop();
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', handleVisibility);
-      window.removeEventListener('resize', handleResize);
-      if (mount.contains(renderer.domElement)) mount.removeChild(renderer.domElement);
-      coreGeo.dispose();
-      glowGeo.dispose();
-      materials.forEach((m) => m.dispose());
-      renderer.dispose();
+      cancelAnimationFrame(frame);
+      wakeRef.current = () => {};
+      resizeObserver.disconnect();
+      visibility.disconnect();
+      themeObserver.disconnect();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, []);
 
-  return (
-    <div
-      ref={mountRef}
-      style={{
-        position: 'absolute',
-        inset: 0,
-        pointerEvents: 'none',
-        zIndex: 1,
-      }}
-    />
-  );
+  return <canvas ref={canvasRef} className="hero-visualizer" aria-hidden="true" />;
 }

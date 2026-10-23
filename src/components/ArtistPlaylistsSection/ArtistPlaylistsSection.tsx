@@ -1,18 +1,18 @@
 import { useState } from 'react';
 import type { Skills } from '@/types';
-import { Shelf, ShelfCard, DetailModal, TextCover } from '@/components/Shelf';
+import { Shelf, ShelfCard, DetailModal, TextCover, sleeve } from '@/components/Shelf';
 
 interface ArtistPlaylistsSectionProps {
   skills: Skills;
 }
 
-// Palette of Spotify's generated-playlist cover colors
-const coverColors = ['#e8115b', '#1e3264', '#8d67ab', '#148a08', '#e13300', '#477d95', '#ba5d07', '#503750'];
+// Generated-playlist covers cycle through the theme's eight sleeve tones
+const SLEEVE_TONES = 8;
 
 const ArtistPlaylistsSection = ({ skills }: ArtistPlaylistsSectionProps) => {
   const [selected, setSelected] = useState<string | null>(null);
   const categories = Object.entries(skills);
-  const colorOf = (index: number) => coverColors[index % coverColors.length];
+  const toneOf = (index: number) => (index % SLEEVE_TONES) + 1;
   const selectedIndex = categories.findIndex(([category]) => category === selected);
 
   return (
@@ -21,7 +21,7 @@ const ArtistPlaylistsSection = ({ skills }: ArtistPlaylistsSectionProps) => {
         {categories.map(([category, items], i) => (
           <ShelfCard
             key={category}
-            cover={<TextCover title={category} color={colorOf(i)} byline="Jonathan Zhu" />}
+            cover={<TextCover title={category} tone={toneOf(i)} byline="Jonathan Zhu" />}
             title={category}
             subtitle={items.join(', ')}
             onClick={() => setSelected(category)}
@@ -33,11 +33,11 @@ const ArtistPlaylistsSection = ({ skills }: ArtistPlaylistsSectionProps) => {
         <DetailModal
           isOpen
           onClose={() => setSelected(null)}
-          cover={<TextCover title={selected} color={colorOf(selectedIndex)} byline="Jonathan Zhu" />}
+          cover={<TextCover title={selected} tone={toneOf(selectedIndex)} byline="Jonathan Zhu" />}
           eyebrow="Playlist"
           title={selected}
           meta={`Jonathan Zhu • ${categories[selectedIndex][1].length} skills`}
-          accent={colorOf(selectedIndex)}
+          accent={sleeve(toneOf(selectedIndex))}
         >
           <ol className="detail-modal-list">
             {categories[selectedIndex][1].map((skill, i) => (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import type { Certification, Education } from '@/types';
-import { Shelf, ShelfCard, FilterChips, DetailModal, LogoCover, BadgeCover } from '@/components/Shelf';
+import { Shelf, ShelfCard, FilterChips, DetailModal, LogoCover, BadgeCover, sleeve } from '@/components/Shelf';
 
 export type DiscographyTab = 'popular' | 'albums' | 'singles';
 
@@ -16,15 +16,16 @@ type Release =
   | { kind: 'album'; item: Education }
   | { kind: 'single'; item: Certification };
 
-const schoolColors: Record<string, string> = {
-  'Georgia Institute of Technology': '#b3a369',
-  'Rochester Institute of Technology': '#f76902',
+// Detail-page accents come from the theme: the school's metal or a sleeve tone, and the certification tier
+const schoolAccents: Record<string, string> = {
+  'Georgia Institute of Technology': 'var(--gold-700)',
+  'Rochester Institute of Technology': sleeve(4),
 };
 
-const tierColors: Record<Certification['tier'], string> = {
-  platinum: '#6b6b6b',
-  gold: '#9c7a1c',
-  presave: '#1db954',
+const tierAccents: Record<Certification['tier'], string> = {
+  platinum: 'var(--platinum-700)',
+  gold: 'var(--gold-700)',
+  presave: 'var(--accent-600)',
 };
 
 const yearOf = (text: string) => text.match(/\d{4}/)?.[0] ?? text;
@@ -53,7 +54,7 @@ const DiscographySection = ({ education, certifications, tab, onTabChange }: Dis
           release.kind === 'album' ? (
             <ShelfCard
               key={release.item.school}
-              cover={<LogoCover src={release.item.logo} label={release.item.school} color="#333" />}
+              cover={<LogoCover src={release.item.logo} label={release.item.school} tone={2} />}
               title={release.item.school}
               subtitle={`${yearOf(release.item.status)} • ${release.item.degree}`}
               onClick={() => setSelected(release)}
@@ -74,11 +75,11 @@ const DiscographySection = ({ education, certifications, tab, onTabChange }: Dis
         <DetailModal
           isOpen
           onClose={() => setSelected(null)}
-          cover={<LogoCover src={selected.item.logo} label={selected.item.school} color="#333" />}
+          cover={<LogoCover src={selected.item.logo} label={selected.item.school} tone={2} />}
           eyebrow="Album"
           title={selected.item.school}
           meta={`Jonathan Zhu • ${selected.item.status}`}
-          accent={schoolColors[selected.item.school]}
+          accent={schoolAccents[selected.item.school]}
         >
           <ol className="detail-modal-list">
             <li>
@@ -97,7 +98,7 @@ const DiscographySection = ({ education, certifications, tab, onTabChange }: Dis
           eyebrow={selected.item.tier === 'gold' ? 'Certified Gold' : 'Certified Platinum'}
           title={selected.item.name}
           meta={`${selected.item.issuer} • ${selected.item.date}`}
-          accent={tierColors[selected.item.tier]}
+          accent={tierAccents[selected.item.tier]}
         >
           {selected.item.verifyUrl ? (
             <a

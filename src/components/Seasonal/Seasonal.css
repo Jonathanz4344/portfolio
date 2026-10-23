@@ -1,0 +1,520 @@
+/*
+ * Seasonal decor, behind the hero content and never interactive. The base styles are the finished scene;
+ * entrances run only when :root[data-motion='on'] and each one is over within about five seconds,
+ * so nothing keeps moving on its own. Every color is a season, metal or neutral token.
+ */
+.season-decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  container-type: size;
+}
+
+.decor-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Halloween */
+.season-decor[data-decor='halloween'] {
+  --decor-ink: color-mix(in oklab, var(--season-300) 62%, transparent);
+}
+
+:root[data-theme='light'] .season-decor[data-decor='halloween'] {
+  --decor-ink: color-mix(in oklab, var(--neutral-900) 78%, transparent);
+}
+
+.decor-moon {
+  position: absolute;
+  top: 9%;
+  right: 12%;
+  width: clamp(60px, 8cqw, 104px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 38% 36%,
+    var(--season-200),
+    color-mix(in oklab, var(--season-300) 85%, transparent) 58%,
+    color-mix(in oklab, var(--season-400) 70%, transparent)
+  );
+  box-shadow: 0 0 70px 18px color-mix(in oklab, var(--season-400) 24%, transparent);
+  opacity: 0.85;
+}
+
+:root[data-theme='light'] .decor-moon {
+  opacity: 0.75;
+}
+
+.decor-web {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(120px, 18cqw, 250px);
+  height: auto;
+  overflow: visible;
+}
+
+.decor-web-threads,
+.decor-spider-thread {
+  fill: none;
+  stroke: var(--season-text);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.decor-web-threads {
+  opacity: 0.4;
+}
+
+.decor-spider-thread {
+  opacity: 0.55;
+  stroke-dasharray: 80;
+}
+
+.decor-spider {
+  fill: var(--decor-ink);
+  stroke: var(--decor-ink);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.decor-spider-legs {
+  fill: none;
+}
+
+.decor-bat {
+  position: absolute;
+  top: var(--y);
+  right: var(--x);
+  width: var(--s);
+  fill: var(--decor-ink);
+}
+
+.decor-bat svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  transform-origin: 50% 60%;
+}
+
+:root[data-motion='on'] .decor-moon {
+  animation: moon-rise 2.4s var(--ease-out) both;
+}
+
+:root[data-motion='on'] .decor-spider-thread {
+  animation: thread-unroll 1.6s var(--ease-out) 0.7s both;
+}
+
+:root[data-motion='on'] .decor-spider {
+  animation: spider-drop 1.6s var(--ease-out) 0.7s both;
+}
+
+:root[data-motion='on'] .decor-bat {
+  animation: bat-in var(--t) var(--ease-out) var(--d) both;
+}
+
+:root[data-motion='on'] .decor-bat svg {
+  animation: bat-flap 0.16s var(--ease-in-out) var(--d) 20 alternate;
+}
+
+@keyframes moon-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+}
+
+@keyframes thread-unroll {
+  from {
+    stroke-dashoffset: 80;
+  }
+}
+
+@keyframes spider-drop {
+  from {
+    transform: translateY(-74px);
+  }
+}
+
+@keyframes bat-in {
+  from {
+    opacity: 0;
+    transform: translate(var(--fx), var(--fy)) rotate(-14deg) scale(0.55);
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+@keyframes bat-flap {
+  to {
+    transform: scaleY(0.35);
+  }
+}
+
+/* Christmas */
+.season-decor[data-decor='christmas'] {
+  --snow: color-mix(in oklab, var(--neutral-0) 82%, transparent);
+}
+
+:root[data-theme='light'] .season-decor[data-decor='christmas'] {
+  --snow: color-mix(in oklab, var(--platinum-500) 72%, transparent);
+}
+
+.decor-lights {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 64px;
+}
+
+.decor-wire {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--line-strong);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.decor-bulb {
+  position: absolute;
+  width: 8px;
+  height: 12px;
+  margin-left: -4px;
+  border-radius: 50% 50% 48% 48% / 42% 42% 58% 58%;
+  background: var(--bulb);
+  box-shadow: 0 0 12px 2px color-mix(in oklab, var(--bulb) 50%, transparent);
+}
+
+.decor-bulb::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: var(--line-strong);
+}
+
+.decor-bulb[data-tone='0'] {
+  --bulb: var(--season-400);
+}
+
+.decor-bulb[data-tone='1'] {
+  --bulb: var(--gold-300);
+}
+
+.decor-bulb[data-tone='2'] {
+  --bulb: var(--accent-400);
+}
+
+.decor-bulb[data-tone='3'] {
+  --bulb: var(--platinum-200);
+}
+
+:root[data-theme='light'] .decor-bulb[data-tone='1'] {
+  --bulb: var(--gold-500);
+}
+
+:root[data-theme='light'] .decor-bulb[data-tone='3'] {
+  --bulb: var(--platinum-500);
+}
+
+.decor-flake {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--snow);
+  opacity: var(--o);
+  filter: blur(var(--b));
+}
+
+:root[data-motion='on'] .decor-bulb {
+  animation: bulb-on 0.7s var(--ease-out) calc(0.3s + var(--i) * 70ms) both;
+}
+
+:root[data-motion='on'] .decor-flake {
+  animation: snow-fall var(--t) cubic-bezier(0.3, 0.5, 0.4, 1) var(--d) both;
+}
+
+@keyframes bulb-on {
+  from {
+    opacity: 0.15;
+    box-shadow: none;
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.35);
+  }
+}
+
+@keyframes snow-fall {
+  from {
+    opacity: 0;
+    transform: translate(var(--drift), calc(-1 * var(--fall)));
+  }
+  12% {
+    opacity: var(--o);
+  }
+}
+
+/* Lunar New Year */
+.decor-lantern {
+  position: absolute;
+  top: 0;
+  right: var(--x);
+  width: var(--w);
+  transform-origin: 50% 0;
+}
+
+.decor-lantern-cord {
+  display: block;
+  width: 1px;
+  height: var(--cord);
+  margin: 0 auto;
+  background: color-mix(in oklab, var(--gold-500) 80%, transparent);
+}
+
+.decor-lantern svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 16px color-mix(in oklab, var(--season-500) 45%, transparent));
+}
+
+.lantern-body {
+  fill: url(#lantern-glow);
+}
+
+.lantern-cap {
+  fill: var(--gold-500);
+}
+
+.lantern-rib {
+  fill: none;
+  stroke: color-mix(in oklab, var(--gold-300) 65%, transparent);
+  stroke-width: 1;
+}
+
+.lantern-tassel {
+  stroke: var(--gold-500);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+}
+
+.lantern-glow-core {
+  stop-color: var(--gold-200);
+}
+
+.lantern-glow-mid {
+  stop-color: var(--season-500);
+}
+
+.lantern-glow-edge {
+  stop-color: var(--season-700);
+}
+
+/* The year's animal as a red seal: a cream character cut into vermilion */
+.decor-seal {
+  position: absolute;
+  top: 58%;
+  right: 7%;
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 5cqw, 60px);
+  aspect-ratio: 1;
+  border-radius: 6px;
+  color: var(--neutral-25);
+  background: var(--season-600);
+  box-shadow:
+    inset 0 0 0 3px var(--season-600),
+    inset 0 0 0 4.5px color-mix(in oklab, var(--neutral-25) 75%, transparent);
+  font-family: 'Noto Serif TC', 'Noto Serif SC', 'Songti TC', 'Songti SC', STSong, PMingLiU, SimSun, serif;
+  font-size: clamp(24px, 3cqw, 36px);
+  line-height: 1;
+  transform: rotate(-6deg);
+}
+
+:root[data-motion='on'] .decor-lantern {
+  animation: lantern-sway 4.6s var(--ease-out) var(--d) both;
+}
+
+:root[data-motion='on'] .decor-seal {
+  animation: seal-stamp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s both;
+}
+
+@keyframes lantern-sway {
+  0% {
+    transform: rotate(7deg);
+  }
+  18% {
+    transform: rotate(-5deg);
+  }
+  36% {
+    transform: rotate(3.5deg);
+  }
+  54% {
+    transform: rotate(-2deg);
+  }
+  72% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes seal-stamp {
+  from {
+    opacity: 0;
+    transform: rotate(-12deg) scale(1.5);
+  }
+}
+
+/* Thanksgiving */
+.decor-leaf {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  fill: var(--leaf);
+  opacity: 0.85;
+  transform: translate(0px, 0px) rotate(var(--r));
+}
+
+.decor-leaf svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.decor-leaf[data-tone='0'] {
+  --leaf: var(--season-400);
+}
+
+.decor-leaf[data-tone='1'] {
+  --leaf: var(--season-500);
+}
+
+.decor-leaf[data-tone='2'] {
+  --leaf: var(--season-600);
+}
+
+.decor-leaf[data-tone='3'] {
+  --leaf: var(--gold-500);
+}
+
+:root[data-motion='on'] .decor-leaf {
+  animation: leaf-fall var(--t) var(--ease-out) var(--d) both;
+}
+
+@keyframes leaf-fall {
+  from {
+    opacity: 0;
+    transform: translate(var(--drift), calc(-1 * var(--fall))) rotate(calc(var(--r) - 200deg));
+  }
+  15% {
+    opacity: 0.85;
+  }
+}
+
+/* New Year */
+.decor-sparkle {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--s);
+  fill: url(#decor-gold);
+  opacity: var(--o);
+}
+
+.decor-sparkle svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.decor-gold-light {
+  stop-color: var(--gold-200);
+}
+
+.decor-gold-mid {
+  stop-color: var(--gold-500);
+}
+
+.decor-gold-deep {
+  stop-color: var(--gold-700);
+}
+
+:root[data-motion='on'] .decor-sparkle {
+  animation:
+    sparkle-in 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) var(--d) both,
+    sparkle-twinkle 1.1s var(--ease-in-out) calc(var(--d) + 1.2s) 2 alternate;
+}
+
+@keyframes sparkle-in {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+}
+
+@keyframes sparkle-twinkle {
+  to {
+    transform: scale(0.72);
+  }
+}
+
+/* Phones: the hero is a centered column, so the decor keeps to the edges */
+@media (max-width: 768px) {
+  .decor-moon {
+    top: 7%;
+    right: 6%;
+  }
+
+  /* Drape the lights just under the menu and theme buttons */
+  .decor-lights {
+    top: 44px;
+  }
+
+  .decor-bat[data-bat='2'],
+  .decor-bat[data-bat='3'] {
+    display: none;
+  }
+
+  .decor-lantern[data-lantern='1'] {
+    right: 3%;
+  }
+
+  .decor-seal {
+    top: 14%;
+    right: auto;
+    left: 7%;
+  }
+
+  /* Leaves and sparkles sit on the right half on desktop; spread them across the whole width */
+  .decor-leaf,
+  .decor-sparkle {
+    left: calc((var(--x) - 48%) * 1.9 + 4%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .season-decor *,
+  .season-decor *::before {
+    animation: none !important;
+  }
+}

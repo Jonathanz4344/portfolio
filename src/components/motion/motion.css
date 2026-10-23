@@ -1,0 +1,243 @@
+/*
+ * Motion kit. Every rule that hides content waits for :root[data-motion='on'], which the pre-paint script
+ * sets only when motion is allowed (and removes if the app never hydrates). Under reduced motion,
+ * content is simply there: reveals take 0 ms and nothing is ever left hidden.
+ */
+
+/* Reveal */
+[data-reveal] {
+  transition:
+    opacity var(--dur-5) var(--ease-out) var(--reveal-delay, 0ms),
+    transform var(--dur-5) var(--ease-out) var(--reveal-delay, 0ms),
+    filter var(--dur-5) var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+:root[data-motion='on'] [data-reveal]:not([data-shown]) {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+}
+
+:root[data-motion='on'] [data-reveal='fade']:not([data-shown]) {
+  transform: none;
+}
+
+:root[data-motion='on'] [data-reveal='blur']:not([data-shown]) {
+  filter: blur(10px);
+}
+
+/* Stagger: items rise in sequence; items added later rise on their own */
+:root[data-motion='on'] [data-stagger]:not([data-shown]) > [data-stagger-item] {
+  opacity: 0;
+}
+
+:root[data-motion='on'] [data-stagger][data-shown] > [data-stagger-item] {
+  animation: rise-in var(--dur-5) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * var(--stagger-step, 60ms));
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+}
+
+/* SplitWords */
+.split-word {
+  display: inline-block;
+}
+
+:root[data-motion='on'] [data-split='view']:not([data-shown]) .split-word {
+  opacity: 0;
+}
+
+:root[data-motion='on'] [data-split='load'] .split-word,
+:root[data-motion='on'] [data-split='view'][data-shown] .split-word {
+  animation: word-in var(--dur-6) var(--ease-out) both;
+  animation-delay: calc(var(--split-delay, 0ms) + var(--i, 0) * var(--split-step, 90ms));
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translate3d(0, 0.22em, 0);
+  }
+}
+
+/* CountUp */
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
+
+/* KenBurns: settles once from a slow zoom, then holds */
+.ken-burns {
+  overflow: hidden;
+}
+
+.ken-burns > * {
+  transform-origin: 50% 35%;
+}
+
+:root[data-motion='on'] .ken-burns > * {
+  animation: ken-burns var(--dur-kenBurns) var(--ease-out) both;
+}
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.16) translate3d(1.5%, 2.5%, 0);
+  }
+}
+
+/* Parallax: drifts over the first screen of scrolling */
+@supports (animation-timeline: scroll()) {
+  :root[data-motion='on'] .parallax {
+    animation: parallax-drift linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100vh;
+  }
+}
+
+@keyframes parallax-drift {
+  to {
+    transform: translate3d(0, var(--parallax, 72px), 0);
+  }
+}
+
+/* Magnetic: the wrapper is a slightly larger field; only the content moves */
+.magnetic {
+  display: inline-flex;
+  padding: 14px;
+  margin: -14px;
+}
+
+.magnetic > * {
+  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
+  transition: transform var(--dur-4) var(--ease-out);
+}
+
+/* SpotlightCard */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight::before,
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+
+.spotlight::before {
+  z-index: -1;
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 50%), var(--accent-soft), transparent 62%);
+}
+
+.spotlight::after {
+  padding: 1px;
+  background: radial-gradient(220px circle at var(--spot-x, 50%) var(--spot-y, 50%), color-mix(in oklab, var(--accent) 55%, transparent), transparent 70%);
+  -webkit-mask: var(--mask-solid) content-box, var(--mask-solid);
+  -webkit-mask-composite: xor;
+  mask: var(--mask-solid) content-box, var(--mask-solid);
+  mask-composite: exclude;
+}
+
+@media (hover: hover) {
+  .spotlight:hover::before,
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Marquee */
+.marquee {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.marquee-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 6%, var(--neutral-1000) 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--marquee-gap, var(--space-8));
+  padding-right: var(--marquee-gap, var(--space-8));
+}
+
+:root[data-motion='on'] .marquee-track {
+  animation: marquee var(--dur-marquee) linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee[data-paused] .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-toggle {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-pill);
+  color: var(--text-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+  transition: color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out);
+}
+
+.marquee-toggle:hover {
+  color: var(--text);
+  background: var(--hover);
+}
+
+/* Without motion the ticker is a still row: one copy, no control */
+:root:not([data-motion='on']) .marquee-group[aria-hidden='true'],
+:root:not([data-motion='on']) .marquee-toggle {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-stagger] > [data-stagger-item],
+  .split-word,
+  .ken-burns > *,
+  .parallax,
+  .magnetic > *,
+  .marquee-track {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .marquee-group[aria-hidden='true'],
+  .marquee-toggle {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Sidebar,
   Hero,
@@ -14,6 +14,7 @@ import {
   AboutSection,
   NowPlayingBar,
 } from '@/components';
+import { ContactProvider } from '@/components/Contact/ContactDialogs';
 import type { DiscographyTab } from '@/components/DiscographySection';
 import { profileData } from '@/data/profileData';
 
@@ -24,7 +25,8 @@ export default function Home() {
   const [isShuffleOn, setIsShuffleOn] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isRepeatOn, setIsRepeatOn] = useState(false);
-  const [showStickyHeader, setShowStickyHeader] = useState(false);
+  const [isPastHero, setIsPastHero] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [discographyTab, setDiscographyTab] = useState<DiscographyTab>('popular');
 
   const homeRef = useRef<HTMLDivElement>(null);
@@ -33,7 +35,6 @@ export default function Home() {
   const experienceRef = useRef<HTMLDivElement>(null);
   const discographyRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
-  const mainScrollRef = useRef<HTMLDivElement>(null);
 
   const handleSectionChange = (section: string) => {
     setActiveSection(section);
@@ -49,7 +50,8 @@ export default function Home() {
       certifications: discographyRef,
       skills: skillsRef,
     };
-    refs[section]?.current?.scrollIntoView({ behavior: 'smooth' });
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    refs[section]?.current?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
   };
 
   const handlePlayToggle = () => {
@@ -98,52 +100,49 @@ export default function Home() {
     setIsRepeatOn((prev) => !prev);
   };
 
-  // Mobile sticky header scroll detection
+  const closeDrawer = useCallback(() => setIsDrawerOpen(false), []);
+
+  // Once the hero has scrolled under the top bar, the bar carries the name
   useEffect(() => {
-    const scrollContainer = mainScrollRef.current;
-    if (!scrollContainer) return;
-
-    const handleScroll = () => {
-      const scrollTop = scrollContainer.scrollTop;
-      setShowStickyHeader(scrollTop > 350);
-    };
-
-    scrollContainer.addEventListener('scroll', handleScroll);
-    return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    const hero = homeRef.current;
+    if (!hero) return;
+    const observer = new IntersectionObserver(([entry]) => setIsPastHero(!entry.isIntersecting), {
+      rootMargin: '-72px 0px 0px 0px',
+    });
+    observer.observe(hero);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="app">
-      {/* Mobile Sticky Header */}
-      <div className={`mobile-sticky-header ${showStickyHeader ? 'visible' : ''}`}>
-        <div className="sticky-header-content">
-          <span className="sticky-header-name">{profileData.name}</span>
-        </div>
-      </div>
-
-      <TopBar
-        profile={profileData}
-        onSectionChange={handleSectionChange}
-        onProjectSelect={handleViewDetails}
-      />
-
-      <div className="app-container">
-        <Sidebar
+    <ContactProvider>
+      <div className="app">
+        <TopBar
           profile={profileData}
-          activeSection={activeSection}
           onSectionChange={handleSectionChange}
-          currentTrack={currentTrack}
-          projects={profileData.projects}
-          onTrackSelect={handleTrackChange}
+          onProjectSelect={handleViewDetails}
+          onOpenMenu={() => setIsDrawerOpen(true)}
+          menuOpen={isDrawerOpen}
+          showName={isPastHero}
         />
 
-        <main className="main-content">
-          <div className="main-scroll" ref={mainScrollRef}>
+        <div className="app-shell">
+          <Sidebar
+            profile={profileData}
+            activeSection={activeSection}
+            onSectionChange={handleSectionChange}
+            currentTrack={currentTrack}
+            projects={profileData.projects}
+            onTrackSelect={handleTrackChange}
+            mobileOpen={isDrawerOpen}
+            onMobileClose={closeDrawer}
+          />
+
+          <main id="main" className="stage" tabIndex={-1}>
             <div ref={homeRef}>
-              <Hero 
-                profile={profileData} 
+              <Hero
+                profile={profileData}
                 isPlaying={isPlaying}
-                onPlayToggle={handlePlayToggle} 
+                onPlayToggle={handlePlayToggle}
                 isShuffleOn={isShuffleOn}
                 onShuffleToggle={handleShuffleToggle}
               />
@@ -182,33 +181,31 @@ export default function Home() {
             </div>
 
             <Footer profile={profileData} />
+          </main>
+        </div>
 
-            <div className="footer-spacer"></div>
-          </div>
-        </main>
+        <NowPlayingBar
+          project={profileData.projects[currentTrack]}
+          projects={profileData.projects}
+          currentIndex={currentTrack}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          onTrackSelect={setCurrentTrack}
+          isShuffleOn={isShuffleOn}
+          onShuffleToggle={handleShuffleToggle}
+          isPlaying={isPlaying}
+          onPlayingChange={setIsPlaying}
+          isRepeatOn={isRepeatOn}
+          onRepeatToggle={handleRepeatToggle}
+          onViewDetails={() => setShowProjectDetail(true)}
+        />
+
+        <ProjectDetail
+          project={profileData.projects[currentTrack]}
+          isOpen={showProjectDetail}
+          onClose={() => setShowProjectDetail(false)}
+        />
       </div>
-
-      <NowPlayingBar
-        project={profileData.projects[currentTrack]}
-        projects={profileData.projects}
-        currentIndex={currentTrack}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        onTrackSelect={setCurrentTrack}
-        isShuffleOn={isShuffleOn}
-        onShuffleToggle={handleShuffleToggle}
-        isPlaying={isPlaying}
-        onPlayingChange={setIsPlaying}
-        isRepeatOn={isRepeatOn}
-        onRepeatToggle={handleRepeatToggle}
-        onViewDetails={() => setShowProjectDetail(true)}
-      />
-
-      <ProjectDetail
-        project={profileData.projects[currentTrack]}
-        isOpen={showProjectDetail}
-        onClose={() => setShowProjectDetail(false)}
-      />
-    </div>
+    </ContactProvider>
   );
 }

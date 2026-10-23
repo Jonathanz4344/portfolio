@@ -1,23 +1,24 @@
 import { useState } from 'react';
 import type { Experience } from '@/types';
-import { Shelf, ShelfCard, DetailModal, LogoCover } from '@/components/Shelf';
+import { Shelf, ShelfCard, DetailModal, LogoCover, sleeve } from '@/components/Shelf';
 
 interface FeaturingSectionProps {
   experience: Experience[];
 }
 
-const companyColors: Record<string, string> = {
-  IBM: '#0f62fe',
-  'Citywide Eye Care': '#1db954',
-  'ZLA - Senior Capstone Project': '#7c3aed',
-  ADP: '#d0271d',
+// Sleeve tones (see src/theme/tokens.ts) for each company's cover and detail page
+const companyTones: Record<string, number> = {
+  IBM: 2,
+  'Citywide Eye Care': 1,
+  'ZLA - Senior Capstone Project': 3,
+  ADP: 4,
 };
 
 const initialsOf = (company: string) => company.split(/[\s-]+/)[0].slice(0, 3).toUpperCase();
 
 const FeaturingSection = ({ experience }: FeaturingSectionProps) => {
   const [selected, setSelected] = useState<Experience | null>(null);
-  const colorOf = (company: string) => companyColors[company] ?? '#535353';
+  const toneOf = (company: string) => companyTones[company] ?? 6;
 
   return (
     <>
@@ -25,7 +26,7 @@ const FeaturingSection = ({ experience }: FeaturingSectionProps) => {
         {experience.map((exp) => (
           <ShelfCard
             key={`${exp.company}-${exp.role}`}
-            cover={<LogoCover src={exp.logo} label={initialsOf(exp.company)} color={colorOf(exp.company)} />}
+            cover={<LogoCover src={exp.logo} label={initialsOf(exp.company)} tone={toneOf(exp.company)} />}
             title={exp.role}
             subtitle={`${exp.company} • ${exp.period}`}
             onClick={() => setSelected(exp)}
@@ -37,11 +38,11 @@ const FeaturingSection = ({ experience }: FeaturingSectionProps) => {
         <DetailModal
           isOpen
           onClose={() => setSelected(null)}
-          cover={<LogoCover src={selected.logo} label={initialsOf(selected.company)} color={colorOf(selected.company)} />}
+          cover={<LogoCover src={selected.logo} label={initialsOf(selected.company)} tone={toneOf(selected.company)} />}
           eyebrow="Playlist"
           title={selected.role}
           meta={`${selected.company} • ${selected.period} • ${selected.location}`}
-          accent={colorOf(selected.company)}
+          accent={sleeve(toneOf(selected.company))}
         >
           <ol className="detail-modal-list">
             {selected.highlights.map((highlight, i) => (

@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { Play, Pause, Heart, Check, MoreHorizontal, Share2, FolderKanban, Building2, Copy } from 'lucide-react';
 import type { Project } from '@/types';
+import { CoverArt, Equalizer, Menu, MenuItem, SectionHeading, useDismiss } from '@/components/kit';
+import { Stagger } from '@/components/motion';
 import './ProjectList.css';
 
 
@@ -41,6 +43,9 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const closeDropdown = useCallback(() => setOpenDropdown(null), []);
+
+  useDismiss(dropdownRef, openDropdown !== null, closeDropdown);
 
   const toggleLike = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -75,7 +80,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
     e.stopPropagation();
     const text = `Check out ${project.title} by Jonathan Zhu`;
     const url = window.location.origin;
-    
+
     if (platform === 'linkedin') {
       window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
     } else if (platform === 'twitter') {
@@ -84,54 +89,20 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
     setOpenDropdown(null);
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setOpenDropdown(null);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
   const likedCount = likedProjects.size;
 
   return (
     <section className="project-list">
       <div className="project-list-container">
-        {/* Mobile Header - Liked Projects Card (same as desktop) */}
-        <div className="mobile-liked-header">
-          <div className="liked-songs-card">
-            <div className="liked-profile-container">
-              <div className="liked-profile-image">
-                <img src="/profile.png" alt="JZ" className="liked-profile-img" />
-              </div>
-              <div className="liked-heart-badge">
-                <Heart size={14} fill="#1DB954" strokeWidth={0} />
-              </div>
-            </div>
-            <div className="liked-songs-info">
-              <span className="liked-title">You've liked {likedCount} projects</span>
-              <span className="liked-artist">By Jonathan Zhu</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Section Title */}
-        <h2 className="popular-title">Popular</h2>
-
-        {/* Left Column - Popular Projects */}
+        {/* Popular Projects */}
         <div className="popular-column">
-          <div className="projects-table">
+          <SectionHeading title="Popular" className="popular-title" />
+
+          <Stagger className="projects-table" step={45}>
             {visibleProjects.map((project, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.38, delay: index * 0.07, ease: 'easeOut' as const }}
-                className={`project-row ${currentTrack === index ? 'active' : ''}`}
+                className={`project-row ${currentTrack === index ? 'active' : ''} ${openDropdown === index ? 'menu-open' : ''}`}
                 onClick={() => onTrackChange(index)}
                 onDoubleClick={() => onTrackChange(index)}
                 onMouseEnter={() => setHoveredProject(index)}
@@ -139,29 +110,28 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
               >
                 <div className="col-number">
                   {currentTrack === index && isPlaying ? (
-                    <div 
+                    <button
                       className="music-bars"
+                      aria-label="Pause"
                       onClick={(e) => {
                         e.stopPropagation();
                         onPause();
                       }}
                     >
-                      <span className="bar"></span>
-                      <span className="bar"></span>
-                      <span className="bar"></span>
-                      <span className="bar"></span>
+                      <Equalizer />
                       <Pause size={14} fill="currentColor" className="pause-overlay" />
-                    </div>
+                    </button>
                   ) : hoveredProject === index || currentTrack === index ? (
-                    <Play 
-                      size={14} 
-                      fill="currentColor" 
+                    <button
                       className="play-btn"
+                      aria-label="Play"
                       onClick={(e) => {
                         e.stopPropagation();
                         onTrackChange(index);
                       }}
-                    />
+                    >
+                      <Play size={14} fill="currentColor" />
+                    </button>
                   ) : (
                     <span>{index + 1}</span>
                   )}
@@ -169,28 +139,19 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
 
                 <div className="col-title">
                   <div className="project-cover">
-                    {project.companyLogo ? (
-                      <img 
-                        src={project.companyLogo} 
-                        alt={project.artist} 
-                        className="cover-logo"
-                      />
-                    ) : (
-                      <div className="cover-gradient" data-type={project.type.toLowerCase().replace(/\s+/g, '-')}>
-                        {project.artist.charAt(0)}
-                      </div>
-                    )}
+                    <CoverArt project={project} letter={project.artist.charAt(0)} sizes="44px" />
                     <button
                       className={`cover-play-btn ${currentTrack === index && isPlaying ? 'visible' : ''}`}
+                      aria-label={currentTrack === index && isPlaying ? 'Pause' : 'Play'}
                       onClick={(e) => {
                         e.stopPropagation();
                         onTrackChange(index);
                       }}
                     >
                       {currentTrack === index && isPlaying ? (
-                        <Pause size={16} fill="#000" />
+                        <Pause size={16} fill="currentColor" />
                       ) : (
-                        <Play size={16} fill="#000" style={{ marginLeft: 2 }} />
+                        <Play size={16} fill="currentColor" style={{ marginLeft: 2 }} />
                       )}
                     </button>
                   </div>
@@ -217,67 +178,55 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                     <button
                       className="more-options"
                       onClick={(e) => handleDropdownToggle(index, e)}
+                      aria-label="More options"
+                      aria-haspopup="menu"
+                      aria-expanded={openDropdown === index}
                     >
                       <MoreHorizontal size={16} />
                     </button>
                     {openDropdown === index && (
-                      <>
-                        <div className="dropdown-backdrop" onClick={() => setOpenDropdown(null)} />
-                        <div className="dropdown-menu">
-                          <button
-                            className="dropdown-item"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              onViewDetails(index);
-                              setOpenDropdown(null);
-                            }}
+                      <Menu className="dropdown-menu" above={index >= visibleProjects.length - 2}>
+                        <MenuItem
+                          icon={<FolderKanban size={16} />}
+                          onSelect={(e) => {
+                            e.stopPropagation();
+                            onViewDetails(index);
+                            setOpenDropdown(null);
+                          }}
+                        >
+                          View Details
+                        </MenuItem>
+                        {companyUrls[project.artist] ? (
+                          <MenuItem
+                            href={companyUrls[project.artist]}
+                            external
+                            icon={<Building2 size={16} />}
+                            onSelect={(e) => e.stopPropagation()}
                           >
-                            <FolderKanban size={16} />
-                            <span>View Details</span>
-                          </button>
-                          {companyUrls[project.artist] ? (
-                            <a
-                              href={companyUrls[project.artist]}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="dropdown-item"
-                              onClick={(e) => e.stopPropagation()}
-                            >
-                              <Building2 size={16} />
-                              <span>Go to {project.artist.split(' (')[0]}</span>
-                            </a>
-                          ) : companiesWithoutLinks.includes(project.artist) ? (
-                            <div className="dropdown-item disabled">
-                              <Building2 size={16} />
-                              <span>Go to {project.artist.split(' (')[0]}</span>
-                            </div>
-                          ) : null}
-                          <button
-                            className="dropdown-item"
-                            onClick={(e) => handleCopyLink(project, index, e)}
-                          >
-                            <Copy size={16} />
-                            <span>{copiedIndex === index ? 'Copied!' : 'Copy Link'}</span>
-                          </button>
-                          <button
-                            className="dropdown-item"
-                            onClick={(e) => handleShare(project, 'linkedin', e)}
-                          >
-                            <Share2 size={16} />
-                            <span>Share to LinkedIn</span>
-                          </button>
-                        </div>
-                      </>
+                            Go to {project.artist.split(' (')[0]}
+                          </MenuItem>
+                        ) : companiesWithoutLinks.includes(project.artist) ? (
+                          <MenuItem disabled icon={<Building2 size={16} />}>
+                            Go to {project.artist.split(' (')[0]}
+                          </MenuItem>
+                        ) : null}
+                        <MenuItem icon={<Copy size={16} />} onSelect={(e) => handleCopyLink(project, index, e)}>
+                          {copiedIndex === index ? 'Copied!' : 'Copy Link'}
+                        </MenuItem>
+                        <MenuItem icon={<Share2 size={16} />} onSelect={(e) => handleShare(project, 'linkedin', e)}>
+                          Share to LinkedIn
+                        </MenuItem>
+                      </Menu>
                     )}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </Stagger>
 
           {projects.length > POPULAR_COLLAPSED_COUNT && (
             <button
-              className="see-more-btn"
+              className="see-more-btn link-quiet"
               onClick={() => setShowAllProjects((prev) => !prev)}
             >
               {showAllProjects ? 'Show less' : 'See more'}
@@ -285,15 +234,16 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
           )}
         </div>
 
-        {/* Right Column - Liked Songs Card */}
-        <div className="liked-column">
+        {/* Liked Projects */}
+        <aside className="liked-column">
+          <SectionHeading title="Liked Projects" className="liked-heading" />
           <div className="liked-songs-card">
             <div className="liked-profile-container">
               <div className="liked-profile-image">
-                <img src="/profile.png" alt="JZ" className="liked-profile-img" />
+                <Image src="/profile.png" alt="JZ" width={64} height={64} sizes="64px" className="liked-profile-img" />
               </div>
               <div className="liked-heart-badge">
-                <Heart size={14} fill="#1DB954" strokeWidth={0} />
+                <Heart size={12} fill="currentColor" strokeWidth={0} />
               </div>
             </div>
             <div className="liked-songs-info">
@@ -301,7 +251,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
               <span className="liked-artist">By Jonathan Zhu</span>
             </div>
           </div>
-        </div>
+        </aside>
       </div>
     </section>
   );

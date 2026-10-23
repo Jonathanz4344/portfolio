@@ -1,6 +1,15 @@
 import type { Metadata } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { HydrationFlag } from '@/components/motion';
+import { profileData } from '@/data/profileData';
+import { tokensCss } from '@/theme/tokens';
+import { prepaintScript } from '@/theme/prepaint';
 import './globals.css';
+
+// Self-hosted at build time and preloaded; the fallback metrics are adjusted so the swap does not shift layout
+const fraunces = Fraunces({ subsets: ['latin'], axes: ['opsz', 'SOFT'], variable: '--font-fraunces', display: 'swap' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
   title: 'Jonathan Zhu | Full-Stack Software Engineer',
@@ -78,6 +87,8 @@ export default function RootLayout({
     url: 'https://jonathanzhu.dev',
     image: 'https://jonathanzhu.dev/profile.png',
     jobTitle: 'Application Developer',
+    email: `mailto:${profileData.email}`,
+    telephone: `+1-${profileData.phone}`,
     worksFor: {
       '@type': 'Organization',
       name: 'IBM',
@@ -115,13 +126,22 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    // The pre-paint script sets theme, season and motion attributes on <html> before React hydrates
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`} suppressHydrationWarning>
+      <head>
+        <style dangerouslySetInnerHTML={{ __html: tokensCss }} />
+        <script dangerouslySetInnerHTML={{ __html: prepaintScript }} />
+      </head>
       <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         {children}
+        <HydrationFlag />
         <SpeedInsights />
       </body>
     </html>

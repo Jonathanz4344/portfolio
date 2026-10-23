@@ -1,0 +1,118 @@
+/*
+ * Semantic theme. Maps the raw tokens from src/theme/tokens.ts to the roles components use.
+ * Dark is the default; light applies when the pre-paint script sets data-theme="light".
+ * Nothing in this file is a raw color: every value is a token or a mix of tokens.
+ */
+
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: var(--neutral-1000);
+  --surface: var(--neutral-950);
+  --surface-sunken: var(--neutral-975);
+  --surface-overlay: var(--neutral-850);
+  --text: var(--neutral-25);
+  --text-2: var(--neutral-300);
+  --text-3: var(--neutral-400);
+  --text-accent: var(--accent-300);
+  --metal-gold: var(--gold-300);
+  --metal-platinum: var(--platinum-300);
+  --season-text: var(--season-300);
+  --danger: var(--danger-300);
+  --focus: var(--accent-300);
+  --line-amount: 9%;
+  --line-strong-amount: 16%;
+  --scrim: color-mix(in oklab, var(--neutral-1000) 72%, transparent);
+  --shadow-color: color-mix(in oklab, var(--neutral-1000) 78%, transparent);
+  --frost-amount: 72%;
+  --logo-tile: var(--neutral-0);
+  --glow-amount: 22%;
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --canvas: var(--neutral-100);
+  --surface: var(--neutral-25);
+  --surface-sunken: var(--neutral-50);
+  --surface-overlay: var(--neutral-0);
+  --text: var(--neutral-950);
+  --text-2: var(--neutral-700);
+  --text-3: var(--neutral-550);
+  --text-accent: var(--accent-700);
+  --metal-gold: var(--gold-700);
+  --metal-platinum: var(--platinum-700);
+  --season-text: var(--season-700);
+  --danger: var(--danger-700);
+  --focus: var(--accent-700);
+  --line-amount: 12%;
+  --line-strong-amount: 20%;
+  --scrim: color-mix(in oklab, var(--neutral-950) 38%, transparent);
+  --shadow-color: color-mix(in oklab, var(--neutral-800) 16%, transparent);
+  --frost-amount: 76%;
+  --logo-tile: var(--neutral-0);
+  --glow-amount: 18%;
+}
+
+/* Roles derived from the ones above, so seasonal "full" palettes inherit consistent surfaces */
+:root {
+  --accent: var(--accent-500);
+  --accent-hover: var(--accent-400);
+  --accent-pressed: var(--accent-600);
+  --text-on-accent: var(--neutral-1000);
+  --text-inverse: var(--surface);
+
+  --surface-raised: color-mix(in oklab, var(--surface), var(--text) 5%);
+  --surface-tint: color-mix(in oklab, var(--surface), var(--accent) 7%);
+  --surface-ink: var(--neutral-1000);
+  --text-on-ink: var(--neutral-25);
+
+  --line: color-mix(in oklab, var(--text) var(--line-amount), transparent);
+  --line-strong: color-mix(in oklab, var(--text) var(--line-strong-amount), transparent);
+  --hover: color-mix(in oklab, var(--text) 6%, transparent);
+  --pressed: color-mix(in oklab, var(--text) 10%, transparent);
+  --skeleton: color-mix(in oklab, var(--text) 9%, transparent);
+  --frost: color-mix(in oklab, var(--canvas) var(--frost-amount), transparent);
+
+  --accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+  --accent-glow: color-mix(in oklab, var(--accent) var(--glow-amount), transparent);
+
+  --metal-gold-fill: linear-gradient(135deg, var(--gold-200) 0%, var(--gold-500) 48%, var(--gold-700) 100%);
+  --metal-platinum-fill: linear-gradient(135deg, var(--platinum-200) 0%, var(--platinum-500) 48%, var(--platinum-700) 100%);
+
+  --cover-text: var(--neutral-25);
+  --shadow-pop: 0 0 0 1px var(--line), 0 24px 48px -20px var(--shadow-color);
+  /* An opaque layer for mask compositing (hairline borders that light up) */
+  --mask-solid: linear-gradient(var(--neutral-1000) 0 0);
+
+  --season-fill: var(--season-500);
+  --season-soft: color-mix(in oklab, var(--season-500) 16%, transparent);
+  --season-glow: color-mix(in oklab, var(--season-500) 18%, transparent);
+
+  /* The hero waveform is decoration, so it wears the season's color whenever a season is on */
+  --waveform: var(--accent);
+}
+
+:root[data-season] {
+  --waveform: var(--season-500);
+}
+
+/* Full seasonal palette: the season replaces the brand accent and tints the canvas */
+:root[data-season-style='full'][data-season] {
+  --accent: var(--season-500);
+  --accent-hover: var(--season-400);
+  --accent-pressed: var(--season-600);
+  --text-on-accent: var(--season-on-fill);
+  --text-accent: var(--season-text);
+  --focus: var(--season-text);
+}
+
+:root[data-season-style='full'][data-season]:not([data-theme='light']) {
+  --canvas: var(--season-canvas-dark);
+  --surface: var(--season-surface-dark);
+  --surface-overlay: color-mix(in oklab, var(--season-surface-dark), var(--neutral-25) 10%);
+}
+
+:root[data-season-style='full'][data-season][data-theme='light'] {
+  --canvas: var(--season-canvas-light);
+  --surface: var(--season-surface-light);
+}

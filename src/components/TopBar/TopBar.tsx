@@ -1,12 +1,22 @@
-import { useState, useRef, useEffect, useMemo } from 'react';
-import { Home, Search, X } from 'lucide-react';
+import { useState, useRef, useMemo, useSyncExternalStore } from 'react';
+import Image from 'next/image';
+import { Home, Phone, Search, X } from 'lucide-react';
 import type { ProfileData } from '@/types';
+import { useDismiss } from '@/components/kit';
+import { useContact } from '@/components/Contact/ContactDialogs';
+import { BrandMark } from './BrandMark';
+import { ThemeToggle } from './ThemeToggle';
 import './TopBar.css';
 
 interface TopBarProps {
   profile: ProfileData;
   onSectionChange: (section: string) => void;
   onProjectSelect: (index: number) => void;
+  /** Opens the library drawer on phones. */
+  onOpenMenu: () => void;
+  menuOpen: boolean;
+  /** The page has scrolled past the hero, so the bar carries the name. */
+  showName: boolean;
 }
 
 interface SearchResult {
@@ -17,20 +27,19 @@ interface SearchResult {
   onSelect: () => void;
 }
 
-const TopBar = ({ profile, onSectionChange, onProjectSelect }: TopBarProps) => {
+const subscribeScroll = (onChange: () => void) => {
+  window.addEventListener('scroll', onChange, { passive: true });
+  return () => window.removeEventListener('scroll', onChange);
+};
+
+const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpen, showName }: TopBarProps) => {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const { openMessage } = useContact();
+  const scrolled = useSyncExternalStore(subscribeScroll, () => window.scrollY > 4, () => false);
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  useDismiss(wrapperRef, isOpen, () => setIsOpen(false));
 
   const results = useMemo<SearchResult[]>(() => {
     const q = query.trim().toLowerCase();
@@ -87,14 +96,27 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect }: TopBarProps) => {
   };
 
   return (
-    <header className="top-bar">
+    <header className="top-bar" data-scrolled={scrolled ? '' : undefined} data-show-name={showName ? '' : undefined}>
+      <div className="top-bar-start">
+        <button className="mobile-menu-btn" onClick={onOpenMenu} aria-label="Open menu" aria-expanded={menuOpen}>
+          <Image src="/profile.png" alt="JZ" width={40} height={40} sizes="40px" className="mobile-menu-img" />
+        </button>
+        <span className="top-bar-brand">
+          <BrandMark size={30} />
+        </span>
+      </div>
+
+      <span className="top-bar-name" aria-hidden="true">
+        {profile.name}
+      </span>
+
       <div className="top-bar-center" ref={wrapperRef}>
         <button className="top-bar-home" onClick={() => onSectionChange('home')} aria-label="Home" title="Home">
-          <Home size={24} />
+          <Home size={22} />
         </button>
 
         <div className="top-bar-search">
-          <Search size={22} className="top-bar-search-icon" />
+          <Search size={20} className="top-bar-search-icon" />
           <input
             type="text"
             value={query}
@@ -124,7 +146,7 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect }: TopBarProps) => {
                 results.map((r, i) => (
                   <button key={i} className="top-bar-result" onClick={() => select(r)}>
                     <div className="top-bar-result-art">
-                      {r.image ? <img src={r.image} alt="" /> : <span>{r.label.charAt(0)}</span>}
+                      {r.image ? <Image src={r.image} alt="" fill sizes="40px" /> : <span>{r.label.charAt(0)}</span>}
                     </div>
                     <div className="top-bar-result-text">
                       <span className="top-bar-result-title">{r.label}</span>
@@ -139,8 +161,18 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect }: TopBarProps) => {
       </div>
 
       <div className="top-bar-right">
+        <div className="top-bar-pill">
+          <a href={`tel:${profile.phone}`} className="top-bar-pill-phone">
+            <Phone size={15} aria-hidden="true" />
+            <span>{profile.phone}</span>
+          </a>
+          <button type="button" className="top-bar-pill-cta" onClick={() => openMessage('sidebar')}>
+            Send Message
+          </button>
+        </div>
+        <ThemeToggle className="top-bar-icon" />
         <a href={profile.linkedinUrl} target="_blank" rel="noopener noreferrer" className="top-bar-avatar" title={profile.name}>
-          <img src="/profile.png" alt={profile.name} />
+          <Image src="/profile.png" alt={profile.name} width={32} height={32} sizes="32px" />
         </a>
       </div>
     </header>
