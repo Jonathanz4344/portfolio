@@ -1,0 +1,52 @@
+/* 404: one quiet panel on the frame, lit like the hero */
+.not-found {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  padding: var(--space-16) var(--gutter);
+  background:
+    radial-gradient(60% 50% at 50% 30%, var(--accent-glow), transparent 70%),
+    var(--canvas);
+}
+
+.not-found:focus {
+  outline: none;
+}
+
+.not-found-brand {
+  position: absolute;
+  top: var(--space-5);
+  left: var(--gutter);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--text);
+  transition: background-color var(--dur-2) var(--ease-out);
+}
+
+.not-found-brand:hover {
+  background: var(--hover);
+}
+
+.not-found-panel {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-6);
+  width: min(100%, 640px);
+  padding: clamp(32px, 5vw, 56px);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+.not-found-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.not-found .page-intro-title {
+  font-size: var(--text-3xl);
+}

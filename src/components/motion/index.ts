@@ -8,4 +8,4 @@ export { Magnetic } from './Magnetic';
 export { SpotlightCard } from './SpotlightCard';
 export { Marquee } from './Marquee';
 export { HydrationFlag } from './HydrationFlag';
-export { useMounted, useMotionOK, useInViewOnce, motionAllowed } from './hooks';
+export { useMounted, useMotionOK, useInViewOnce, motionAllowed, scrollMotion } from './hooks';

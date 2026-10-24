@@ -1,282 +1,142 @@
-.project-detail-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
+/* A project's song page as a dialog: the cover on an accent-washed header, then its notes on hairlines */
+.project-detail {
+  /* One side padding for header and body, so every line starts on the same edge */
+  --project-detail-pad: clamp(24px, 4vw, 40px);
+}
+
+/* Header: Spotify's color wash, drawn from the accent and fading into the panel */
+.project-detail-header {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2500;
-  padding: 20px;
-  animation: fadeIn 0.2s ease;
+  align-items: flex-end;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--project-detail-pad) var(--space-6);
+  background:
+    radial-gradient(100% 140% at 12% -20%, var(--accent-glow), transparent 64%),
+    linear-gradient(180deg, color-mix(in oklab, var(--surface-overlay), var(--accent) 12%) 0%, var(--surface-overlay) 100%);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.project-detail .project-detail-cover {
+  width: 184px;
+  border-radius: var(--radius-media);
+  box-shadow: 0 0 0 1px var(--line), 0 28px 56px -24px var(--shadow-color);
 }
 
-.project-detail-modal {
-  background: linear-gradient(180deg, #282828 0%, #181818 100%);
-  border-radius: 16px;
-  max-width: 600px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  animation: slideUp 0.3s ease;
+.project-detail-info {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.project-detail-type {
+  color: var(--text-2);
 }
 
-.close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: #fff;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  z-index: 10;
+.project-detail-title {
+  margin: 2px 0 4px;
+  font-size: clamp(2rem, 1.5rem + 1.6vw, 3rem);
+  font-weight: 380;
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--text);
 }
 
-.close-button:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
-}
-
-.modal-header {
-  padding: 32px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
-  display: flex;
-  gap: 24px;
-}
-
-.modal-cover-img {
-  width: 140px;
-  height: 140px;
-  border-radius: 8px;
-  object-fit: cover;
-  object-position: center top;
-  flex-shrink: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  background: #282828;
-}
-
-.modal-cover {
-  width: 140px;
-  height: 140px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 56px;
-  font-weight: 800;
-  color: #fff;
-  flex-shrink: 0;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.modal-cover[data-type="full-stack-development"] {
-  background: linear-gradient(135deg, #1DB954 0%, #169c46 100%);
-}
-
-.modal-cover[data-type="ai-integration"] {
-  background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-}
-
-.modal-cover[data-type="ai-&-healthcare"] {
-  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
-}
-
-.modal-cover[data-type="infrastructure"] {
-  background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
-}
-
-.modal-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
-}
-
-.modal-type {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: #1DB954;
-}
-
-.modal-title {
-  font-size: 28px;
-  font-weight: 800;
-  color: #fff;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.modal-artist {
-  font-size: 16px;
-  color: #b3b3b3;
-  font-weight: 500;
-}
-
-.modal-duration {
-  font-size: 14px;
-  color: #a7a7a7;
-}
-
-.modal-body {
-  padding: 24px 32px;
-}
-
-.modal-section {
-  margin-bottom: 28px;
-}
-
-.modal-section:last-child {
-  margin-bottom: 0;
-}
-
-.modal-section h3 {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #fff;
-  margin: 0 0 12px 0;
-}
-
-.modal-section p {
-  font-size: 15px;
-  color: #b3b3b3;
-  line-height: 1.6;
-  margin: 0;
-}
-
-.impact-highlight {
-  display: inline-block;
-}
-
-.impact-value {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1DB954;
-  padding: 12px 20px;
-  background: rgba(29, 185, 84, 0.15);
-  border-radius: 8px;
-  display: inline-block;
-}
-
-.tech-tags {
+.project-detail-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-}
-
-.tech-tag {
-  font-size: 13px;
-  color: #fff;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.tech-tag:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.modal-actions {
-  padding: 24px 32px 32px;
-  display: flex;
-  gap: 12px;
-}
-
-.action-btn {
-  flex: 1;
-  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 14px 24px;
-  border-radius: 500px;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 2px 10px;
+  font-size: var(--text-base);
+  color: var(--text-2);
 }
 
-.action-btn.primary {
-  background: #1DB954;
-  border: none;
-  color: #000;
+.project-detail-artist {
+  font-weight: 600;
+  color: var(--text);
 }
 
-.action-btn.primary:hover {
-  background: #1ed760;
-  transform: scale(1.02);
+/* The dot before the dates is drawn, so the text stays exactly as written */
+.project-detail-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
 }
 
-.action-btn.secondary {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #fff;
+.project-detail-duration::before {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-3);
 }
 
-.action-btn.secondary:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.1);
+/* Body: the last section's own padding completes the bottom margin, matching the header's top */
+.project-detail-body {
+  padding: 0 var(--project-detail-pad) var(--space-6);
+}
+
+.project-detail-section {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-6);
+}
+
+.project-detail-section + .project-detail-section {
+  border-top: 1px solid var(--line);
+}
+
+.project-detail-section h3 {
+  font-size: var(--text-lg);
+  font-weight: 460;
+  color: var(--text);
+}
+
+/* Impact: the one line set large, in the accent */
+.project-detail-impact {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 380;
+  font-variant-numeric: tabular-nums lining-nums;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  color: var(--text-accent);
 }
 
 @media (max-width: 640px) {
-  .modal-header {
+  /* The kit stretches a sheet to exactly the screen's height; this one is taller, so it grows and scrolls */
+  .project-detail .dialog-panel {
+    align-self: flex-start;
+  }
+
+  /* As in the Spotify app: the cover centered, the words left-aligned beneath it */
+  .project-detail-header {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 24px;
+    align-items: stretch;
+    gap: var(--space-6);
+    padding-top: 64px;
   }
 
-  .modal-cover {
-    width: 120px;
-    height: 120px;
-    font-size: 48px;
+  .project-detail .project-detail-cover {
+    align-self: center;
+    width: 208px;
   }
 
-  .modal-title {
-    font-size: 24px;
+  .project-detail-title {
+    font-size: clamp(1.875rem, 1.2rem + 3.4vw, 2.25rem);
   }
 
-  .modal-body,
-  .modal-actions {
-    padding-left: 24px;
-    padding-right: 24px;
+  .project-detail-meta {
+    font-size: var(--text-sm);
   }
 
-  .modal-actions {
-    flex-direction: column;
+  .project-detail-body {
+    padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
+  }
+
+  /* The sheet scrolls, so its close button floats and stays in reach */
+  .project-detail .dialog-close {
+    position: fixed;
   }
 }

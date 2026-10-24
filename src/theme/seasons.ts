@@ -83,11 +83,11 @@ export function seasonOn(now: Date, lny: Record<number, [number, number]>): Seas
   const monthDay = month * 100 + day;
 
   if (monthDay >= 1015 && monthDay <= 1031) return 'halloween';
-  if (month === 11) {
-    const firstThursday = 1 + ((11 - new Date(year, 10, 1).getDay()) % 7);
-    const thanksgiving = firstThursday + 21;
-    if (day >= thanksgiving - 3 && day <= thanksgiving + 3) return 'thanksgiving';
-  }
+  // Monday to Sunday around the fourth Thursday; when that is Nov 28, the week runs into Dec 1
+  const firstThursday = 1 + ((11 - new Date(year, 10, 1).getDay()) % 7);
+  const weekStart = new Date(year, 10, firstThursday + 18);
+  const weekEnd = new Date(year, 10, firstThursday + 25);
+  if (now >= weekStart && now < weekEnd) return 'thanksgiving';
   if (monthDay >= 1201 && monthDay <= 1230) return 'christmas';
   if (monthDay === 1231 || monthDay <= 102) return 'newyear';
 

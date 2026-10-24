@@ -62,7 +62,7 @@
   margin-top: var(--space-1);
 }
 
-.send-message-btn:disabled {
+.send-message-btn[aria-disabled='true'] {
   opacity: 0.6;
   cursor: progress;
   transform: none;

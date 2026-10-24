@@ -36,6 +36,8 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpe
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const { openMessage } = useContact();
   const scrolled = useSyncExternalStore(subscribeScroll, () => window.scrollY > 4, () => false);
 
@@ -93,6 +95,27 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpe
     result.onSelect();
     setIsOpen(false);
     setQuery('');
+    // Keep keyboard focus in the search field rather than dropping it to the page
+    inputRef.current?.focus({ preventScroll: true });
+  };
+
+  const showResults = isOpen && query.trim() !== '';
+
+  // Arrow keys move between results; Escape goes back to the field
+  const onResultsKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const buttons = Array.from(resultsRef.current?.querySelectorAll<HTMLButtonElement>('.top-bar-result') ?? []);
+    const current = buttons.indexOf(document.activeElement as HTMLButtonElement);
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      buttons[Math.min(current + 1, buttons.length - 1)]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (current <= 0) inputRef.current?.focus();
+      else buttons[current - 1].focus();
+    } else if (e.key === 'Escape') {
+      setIsOpen(false);
+      inputRef.current?.focus();
+    }
   };
 
   return (
@@ -115,10 +138,21 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpe
           <Home size={22} />
         </button>
 
-        <div className="top-bar-search">
+        <div
+          className="top-bar-search"
+          onBlur={(e) => {
+            // Close the results once focus has left the field and the results entirely
+            if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setIsOpen(false);
+          }}
+        >
           <Search size={20} className="top-bar-search-icon" />
           <input
+            ref={inputRef}
             type="text"
+            role="combobox"
+            aria-expanded={showResults}
+            aria-controls="top-bar-results"
+            aria-autocomplete="list"
             value={query}
             onChange={(e) => {
               setQuery(e.target.value);
@@ -128,6 +162,10 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpe
             onKeyDown={(e) => {
               if (e.key === 'Enter' && results[0]) select(results[0]);
               if (e.key === 'Escape') setIsOpen(false);
+              if (e.key === 'ArrowDown' && showResults) {
+                e.preventDefault();
+                resultsRef.current?.querySelector<HTMLButtonElement>('.top-bar-result')?.focus();
+              }
             }}
             placeholder="What do you want to play?"
             aria-label="Search projects, experience, and skills"
@@ -138,10 +176,14 @@ const TopBar = ({ profile, onSectionChange, onProjectSelect, onOpenMenu, menuOpe
             </button>
           )}
 
-          {isOpen && query.trim() && (
-            <div className="top-bar-results">
+          <span className="sr-only" aria-live="polite">
+            {showResults && results.length > 0 ? `${results.length} result${results.length === 1 ? '' : 's'}` : ''}
+          </span>
+
+          {showResults && (
+            <div className="top-bar-results" id="top-bar-results" ref={resultsRef} onKeyDown={onResultsKeyDown}>
               {results.length === 0 ? (
-                <p className="top-bar-empty">No results found for &ldquo;{query}&rdquo;</p>
+                <p className="top-bar-empty" role="status">No results found for &ldquo;{query}&rdquo;</p>
               ) : (
                 results.map((r, i) => (
                   <button key={i} className="top-bar-result" onClick={() => select(r)}>

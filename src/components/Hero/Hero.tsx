@@ -23,6 +23,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
   const [monthlyListeners, setMonthlyListeners] = useState<number | null>(null);
   const [listenersUnavailable, setListenersUnavailable] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const moreButtonRef = useRef<HTMLButtonElement>(null);
   const { openMessage, openResume } = useContact();
   const closeDropdown = useCallback(() => setShowDropdown(false), []);
 
@@ -148,6 +149,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
 
           <div className="more-menu" ref={dropdownRef}>
             <button
+              ref={moreButtonRef}
               className="more-btn"
               onClick={() => setShowDropdown(!showDropdown)}
               aria-label="More options"
@@ -158,7 +160,7 @@ const Hero = ({ profile, isPlaying, onPlayToggle, isShuffleOn, onShuffleToggle }
             </button>
 
             {showDropdown && (
-              <Menu align="start" className="dropdown-menu">
+              <Menu align="start" className="dropdown-menu" onClose={closeDropdown} triggerRef={moreButtonRef}>
                 <MenuItem href={profile.linkedinUrl} external icon={<Linkedin size={18} />}>
                   Follow on LinkedIn
                 </MenuItem>

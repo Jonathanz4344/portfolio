@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
-import { motion } from 'framer-motion';
+'use client';
+
+import { useState } from 'react';
+import Image from 'next/image';
+import { Dialog, Prose, Section, SectionHeading } from '@/components/kit';
+import { Reveal, SpotlightCard } from '@/components/motion';
 import './AboutSection.css';
 
 interface AboutSectionProps {
@@ -13,69 +16,71 @@ const highlights = [
   { label: 'Based in', value: 'New York City', sub: 'Open to opportunities' },
 ];
 
+/** Spotify's artist "About" card: the portrait with a bio excerpt, opening the full bio in a dialog. */
 const AboutSection = ({ about }: AboutSectionProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
-    document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
-  }, [isOpen]);
-
   return (
-    <section className="about-section">
-      <div className="section-header">
-        <h2>About</h2>
-      </div>
+    <Section className="about-section">
+      <SectionHeading title="About" />
 
-      <motion.button
-        className="about-card"
-        onClick={() => setIsOpen(true)}
-        aria-label="Read full bio"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-40px' }}
-        transition={{ duration: 0.5, ease: 'easeOut' as const }}
-      >
-        <img src="/profile.png" alt="" className="about-card-backdrop" />
-        <img src="/profile.png" alt="" className="about-card-image" />
-        <div className="about-card-shade" />
+      <Reveal className="about-card-frame">
+        <SpotlightCard as="button" type="button" className="about-card" onClick={() => setIsOpen(true)} aria-label="Read full bio">
+          {/* A wide card stands the portrait at its right in a studio backdrop; a narrow one is all portrait */}
+          <span className="about-card-media">
+            <Image
+              src="/profile.png"
+              alt=""
+              fill
+              sizes="(max-width: 768px) calc(100vw - 32px), 680px"
+              className="about-card-image"
+            />
+          </span>
+          <span className="about-card-scrim" />
 
-        <div className="about-rank">
-          <span className="about-rank-number">#1</span>
-          <span className="about-rank-label">for your team</span>
-        </div>
+          <span className="about-rank">
+            <span className="about-rank-number">#1</span>
+            <span className="about-rank-label">for your team</span>
+          </span>
 
-        <div className="about-card-body">
-          <span className="about-card-stat">Application Developer @ IBM</span>
-          <p className="about-card-text">{about}</p>
-        </div>
-      </motion.button>
+          <span className="about-card-body">
+            <span className="about-card-stat">Application Developer @ IBM</span>
+            <span className="about-card-text">{about}</span>
+          </span>
+        </SpotlightCard>
+      </Reveal>
 
       {isOpen && (
-        <div className="about-modal-overlay" onClick={() => setIsOpen(false)}>
-          <div className="about-modal" role="dialog" aria-modal="true" aria-label="About Jonathan" onClick={(e) => e.stopPropagation()}>
-            <button className="about-modal-close" onClick={() => setIsOpen(false)} aria-label="Close">
-              <X size={20} />
-            </button>
-            <img src="/profile.png" alt="Jonathan Zhu" className="about-modal-image" />
-            <div className="about-modal-body">
-              <div className="about-modal-stats">
-                {highlights.map((item) => (
-                  <div key={item.label} className="about-modal-stat">
-                    <span className="about-modal-stat-value">{item.value}</span>
-                    <span className="about-modal-stat-sub">{item.sub}</span>
-                    <span className="about-modal-stat-label">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-              <p className="about-modal-text">{about}</p>
+        <Dialog open onClose={() => setIsOpen(false)} label="About Jonathan" closeLabel="Close" size="lg" sheet className="about-dialog">
+          <div className="about-dialog-media">
+            <div className="about-dialog-portrait">
+              <Image
+                src="/profile.png"
+                alt="Jonathan Zhu"
+                fill
+                sizes="(max-width: 640px) 100vw, 440px"
+                className="about-dialog-image"
+              />
             </div>
           </div>
-        </div>
+
+          <div className="about-dialog-body">
+            {/* Each highlight reads label first: "Currently", then "Application Developer", then "@ IBM" */}
+            <dl className="about-highlights">
+              {highlights.map((item) => (
+                <div key={item.label} className="about-highlight">
+                  <dt className="about-highlight-label">{item.label}</dt>
+                  <dd className="about-highlight-value">{item.value}</dd>
+                  <dd className="about-highlight-sub">{item.sub}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <Prose text={about} className="about-dialog-text" />
+          </div>
+        </Dialog>
       )}
-    </section>
+    </Section>
   );
 };
 

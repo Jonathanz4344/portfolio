@@ -1,278 +1,327 @@
+/* About: Spotify's artist card, made calm: the portrait in its own studio light and a small gold seal */
 .about-section {
-  padding: 24px 40px 40px;
+  --about-ink: var(--surface-ink);
+  /* A light veil keeps the bright studio from glaring on the dark page */
+  --about-veil: 12%;
 }
 
-/* Spotify-style About card: full-bleed photo with bio overlay */
+:root[data-theme='light'] .about-section {
+  --about-veil: 4%;
+}
+
+.about-card-frame {
+  container: about-card / inline-size;
+}
+
+/*
+ * The card is photography, so like the record sleeves it keeps one palette in both modes:
+ * light text on an ink scrim at its foot.
+ */
 .about-card {
   position: relative;
   display: block;
   width: 100%;
-  max-width: 900px;
-  height: 460px;
-  padding: 0;
-  border: none;
-  border-radius: 8px;
+  height: clamp(360px, 28cqi + 190px, 480px);
   overflow: hidden;
-  background: #282828;
-  color: #fff;
-  font-family: inherit;
+  border-radius: var(--radius-media);
+  color: var(--text-on-ink);
   text-align: left;
-  cursor: pointer;
+  /* The studio: the photo's pale backdrop carried across, falling off to the left and into the suit's ink below */
+  background:
+    linear-gradient(90deg, color-mix(in oklab, var(--platinum-900) 50%, transparent), transparent 62%),
+    linear-gradient(180deg, var(--platinum-300) 0%, var(--platinum-200) 26%, var(--platinum-300) 58%, var(--platinum-700) 78%, var(--neutral-1000) 92%);
+  box-shadow: 0 0 0 1px var(--line), 0 24px 48px -32px var(--shadow-color);
+  transition:
+    transform var(--dur-4) var(--ease-out),
+    box-shadow var(--dur-4) var(--ease-out);
 }
 
-.about-card-backdrop {
+/* Of the kit spotlight only the lit hairline stays; its accent glow would cloud the photograph */
+.about-card::before {
+  content: none;
+}
+
+.about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 1px var(--line-strong), 0 32px 56px -30px var(--shadow-color);
+}
+
+.about-card:active {
+  transform: translateY(-1px);
+}
+
+/* The portrait stands at the right, its left edge dissolving into the studio */
+.about-card-media {
   position: absolute;
-  inset: -40px;
-  width: calc(100% + 80px);
-  height: calc(100% + 80px);
-  object-fit: cover;
-  filter: blur(40px) brightness(0.55) saturate(1.2);
+  inset: 0 0 0 auto;
+  width: 54%;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 38%);
+  mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 38%);
 }
 
 .about-card-image {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60%;
-  height: 100%;
   object-fit: cover;
-  object-position: center 18%;
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 35%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 35%);
-  transition: transform 0.4s ease;
+  object-position: 50% 8%;
+  transition: transform var(--dur-6) var(--ease-out);
 }
 
 .about-card:hover .about-card-image {
-  transform: scale(1.02);
+  transform: scale(1.025);
 }
 
-.about-card-shade {
+.about-card-scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 70%);
+  background:
+    linear-gradient(
+      0deg,
+      color-mix(in oklab, var(--about-ink) 90%, transparent) 0%,
+      color-mix(in oklab, var(--about-ink) 58%, transparent) 36%,
+      transparent 70%
+    ),
+    color-mix(in oklab, var(--about-ink) var(--about-veil), transparent);
 }
 
+/* The rank, struck as a small gold seal */
 .about-rank {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 112px;
-  height: 112px;
+  top: var(--space-6);
+  right: var(--space-6);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 3px;
+  width: 88px;
+  aspect-ratio: 1;
   border-radius: 50%;
-  background: #509bf5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  color: var(--neutral-950);
   text-align: center;
-  line-height: 1.1;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  background: var(--metal-gold-fill);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, var(--gold-200) 80%, transparent),
+    0 0 0 1px color-mix(in oklab, var(--gold-900) 30%, transparent),
+    0 14px 28px -14px color-mix(in oklab, var(--about-ink) 60%, transparent);
+}
+
+/* An engraved inner ring, so it reads as a seal rather than a sticker */
+.about-rank::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--gold-900) 32%, transparent);
 }
 
 .about-rank-number {
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: 1.875rem;
+  font-weight: 480;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .about-rank-label {
-  font-size: 12px;
-  font-weight: 700;
-  max-width: 80px;
+  max-width: 8ch;
+  font-size: var(--text-2xs);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
 }
 
 .about-card-body {
   position: absolute;
-  left: 0;
   right: 0;
   bottom: 0;
-  padding: 32px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  left: 0;
+  display: grid;
+  gap: var(--space-2);
+  max-width: 680px;
+  padding: clamp(24px, 3vw, 40px);
 }
 
 .about-card-stat {
-  font-size: 16px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
 }
 
 .about-card-text {
-  margin: 0;
-  max-width: 672px;
-  font-size: 16px;
-  line-height: 1.5;
   display: -webkit-box;
+  overflow: hidden;
+  max-width: 60ch;
+  font-size: var(--text-md);
+  line-height: 1.6;
+  color: color-mix(in oklab, var(--text-on-ink) 80%, transparent);
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
-/* Full bio modal */
-.about-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.about-modal {
-  position: relative;
-  width: 100%;
-  max-width: 820px;
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 8px;
-  background: #121212;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
-}
-
-.about-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 1;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.about-modal-close:hover {
-  background: rgba(0, 0, 0, 0.8);
-  transform: scale(1.04);
-}
-
-.about-modal-image {
-  width: 100%;
-  height: 420px;
-  object-fit: cover;
-  object-position: center 22%;
-}
-
-.about-modal-body {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 40px;
-  padding: 32px 40px 40px;
-}
-
-.about-modal-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.about-modal-stat {
-  display: flex;
-  flex-direction: column;
-}
-
-.about-modal-stat-value {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-}
-
-.about-modal-stat-sub {
-  font-size: 14px;
-  color: #b3b3b3;
-}
-
-.about-modal-stat-label {
-  margin-top: 2px;
-  font-size: 12px;
-  color: #b3b3b3;
-}
-
-.about-modal-text {
-  margin: 0;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #b3b3b3;
-  white-space: pre-line;
-}
-
-@media (max-width: 768px) {
-  .about-section {
-    padding: 32px 24px;
-  }
-
+/* A narrow card is all portrait, as on Spotify's phone app */
+@container about-card (max-width: 560px) {
   .about-card {
-    height: 400px;
+    height: clamp(400px, 125cqi, 560px);
   }
 
-  .about-card-image {
+  .about-card-media {
     width: 100%;
     -webkit-mask-image: none;
     mask-image: none;
   }
 
-  .about-card-body {
-    padding: 24px;
+  .about-card-image {
+    object-position: 50% 10%;
   }
 
   .about-rank {
-    top: 16px;
-    right: 16px;
-    width: 88px;
-    height: 88px;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: 72px;
   }
 
   .about-rank-number {
-    font-size: 24px;
+    font-size: 1.5rem;
   }
 
-  .about-rank-label {
-    font-size: 10px;
+  .about-card-body {
+    padding: var(--space-5);
   }
 
-  .about-modal-body {
-    grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 24px;
-  }
-
-  .about-modal-stats {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px 32px;
-  }
-
-  .about-modal-image {
-    height: 300px;
-  }
-}
-
-@media (max-width: 640px) {
-  .about-section {
-    padding: 24px 16px;
-  }
-
-  .about-card {
-    height: 360px;
+  .about-card-stat {
+    font-size: var(--text-xl);
   }
 
   .about-card-text {
-    font-size: 14px;
+    font-size: var(--text-base);
+  }
+}
+
+/* Full bio: the portrait in its studio, then the highlights and the whole story */
+
+/* A sheet taller than the phone grows with its content and scrolls, instead of being stretched to the screen and clipped */
+.about-dialog .dialog-panel {
+  align-self: flex-start;
+}
+
+.about-dialog-media {
+  position: relative;
+  height: 320px;
+  border-bottom: 1px solid var(--line);
+  /* The photo's pale backdrop, carried past its edges */
+  background: linear-gradient(180deg, var(--platinum-300) 0%, var(--platinum-200) 16%, var(--platinum-200) 46%, var(--platinum-300) 74%, var(--platinum-500) 100%);
+}
+
+.about-dialog-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: color-mix(in oklab, var(--about-ink) var(--about-veil), transparent);
+}
+
+/* Cropped above the shoulders, so both feathered edges meet plain backdrop */
+.about-dialog-portrait {
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 440px;
+  translate: -50% 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 22%, var(--neutral-1000) 78%, transparent);
+  mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 22%, var(--neutral-1000) 78%, transparent);
+}
+
+.about-dialog-image {
+  object-fit: cover;
+  object-position: 50% 6%;
+}
+
+.about-dialog-body {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-8) clamp(20px, 5vw, 48px) var(--space-10);
+}
+
+/* Three calm columns divided by hairlines */
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-block: 1px solid var(--line);
+}
+
+.about-highlight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: var(--space-5) var(--space-5) var(--space-5) 0;
+}
+
+.about-highlight + .about-highlight {
+  padding-left: var(--space-5);
+  border-left: 1px solid var(--line);
+}
+
+.about-highlight-label {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.about-highlight-value {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 420;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.about-highlight-sub {
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+/* Phones: the dialog is a sheet, the portrait fills its width and the highlights stack as rows */
+@media (max-width: 640px) {
+  .about-dialog-media {
+    height: auto;
+    aspect-ratio: 1;
   }
 
-  .about-modal-overlay {
-    padding: 0;
+  .about-dialog-portrait {
+    inset: 0;
+    width: auto;
+    translate: none;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
-  .about-modal {
-    max-height: 100vh;
-    height: 100%;
-    border-radius: 0;
+  .about-dialog-body {
+    gap: var(--space-6);
+    padding: var(--space-6) 16px var(--space-10);
+  }
+
+  .about-highlights {
+    grid-template-columns: minmax(0, 1fr);
+    border-bottom: 0;
+  }
+
+  .about-highlight,
+  .about-highlight + .about-highlight {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    column-gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .about-highlight-label {
+    grid-row: span 2;
+    margin: 0;
+    padding-top: 4px;
   }
 }

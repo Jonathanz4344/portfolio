@@ -1,199 +1,255 @@
-.detail-modal-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
+/* The album and playlist page: the cover on a calm wash of the release's tone, a display title, a track list */
+
+/* The page sits on the app's panel surface, so the wash fades into it as on Spotify's album page.
+   A column, so on a phone the body fills the screen and the wash can finish fading. */
+.detail-modal .dialog-panel {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: rgba(0, 0, 0, 0.7);
+  flex-direction: column;
+  /* A phone sheet is otherwise stretched to exactly the screen's height and clips a long list; growing with
+     its content lets the dialog scroll */
+  align-self: flex-start;
+  /* Clips the rounded corners without becoming a scroll container, so the close button can stick */
+  overflow: clip;
+  background: var(--surface);
 }
 
-.detail-modal {
-  position: relative;
-  width: 100%;
-  max-width: 760px;
-  max-height: 88vh;
-  overflow-y: auto;
-  border-radius: 8px;
-  background: #121212;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+/* The close button stays in reach while a long page scrolls, as Spotify's back button does */
+.detail-modal .dialog-close {
+  position: sticky;
+  top: var(--space-3);
+  flex-shrink: 0;
+  align-self: flex-end;
+  /* Takes no room in the column, so the page starts under it at the panel's top edge */
+  margin: var(--space-3) var(--space-3) calc(-36px - var(--space-3)) 0;
 }
 
-.detail-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 1;
-  width: 32px;
-  height: 32px;
-  border: none;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
+.detail-modal-page {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1 0 auto;
+  flex-direction: column;
+  /* The release's tone over the surface: deep in dark mode, a soft tint in light mode. The low tone, where
+     the header meets the track list, stays faint enough for the list's quietest text */
+  --detail-amount: 72%;
+  --detail-low-amount: 34%;
+  --detail-tone: color-mix(in oklab, var(--detail-accent) var(--detail-amount), var(--surface));
+  --detail-tone-low: color-mix(in oklab, var(--detail-tone) var(--detail-low-amount), var(--surface));
+  --detail-cover: 200px;
 }
 
-.detail-modal-close:hover {
-  background: rgba(0, 0, 0, 0.8);
+:root[data-theme='light'] .detail-modal-page {
+  --detail-amount: 24%;
+  --detail-low-amount: 16%;
 }
 
+/* Header */
 .detail-modal-header {
   display: flex;
   align-items: flex-end;
-  gap: 24px;
-  padding: 48px 32px 24px;
-  background: linear-gradient(to bottom, var(--detail-accent) 0%, color-mix(in srgb, var(--detail-accent) 35%, #121212) 70%, #121212 100%);
+  gap: var(--space-8);
+  padding: var(--space-16) var(--space-10) var(--space-8);
+  background: linear-gradient(180deg, var(--detail-tone) 0%, var(--detail-tone-low) 100%);
 }
 
 .detail-modal-cover {
-  width: 180px;
-  height: 180px;
   flex-shrink: 0;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  width: var(--detail-cover);
+  height: var(--detail-cover);
+  border-radius: var(--radius-media);
+  box-shadow: 0 28px 56px -24px var(--shadow-color);
 }
 
 .detail-modal-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: grid;
+  gap: var(--space-2);
   min-width: 0;
+  padding-bottom: var(--space-1);
 }
 
 .detail-modal-eyebrow {
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
+  color: var(--text);
 }
 
 .detail-modal-title {
-  margin: 0;
-  font-size: 40px;
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  color: #fff;
+  /* The serif's side bearing, pulled back so the title lines up with the eyebrow */
+  margin: 2px 0 6px -0.04em;
+  font-size: var(--text-3xl);
+  font-weight: 380;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  overflow-wrap: break-word;
+  color: var(--text);
+}
+
+.detail-modal-title.medium {
+  font-size: calc((var(--text-2xl) + var(--text-3xl)) / 2);
+}
+
+.detail-modal-title.long {
+  font-size: var(--text-2xl);
+  line-height: 1.06;
+  letter-spacing: -0.025em;
 }
 
 .detail-modal-meta {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  text-wrap: balance;
+  color: var(--text-2);
 }
 
+.detail-modal-meta-part {
+  white-space: nowrap;
+}
+
+.detail-modal-meta-lead {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Body: the wash runs on a little way before it settles into the surface */
 .detail-modal-body {
-  padding: 16px 32px 32px;
+  flex: 1 0 auto;
+  padding: var(--space-6) var(--space-6) var(--space-10);
+  background: linear-gradient(180deg, var(--detail-tone-low), transparent min(100%, 180px));
 }
 
+/* Track list: a tabular index column, generous rows, hairlines that step aside for the hovered row */
 .detail-modal-list {
+  display: grid;
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 
 .detail-modal-list li {
+  position: relative;
   display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 8px;
-  padding: 10px 8px;
-  border-radius: 4px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #fff;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: baseline;
+  column-gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-base);
+  line-height: 1.55;
+  color: var(--text);
+  transition: background-color var(--dur-2) var(--ease-out);
 }
 
-.detail-modal-list li:hover {
-  background: rgba(255, 255, 255, 0.07);
+.detail-modal-list li + li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: var(--space-4);
+  left: calc(var(--space-4) * 2 + 28px);
+  height: 1px;
+  background: var(--line);
+  transition: opacity var(--dur-2) var(--ease-out);
 }
 
 .detail-modal-list-index {
-  color: #b3b3b3;
-  text-align: right;
+  font-size: var(--text-sm);
   font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--text-3);
+  transition: color var(--dur-2) var(--ease-out);
 }
 
-.detail-modal-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+@media (hover: hover) {
+  .detail-modal-list li:hover {
+    background: var(--hover);
+  }
+
+  .detail-modal-list li:hover::before,
+  .detail-modal-list li:hover + li::before {
+    opacity: 0;
+  }
+
+  .detail-modal-list li:hover .detail-modal-list-index {
+    color: var(--text);
+  }
 }
 
-.detail-modal-chip {
-  padding: 6px 14px;
-  border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.07);
-  font-size: 14px;
-  color: #fff;
-}
-
+/* The release's one action: an accent pill, the only accent on the page */
 .detail-modal-action {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  padding: 12px 28px;
-  border-radius: 9999px;
-  background: #1ed760;
-  color: #000;
-  font-size: 15px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: transform 0.1s ease;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 48px;
+  margin-inline: var(--space-4);
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--text-on-accent);
+  background: var(--accent);
+  transition: background-color var(--dur-2) var(--ease-out), transform var(--dur-3) var(--ease-out);
+}
+
+.detail-modal-action svg {
+  flex-shrink: 0;
 }
 
 .detail-modal-action:hover {
-  transform: scale(1.04);
+  background: var(--accent-hover);
+  transform: scale(1.03);
+}
+
+.detail-modal-action:active {
+  transform: scale(0.97);
 }
 
 .detail-modal-note {
-  margin: 0 0 16px;
-  font-size: 15px;
+  margin-inline: var(--space-4);
+  font-size: var(--text-base);
   line-height: 1.6;
-  color: #b3b3b3;
+  color: var(--text-3);
 }
 
-/* Mobile: full-screen sheet, like opening an album in the Spotify app */
+/* Phones: a full page, the cover centered over the title, as when opening an album in the Spotify app */
 @media (max-width: 640px) {
-  .detail-modal-overlay {
-    padding: 0;
-  }
-
-  .detail-modal {
-    max-width: none;
-    height: 100%;
-    max-height: 100%;
-    border-radius: 0;
+  .detail-modal-page {
+    --detail-cover: min(232px, 62vw);
   }
 
   .detail-modal-header {
     flex-direction: column;
     align-items: center;
-    text-align: center;
-    padding: 64px 20px 20px;
-  }
-
-  .detail-modal-cover {
-    width: 220px;
-    height: 220px;
+    gap: var(--space-6);
+    padding: var(--space-16) var(--space-4) var(--space-6);
   }
 
   .detail-modal-info {
-    align-items: center;
+    justify-items: center;
+    text-align: center;
   }
 
   .detail-modal-title {
-    font-size: 26px;
+    margin-left: 0;
   }
 
   .detail-modal-body {
-    padding: 8px 12px 32px;
+    padding: var(--space-3) var(--space-2) calc(var(--space-10) + env(safe-area-inset-bottom));
   }
 
   .detail-modal-list li {
-    grid-template-columns: 24px 1fr;
-    font-size: 14px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    padding: 14px var(--space-2);
+  }
+
+  .detail-modal-list li + li::before {
+    right: var(--space-2);
+    left: calc(var(--space-2) + var(--space-3) + 24px);
+  }
+
+  .detail-modal-action {
+    display: flex;
+    margin-inline: var(--space-2);
+  }
+
+  .detail-modal-note {
+    margin-inline: var(--space-2);
+    text-align: center;
   }
 }

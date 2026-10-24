@@ -30,6 +30,9 @@ export const motionAllowed = () =>
  */
 export const useMotionOK = () => useSyncExternalStore(subscribeMotion, motionAllowed, () => true);
 
+/** Smooth scrolling when motion is allowed, an instant jump otherwise. */
+export const scrollMotion = (): ScrollBehavior => (motionAllowed() ? 'smooth' : 'auto');
+
 type VisibilityListener = (visible: boolean) => void;
 const observers = new Map<string, IntersectionObserver>();
 const listeners = new WeakMap<Element, VisibilityListener>();

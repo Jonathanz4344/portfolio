@@ -15,6 +15,9 @@ import {
   NowPlayingBar,
 } from '@/components';
 import { ContactProvider } from '@/components/Contact/ContactDialogs';
+import ImpactSection from '@/components/ImpactSection/ImpactSection';
+import ContactBand from '@/components/ContactBand/ContactBand';
+import { scrollMotion } from '@/components/motion';
 import type { DiscographyTab } from '@/components/DiscographySection';
 import { profileData } from '@/data/profileData';
 
@@ -50,8 +53,7 @@ export default function Home() {
       certifications: discographyRef,
       skills: skillsRef,
     };
-    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    refs[section]?.current?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
+    refs[section]?.current?.scrollIntoView({ behavior: scrollMotion() });
   };
 
   const handlePlayToggle = () => {
@@ -116,14 +118,17 @@ export default function Home() {
   return (
     <ContactProvider>
       <div className="app">
-        <TopBar
-          profile={profileData}
-          onSectionChange={handleSectionChange}
-          onProjectSelect={handleViewDetails}
-          onOpenMenu={() => setIsDrawerOpen(true)}
-          menuOpen={isDrawerOpen}
-          showName={isPastHero}
-        />
+        {/* While the phone drawer is open, everything but the drawer is inert */}
+        <div inert={isDrawerOpen}>
+          <TopBar
+            profile={profileData}
+            onSectionChange={handleSectionChange}
+            onProjectSelect={handleViewDetails}
+            onOpenMenu={() => setIsDrawerOpen(true)}
+            menuOpen={isDrawerOpen}
+            showName={isPastHero}
+          />
+        </div>
 
         <div className="app-shell">
           <Sidebar
@@ -137,7 +142,7 @@ export default function Home() {
             onMobileClose={closeDrawer}
           />
 
-          <main id="main" className="stage" tabIndex={-1}>
+          <main id="main" className="stage" tabIndex={-1} inert={isDrawerOpen}>
             <div ref={homeRef}>
               <Hero
                 profile={profileData}
@@ -158,6 +163,8 @@ export default function Home() {
                 onPause={() => setIsPlaying(false)}
               />
             </div>
+
+            <ImpactSection projects={profileData.projects} />
 
             <div ref={discographyRef}>
               <DiscographySection
@@ -180,25 +187,29 @@ export default function Home() {
               <ArtistPlaylistsSection skills={profileData.skills} />
             </div>
 
+            <ContactBand />
+
             <Footer profile={profileData} />
           </main>
         </div>
 
-        <NowPlayingBar
-          project={profileData.projects[currentTrack]}
-          projects={profileData.projects}
-          currentIndex={currentTrack}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          onTrackSelect={setCurrentTrack}
-          isShuffleOn={isShuffleOn}
-          onShuffleToggle={handleShuffleToggle}
-          isPlaying={isPlaying}
-          onPlayingChange={setIsPlaying}
-          isRepeatOn={isRepeatOn}
-          onRepeatToggle={handleRepeatToggle}
-          onViewDetails={() => setShowProjectDetail(true)}
-        />
+        <div inert={isDrawerOpen}>
+          <NowPlayingBar
+            project={profileData.projects[currentTrack]}
+            projects={profileData.projects}
+            currentIndex={currentTrack}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+            onTrackSelect={setCurrentTrack}
+            isShuffleOn={isShuffleOn}
+            onShuffleToggle={handleShuffleToggle}
+            isPlaying={isPlaying}
+            onPlayingChange={setIsPlaying}
+            isRepeatOn={isRepeatOn}
+            onRepeatToggle={handleRepeatToggle}
+            onViewDetails={() => setShowProjectDetail(true)}
+          />
+        </div>
 
         <ProjectDetail
           project={profileData.projects[currentTrack]}

@@ -19,7 +19,9 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scrollbar-gutter: stable;
+  /* Anything scrolled or tabbed into view clears the fixed top bar and the player */
   scroll-padding-top: calc(var(--topbar-h) + var(--space-4));
+  scroll-padding-bottom: calc(var(--player-h) + var(--shell-gap) * 2 + var(--space-4));
   background: var(--canvas);
 }
 
@@ -160,7 +162,7 @@ a {
 .stage {
   position: relative;
   min-width: 0;
-  min-height: calc(100dvh - var(--topbar-h) - var(--player-h) - var(--shell-gap) * 3);
+  min-height: calc(100dvh - var(--topbar-h) - var(--player-h) - var(--shell-gap) * 2);
   overflow: clip;
   border-radius: var(--radius-panel);
   background: var(--surface);
@@ -173,7 +175,7 @@ a {
 
   .app-shell {
     display: block;
-    padding: 0 0 calc(var(--player-h-compact) + var(--space-4));
+    padding: 0 0 calc(var(--player-h) + var(--shell-gap) * 2);
   }
 
   .stage {
@@ -182,11 +184,39 @@ a {
   }
 }
 
+/* The compact player takes over at 640px */
+@media (max-width: 640px) {
+  html {
+    scroll-padding-bottom: calc(var(--player-h-compact) + var(--space-6));
+  }
+
+  .app-shell {
+    padding-bottom: calc(var(--player-h-compact) + var(--space-4));
+  }
+}
+
 /* Theme switch: the new theme opens as a circle from the toggle (see ThemeToggle) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+/* Reduced motion: every transition and animation settles at once, and scrolling jumps instead of gliding */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Until the remaining dialogs move to the kit Dialog, the legacy overlays lock the page behind them */
+html:has(.project-detail-overlay, .detail-modal-overlay, .about-modal-overlay) {
+  overflow: hidden;
 }
 
 /* Section header still used by About until it moves to the kit */

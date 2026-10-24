@@ -1,6 +1,8 @@
 /* The artist header: a soft brand glow, a still waveform, and the name set large in the display face */
 .hero {
   position: relative;
+  /* Above the track list, so the hero menu opens over it */
+  z-index: 2;
   isolation: isolate;
 }
 
@@ -51,7 +53,8 @@
   display: flex;
   align-items: flex-end;
   gap: clamp(20px, 3vw, 44px);
-  max-width: var(--content-w);
+  /* Padded box: the content width plus its gutters, so the text lines up with every section below */
+  max-width: calc(var(--content-w) + var(--gutter) * 2);
   margin-inline: auto;
   padding: clamp(40px, 5vw, 76px) var(--gutter) clamp(84px, 7vw, 112px);
 }
@@ -157,7 +160,7 @@
 
 /* Action bar */
 .hero-action-bar {
-  max-width: var(--content-w);
+  max-width: calc(var(--content-w) + var(--gutter) * 2);
   margin-inline: auto;
   padding: var(--space-5) var(--gutter) var(--space-1);
 }

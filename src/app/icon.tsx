@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { accent, neutral } from '@/theme/tokens';
 
 export const size = { width: 32, height: 32 };
 export const contentType = 'image/png';
@@ -13,7 +14,7 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#1DB954',
+          background: accent[500],
           borderRadius: '6px',
         }}
       >
@@ -25,7 +26,7 @@ export default function Icon() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
-            stroke="#fff"
+            stroke={neutral[0]}
             strokeLinecap="round"
             strokeLinejoin="round"
           >

@@ -24,7 +24,8 @@
   --line-strong-amount: 16%;
   --scrim: color-mix(in oklab, var(--neutral-1000) 72%, transparent);
   --shadow-color: color-mix(in oklab, var(--neutral-1000) 78%, transparent);
-  --frost-amount: 72%;
+  --scrim-over-canvas: color-mix(in oklab, var(--canvas), var(--neutral-1000) 72%);
+  --frost-amount: 86%;
   --logo-tile: var(--neutral-0);
   --glow-amount: 22%;
 }
@@ -48,7 +49,8 @@
   --line-strong-amount: 20%;
   --scrim: color-mix(in oklab, var(--neutral-950) 38%, transparent);
   --shadow-color: color-mix(in oklab, var(--neutral-800) 16%, transparent);
-  --frost-amount: 76%;
+  --scrim-over-canvas: color-mix(in oklab, var(--canvas), var(--neutral-950) 38%);
+  --frost-amount: 88%;
   --logo-tile: var(--neutral-0);
   --glow-amount: 18%;
 }

@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { accent, neutral } from '@/theme/tokens';
 
 export const size = { width: 180, height: 180 };
 export const contentType = 'image/png';
@@ -13,7 +14,7 @@ export default function AppleIcon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: '#1DB954',
+          background: accent[500],
           borderRadius: '36px',
         }}
       >
@@ -25,7 +26,7 @@ export default function AppleIcon() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
-            stroke="#fff"
+            stroke={neutral[0]}
             strokeLinecap="round"
             strokeLinejoin="round"
           >

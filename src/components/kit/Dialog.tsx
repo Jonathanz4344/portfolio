@@ -24,16 +24,23 @@ interface DialogProps {
 
 /**
  * A modal on the native <dialog>: focus stays inside, Escape and a press on the backdrop close it,
- * the page behind is inert, and page scroll locks while it is open.
+ * the page behind is inert, page scroll locks while it is open, and focus returns to whatever
+ * opened it, even when the dialog unmounts while still open.
  */
 export function Dialog({ open, onClose, label, labelledBy, size = 'md', sheet, closeLabel, className, panelClassName, children }: DialogProps) {
   const ref = useRef<HTMLDialogElement>(null);
+  // A press that starts inside the panel (a text selection dragged out, say) must not close the dialog
+  const pressedBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
+    if (!dialog || !open) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    if (!dialog.open) dialog.showModal();
+    return () => {
+      if (dialog.open) dialog.close();
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
   }, [open]);
 
   return (
@@ -48,8 +55,12 @@ export function Dialog({ open, onClose, label, labelledBy, size = 'md', sheet, c
         event.preventDefault();
         onClose();
       }}
+      onPointerDown={(event) => {
+        pressedBackdrop.current = event.target === event.currentTarget;
+      }}
       onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
+        if (pressedBackdrop.current && event.target === event.currentTarget) onClose();
+        pressedBackdrop.current = false;
       }}
     >
       {open && (

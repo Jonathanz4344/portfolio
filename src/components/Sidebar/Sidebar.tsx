@@ -47,13 +47,20 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
     });
   }, [currentTrack, projects]);
 
-  // The drawer closes on Escape and takes focus while open
+  // The drawer is modal while open (the page behind is made inert by the page): it takes focus,
+  // closes on Escape unless a dialog above it is handling that Escape, and returns focus on close
   useEffect(() => {
     if (!mobileOpen) return;
+    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     sidebarRef.current?.querySelector<HTMLElement>('.nav-item')?.focus({ preventScroll: true });
-    const handleKey = (e: KeyboardEvent) => e.key === 'Escape' && onMobileClose();
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && !document.querySelector('dialog[open]')) onMobileClose();
+    };
     document.addEventListener('keydown', handleKey);
-    return () => document.removeEventListener('keydown', handleKey);
+    return () => {
+      document.removeEventListener('keydown', handleKey);
+      if (opener?.isConnected) opener.focus({ preventScroll: true });
+    };
   }, [mobileOpen, onMobileClose]);
 
   const handleNavClick = (section: string) => {
@@ -106,6 +113,7 @@ const Sidebar = ({ profile, activeSection, onSectionChange, currentTrack, projec
       <aside
         ref={sidebarRef}
         className={`sidebar ${mobileOpen ? 'mobile-open' : ''}`}
+        {...(mobileOpen ? { role: 'dialog', 'aria-modal': true, 'aria-label': 'Your Library' } : {})}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

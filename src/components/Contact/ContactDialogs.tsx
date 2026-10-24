@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { Check, Download, FileText, Send, X } from 'lucide-react';
 import { Dialog } from '@/components/kit';
 import './ContactDialogs.css';
@@ -67,6 +67,12 @@ function MessageDialog({ variant, open, onClose }: { variant: Variant; open: boo
   const [isSending, setIsSending] = useState(false);
   const [sendStatus, setSendStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const copy = messageCopy[variant];
+  const successButtonRef = useRef<HTMLButtonElement>(null);
+
+  // After a successful send, focus lands on the confirmation's button, which carries the message as its description
+  useEffect(() => {
+    if (sendStatus === 'success') successButtonRef.current?.focus();
+  }, [sendStatus]);
 
   const reset = () => {
     setSendStatus('idle');
@@ -92,14 +98,16 @@ function MessageDialog({ variant, open, onClose }: { variant: Variant; open: boo
       </div>
 
       {sendStatus === 'success' ? (
-        <div className="message-success">
+        <div className="message-success" role="status">
           <span className="success-icon" aria-hidden="true">
             <Check size={26} strokeWidth={2.5} />
           </span>
           {variant === 'hero' ? (
             <>
-              <p>Message sent successfully!</p>
+              <p id="hero-message-sent">Message sent successfully!</p>
               <button
+                ref={successButtonRef}
+                aria-describedby="hero-message-sent"
                 type="button"
                 className="btn btn-primary btn-md modal-done-btn"
                 onClick={() => {
@@ -112,9 +120,15 @@ function MessageDialog({ variant, open, onClose }: { variant: Variant; open: boo
             </>
           ) : (
             <>
-              <h4>Message Sent!</h4>
-              <p>Thanks for reaching out. I&apos;ll get back to you soon.</p>
-              <button type="button" className="btn btn-secondary btn-md close-success-btn" onClick={onClose}>
+              <h4 id="sidebar-message-sent">Message Sent!</h4>
+              <p id="sidebar-message-thanks">Thanks for reaching out. I&apos;ll get back to you soon.</p>
+              <button
+                ref={successButtonRef}
+                aria-describedby="sidebar-message-sent sidebar-message-thanks"
+                type="button"
+                className="btn btn-secondary btn-md close-success-btn"
+                onClick={onClose}
+              >
                 Close
               </button>
             </>
@@ -125,6 +139,8 @@ function MessageDialog({ variant, open, onClose }: { variant: Variant; open: boo
           className="message-form"
           onSubmit={async (e) => {
             e.preventDefault();
+            // The button stays enabled while sending so keyboard focus is not thrown to the page
+            if (isSending) return;
             setIsSending(true);
             try {
               const response = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_URL!, {
@@ -168,8 +184,12 @@ function MessageDialog({ variant, open, onClose }: { variant: Variant; open: boo
               required
             />
           </div>
-          {sendStatus === 'error' && <p className="error-message">Failed to send. Please try again.</p>}
-          <button type="submit" className="btn btn-primary btn-lg send-message-btn" disabled={isSending}>
+          {sendStatus === 'error' && (
+            <p className="error-message" role="alert">
+              Failed to send. Please try again.
+            </p>
+          )}
+          <button type="submit" className="btn btn-primary btn-lg send-message-btn" aria-disabled={isSending || undefined}>
             {isSending ? (
               'Sending...'
             ) : variant === 'hero' ? (
@@ -203,7 +223,7 @@ function ResumeDialog({ variant, onClose }: { variant: Variant; onClose: () => v
         </div>
       </div>
       <div className="resume-modal-content">
-        <object data={`${RESUME}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="resume-iframe">
+        <object data={`${RESUME}#toolbar=0&navpanes=0&scrollbar=0`} type="application/pdf" className="resume-iframe" aria-label="Resume">
           {variant === 'hero' ? (
             <div className="resume-fallback">
               <FileText size={40} />

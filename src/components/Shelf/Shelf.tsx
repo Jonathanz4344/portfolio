@@ -93,13 +93,14 @@ interface FilterChipsProps<T extends string> {
   onChange: (value: T) => void;
 }
 
+/** Toggle chips that filter a shelf; the pressed chip is the active filter. */
 export const FilterChips = <T extends string>({ options, value, onChange }: FilterChipsProps<T>) => (
-  <div className="filter-chips" role="tablist">
+  <div className="filter-chips">
     {options.map((option) => (
       <button
         key={option.value}
-        role="tab"
-        aria-selected={value === option.value}
+        type="button"
+        aria-pressed={value === option.value}
         className={`filter-chip ${value === option.value ? 'active' : ''}`}
         onClick={() => onChange(option.value)}
       >

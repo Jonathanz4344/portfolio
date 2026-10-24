@@ -367,7 +367,8 @@
     background-color var(--dur-2) var(--ease-out),
     color var(--dur-2) var(--ease-out),
     box-shadow var(--dur-2) var(--ease-out),
-    transform var(--dur-3) var(--ease-out);
+    transform var(--dur-3) var(--ease-out),
+    translate var(--dur-4) var(--ease-out);
 }
 
 .btn svg {
@@ -624,8 +625,10 @@
   }
 }
 
+/* The page locks behind an open dialog; the kept scrollbar gutter is painted like the dimmed page */
 html:has(.dialog[open]) {
   overflow: hidden;
+  background-color: var(--scrim-over-canvas);
 }
 
 @media (max-width: 640px) {
@@ -693,6 +696,7 @@ textarea.control {
 
 .cover-art-logo {
   background: var(--logo-tile);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 
 .cover-art-img {
@@ -786,5 +790,17 @@ textarea.control {
 @media (prefers-reduced-motion: reduce) {
   .equalizer-bar {
     animation: none !important;
+  }
+}
+
+/* Forced colors (Windows high contrast): shadows vanish, so fields get a real border and outline */
+@media (forced-colors: active) {
+  .control {
+    border: 1px solid CanvasText;
+  }
+
+  .control:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 1px;
   }
 }

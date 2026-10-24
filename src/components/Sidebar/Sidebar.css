@@ -4,7 +4,7 @@
   top: var(--topbar-h);
   display: flex;
   flex-direction: column;
-  height: calc(100dvh - var(--topbar-h) - var(--player-h) - var(--shell-gap) * 3);
+  height: calc(100dvh - var(--topbar-h) - var(--player-h) - var(--shell-gap) * 2);
   overflow-y: auto;
   overscroll-behavior: contain;
   border-radius: var(--radius-panel);
@@ -242,8 +242,9 @@
   opacity: 0;
 }
 
+/* Two pulses on load, then still: nothing on the page keeps moving on its own */
 :root[data-motion='on'] .now-playing-pulse::after {
-  animation: pulse-ring 2.4s var(--ease-out) infinite;
+  animation: pulse-ring 2.4s var(--ease-out) 2;
 }
 
 @keyframes pulse-ring {
@@ -267,6 +268,11 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   color: var(--text-accent);
+}
+
+/* On the green-tinted card in light mode the label needs one step deeper for small-text contrast */
+:root[data-theme='light'] .now-playing-label {
+  color: var(--accent-800);
 }
 
 .now-playing-text {

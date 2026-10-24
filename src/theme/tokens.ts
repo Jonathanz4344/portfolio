@@ -128,7 +128,7 @@ export const radius = {
 
 export const ease = {
   out: 'cubic-bezier(0.16, 1, 0.3, 1)',
-  inOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+  'in-out': 'cubic-bezier(0.65, 0, 0.35, 1)',
   standard: 'cubic-bezier(0.2, 0, 0, 1)',
 } as const;
 
@@ -150,7 +150,8 @@ export const layout = {
   playerCompact: '64px',
   sidebar: 'clamp(264px, 22vw, 340px)',
   shellGap: '8px',
-  gutter: 'clamp(16px, 1rem + 1.4vw, 32px)',
+  // Exactly 16px on phones (matching the phone layouts' fixed 16px edges), 32px on desktop
+  gutter: 'clamp(16px, 0.5rem + 2vw, 32px)',
   content: '1240px',
 } as const;
 

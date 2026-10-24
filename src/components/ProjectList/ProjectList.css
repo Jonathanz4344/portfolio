@@ -1,5 +1,6 @@
 /* Popular: Spotify's track list, set with more air and tabular figures */
 .project-list {
+  container: project-list / inline-size;
   padding: var(--space-6) var(--gutter) var(--space-8);
 }
 
@@ -12,6 +13,7 @@
 }
 
 .popular-column {
+  container: popular / inline-size;
   min-width: 0;
 }
 
@@ -35,6 +37,12 @@
 .project-row:hover,
 .project-row.menu-open {
   background: var(--hover);
+}
+
+/* The row with an open menu sits above its neighbors so the menu is never covered */
+.project-row.menu-open {
+  position: relative;
+  z-index: 2;
 }
 
 .project-row.active {
@@ -61,6 +69,24 @@
 
 .music-bars {
   position: relative;
+}
+
+/* Every row's Play is a real button: its number until the row is hovered, current or focused */
+.play-btn .track-play,
+.project-row:hover .play-btn .track-number,
+.project-row.active .play-btn .track-number,
+.play-btn:focus-visible .track-number {
+  display: none;
+}
+
+.project-row:hover .play-btn .track-play,
+.project-row.active .play-btn .track-play,
+.play-btn:focus-visible .track-play {
+  display: block;
+}
+
+.track-number {
+  color: var(--text-3);
 }
 
 .music-bars .pause-overlay {
@@ -258,17 +284,28 @@
   color: var(--text-3);
 }
 
-@media (max-width: 1024px) {
+/* Too narrow for the side card: the liked card leads, as in the Spotify app */
+@container project-list (max-width: 820px) {
   .project-list-container {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  /* The liked card leads on smaller screens, as in the Spotify app */
   .liked-column {
     order: -1;
   }
 
   .liked-heading {
+    display: none;
+  }
+}
+
+/* When titles would be squeezed, the play counts give way first */
+@container popular (max-width: 600px) {
+  .project-row {
+    grid-template-columns: 28px minmax(0, 1fr) 132px;
+  }
+
+  .col-plays {
     display: none;
   }
 }
@@ -303,7 +340,14 @@
     width: 48px;
   }
 
-  .cover-play-btn.visible {
+  /* The number column is hidden on phones, so the cover carries each row's Play for keyboards */
+  .cover-play-btn {
     display: grid;
+    opacity: 0;
+  }
+
+  .cover-play-btn.visible,
+  .cover-play-btn:focus-visible {
+    opacity: 1;
   }
 }

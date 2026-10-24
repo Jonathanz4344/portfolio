@@ -32,17 +32,21 @@ const companiesWithoutLinks = ['ADP', 'IBM', 'Personal Project'];
 // Spotify shows the top 5 tracks until "See more" is clicked
 const POPULAR_COLLAPSED_COUNT = 5;
 
+// Room a row menu needs below its button, player dock included; with less, it opens upward
+const MENU_ROOM = 340;
+
 const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewDetails, onPause }: ProjectListProps) => {
   // Initialize with all projects liked
   const [likedProjects, setLikedProjects] = useState<Set<number>>(
     new Set(projects.map((_, index) => index))
   );
-  const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [showAllProjects, setShowAllProjects] = useState(false);
   const visibleProjects = showAllProjects ? projects : projects.slice(0, POPULAR_COLLAPSED_COUNT);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [dropdownAbove, setDropdownAbove] = useState(false);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownTriggerRef = useRef<HTMLButtonElement | null>(null);
   const closeDropdown = useCallback(() => setOpenDropdown(null), []);
 
   useDismiss(dropdownRef, openDropdown !== null, closeDropdown);
@@ -63,6 +67,8 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
 
   const handleDropdownToggle = (index: number, e: React.MouseEvent) => {
     e.stopPropagation();
+    dropdownTriggerRef.current = e.currentTarget as HTMLButtonElement;
+    setDropdownAbove(e.currentTarget.getBoundingClientRect().bottom + MENU_ROOM > window.innerHeight);
     setOpenDropdown(openDropdown === index ? null : index);
   };
 
@@ -105,8 +111,6 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                 className={`project-row ${currentTrack === index ? 'active' : ''} ${openDropdown === index ? 'menu-open' : ''}`}
                 onClick={() => onTrackChange(index)}
                 onDoubleClick={() => onTrackChange(index)}
-                onMouseEnter={() => setHoveredProject(index)}
-                onMouseLeave={() => setHoveredProject(null)}
               >
                 <div className="col-number">
                   {currentTrack === index && isPlaying ? (
@@ -121,7 +125,8 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                       <Equalizer />
                       <Pause size={14} fill="currentColor" className="pause-overlay" />
                     </button>
-                  ) : hoveredProject === index || currentTrack === index ? (
+                  ) : (
+                    // The number shows until the row is hovered, current or focused; then the play icon
                     <button
                       className="play-btn"
                       aria-label="Play"
@@ -130,10 +135,9 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                         onTrackChange(index);
                       }}
                     >
-                      <Play size={14} fill="currentColor" />
+                      <span className="track-number">{index + 1}</span>
+                      <Play size={14} fill="currentColor" className="track-play" />
                     </button>
-                  ) : (
-                    <span>{index + 1}</span>
                   )}
                 </div>
 
@@ -185,7 +189,7 @@ const ProjectList = ({ projects, currentTrack, isPlaying, onTrackChange, onViewD
                       <MoreHorizontal size={16} />
                     </button>
                     {openDropdown === index && (
-                      <Menu className="dropdown-menu" above={index >= visibleProjects.length - 2}>
+                      <Menu className="dropdown-menu" above={dropdownAbove} onClose={closeDropdown} triggerRef={dropdownTriggerRef}>
                         <MenuItem
                           icon={<FolderKanban size={16} />}
                           onSelect={(e) => {

@@ -144,7 +144,8 @@
 
   .filter-chips {
     flex-wrap: nowrap;
-    padding: 0 16px;
+    /* Room inside the scroller so focus rings are not clipped */
+    padding: 4px 16px;
     overflow-x: auto;
     scrollbar-width: none;
   }
@@ -171,7 +172,7 @@
     column-gap: var(--space-3);
     row-gap: 0;
     margin: 0;
-    padding: 0 16px 4px;
+    padding: 4px 16px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-padding: 0 16px;
@@ -188,6 +189,11 @@
 
   .shelf-card {
     padding: 0;
+  }
+
+  .filter-chip:focus-visible,
+  .shelf-card:focus-visible {
+    outline-offset: 1px;
   }
 
   .shelf-card:hover {

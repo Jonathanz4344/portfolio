@@ -1,50 +1,232 @@
+/* The foot of the main panel: a hairline, three quiet columns, then the fine print */
 .site-footer {
-  padding: 0 40px 24px;
-  margin-top: 32px;
+  container: site-footer / inline-size;
+  padding: var(--space-10) var(--gutter) var(--space-8);
+}
+
+.site-footer-inner {
+  max-width: var(--content-w);
+  margin-inline: auto;
 }
 
 .site-footer-divider {
-  margin: 0 0 24px;
-  border: none;
-  border-top: 1px solid #292929;
+  border: 0;
+  border-top: 1px solid var(--line);
 }
 
+/* The brand on the left, the ways to reach him on the right */
+.site-footer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: var(--space-10) clamp(40px, 8cqi, 112px);
+  padding: var(--space-12) 0;
+}
+
+/* Brand: the mark inherits its color, so high contrast mode can recolor it */
+.site-footer-brand {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  color: var(--text);
+}
+
+.site-footer-mark {
+  margin-bottom: var(--space-5);
+}
+
+.site-footer-name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 420;
+  font-variation-settings: 'SOFT' 30;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.site-footer-title {
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.site-footer-location {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+}
+
+.site-footer-muted {
+  color: var(--text-3);
+}
+
+/* Contact: the address, then the two dialogs */
+.site-footer-contact,
+.site-footer-address {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+}
+
+.site-footer-address {
+  gap: var(--space-2);
+  font-style: normal;
+}
+
+.site-footer-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--text-2);
+  text-underline-offset: 4px;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.site-footer-link:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* Only the number is underlined; the label beside it stays quiet */
+.site-footer-phone {
+  gap: var(--space-3);
+}
+
+.site-footer-phone:hover {
+  text-decoration: none;
+}
+
+.site-footer-phone:hover .site-footer-number {
+  text-decoration: underline;
+}
+
+.site-footer-label {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.site-footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+/* Profiles */
+.site-footer-profiles {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.site-footer-arrow {
+  align-self: center;
+  color: var(--text-3);
+  transition: color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+}
+
+.site-footer-link:hover .site-footer-arrow {
+  color: var(--text);
+  transform: translate(2px, -2px);
+}
+
+/* The fine print */
 .site-footer-bottom {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
 }
 
 .site-footer-copyright {
-  margin: 0;
-  font-size: 14px;
-  color: #b3b3b3;
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
 }
 
 .site-footer-social {
   display: flex;
-  gap: 16px;
+  gap: var(--space-2);
 }
 
 .site-footer-social a {
+  display: grid;
+  border-radius: 50%;
+}
+
+/* Spotify's social circles: the well lightens and grows a touch under the pointer */
+.site-footer-social .icon-well {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background: #292929;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
+  transition:
+    color var(--dur-2) var(--ease-out),
+    background-color var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out),
+    transform var(--dur-3) var(--ease-out);
 }
 
-.site-footer-social a:hover {
-  background: #727272;
+.site-footer-social a:hover .icon-well {
+  color: var(--text);
+  background: var(--pressed);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  transform: scale(1.06);
 }
 
-@media (max-width: 768px) {
-  .site-footer {
-    padding: 0 16px 16px;
+/* A narrower panel: the brand takes its own row */
+@container site-footer (max-width: 720px) {
+  .site-footer-columns {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .site-footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Phones: one column, with links and buttons grown to a comfortable touch size */
+@container site-footer (max-width: 460px) {
+  .site-footer-columns {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-6);
+    padding: var(--space-8) 0 var(--space-10);
+  }
+
+  .site-footer-address {
+    gap: 0;
+  }
+
+  .site-footer-link {
+    padding-block: 8px;
+  }
+
+  .site-footer-actions .btn {
+    --btn-h: 40px;
+  }
+
+  .site-footer-profiles {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--space-6);
+  }
+}
+
+/* Forced colors (Windows high contrast) drop the shadow rings: the pills and circles get a real
+   border in the system text color, and the arrows follow their link */
+@media (forced-colors: active) {
+  .site-footer-actions .btn,
+  .site-footer-social .icon-well {
+    border: 1px solid;
+  }
+
+  .site-footer-arrow {
+    color: inherit;
   }
 }

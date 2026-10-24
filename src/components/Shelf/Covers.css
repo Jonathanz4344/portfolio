@@ -61,9 +61,20 @@
   --tier-tone: var(--accent-500);
 }
 
+/* Every credential sits on a light mat, so badges drawn on white never show a pasted square */
+.cover-badge::before {
+  content: '';
+  position: absolute;
+  inset: 14%;
+  border-radius: var(--radius-sm);
+  background: var(--logo-tile);
+  box-shadow: 0 12px 26px -14px var(--shadow-color);
+}
+
 .cover-badge img {
   object-fit: contain;
-  padding: 18%;
+  padding: 21%;
+  mix-blend-mode: multiply;
 }
 
 .cover-tier {

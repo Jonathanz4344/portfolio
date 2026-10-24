@@ -1,4 +1,4 @@
-/* The player: a frosted dock on desktop, a floating mini player on phones, a full sheet when opened */
+/* The player: a docked panel on desktop, a floating mini player on phones, a full sheet when opened */
 .now-playing-bar {
   position: fixed;
   right: var(--shell-gap);
@@ -12,10 +12,19 @@
   height: var(--player-h);
   padding: 0 var(--space-5) 0 var(--space-3);
   border-radius: var(--radius-panel);
-  background: var(--frost);
-  -webkit-backdrop-filter: saturate(1.5) blur(22px);
-  backdrop-filter: saturate(1.5) blur(22px);
-  box-shadow: inset 0 0 0 1px var(--line), 0 20px 44px -26px var(--shadow-color);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+
+/* Spotify's frame continues under the dock: the page ends above it instead of scrolling through the gaps */
+.player-tray {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: calc(var(--z-player) - 1);
+  height: calc(var(--player-h) + var(--shell-gap) * 2);
+  background: var(--canvas);
 }
 
 /* Track */
@@ -24,6 +33,16 @@
   align-items: center;
   gap: 14px;
   min-width: 0;
+}
+
+/* Cover and title are one button: the project's details on desktop, the full player on phones */
+.now-playing-open {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  border-radius: var(--radius-sm);
+  text-align: left;
 }
 
 .now-playing-left .now-playing-cover {
@@ -246,11 +265,18 @@
 }
 
 @media (max-width: 640px) {
+  /* A floating card over the page, so no tray */
+  .player-tray {
+    display: none;
+  }
+
   .now-playing-bar {
     grid-template-columns: minmax(0, 1fr);
     height: var(--player-h-compact);
     padding: 0 8px 0 8px;
     overflow: hidden;
+    background: var(--surface-raised);
+    box-shadow: inset 0 0 0 1px var(--line), 0 16px 32px -18px var(--shadow-color);
   }
 
   .now-playing-left {
@@ -259,6 +285,11 @@
 
   .now-playing-left .now-playing-cover {
     width: 44px;
+  }
+
+  .now-playing-open {
+    flex: 1;
+    gap: 12px;
   }
 
   .now-playing-title {
@@ -309,28 +340,43 @@
     display: none;
   }
 
-  /* The full player sheet */
+  /* The full player sheet: a native modal dialog that slides up */
   .full-player-overlay {
     position: fixed;
     inset: 0;
-    z-index: calc(var(--z-drawer) + 2);
-    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
+    color: var(--text);
     background:
       linear-gradient(180deg, color-mix(in oklab, var(--surface), var(--accent) 22%) 0%, var(--surface) 62%);
-    visibility: hidden;
-    transform: translateY(100%);
-    transition: transform var(--dur-4) var(--ease-out), visibility 0s linear var(--dur-4);
   }
 
-  .full-player-overlay.open {
-    visibility: visible;
-    transform: none;
-    transition: transform var(--dur-4) var(--ease-out), visibility 0s;
+  .full-player-overlay[open] {
+    display: block;
   }
 
-  html:has(.full-player-overlay.open) {
+  .full-player-overlay::backdrop {
+    background: var(--canvas);
+  }
+
+  :root[data-motion='on'] .full-player-overlay[open] {
+    animation: sheet-up var(--dur-4) var(--ease-out);
+  }
+
+  @keyframes sheet-up {
+    from {
+      transform: translateY(100%);
+    }
+  }
+
+  html:has(.full-player-overlay[open]) {
     overflow: hidden;
   }
 
@@ -569,11 +615,5 @@
     font-size: var(--text-xl);
     font-weight: 450;
     color: var(--text-accent);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .full-player-overlay {
-    transition: none !important;
   }
 }

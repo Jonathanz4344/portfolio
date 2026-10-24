@@ -30,8 +30,9 @@
   opacity: 0;
 }
 
+/* backwards, not both: a finished item keeps no transform, so it never traps a menu under the next item */
 :root[data-motion='on'] [data-stagger][data-shown] > [data-stagger-item] {
-  animation: rise-in var(--dur-5) var(--ease-out) both;
+  animation: rise-in var(--dur-5) var(--ease-out) backwards;
   animation-delay: calc(var(--i, 0) * var(--stagger-step, 60ms));
 }
 
@@ -53,7 +54,7 @@
 
 :root[data-motion='on'] [data-split='load'] .split-word,
 :root[data-motion='on'] [data-split='view'][data-shown] .split-word {
-  animation: word-in var(--dur-6) var(--ease-out) both;
+  animation: word-in var(--dur-6) var(--ease-out) backwards;
   animation-delay: calc(var(--split-delay, 0ms) + var(--i, 0) * var(--split-step, 90ms));
 }
 
@@ -80,7 +81,7 @@
 }
 
 :root[data-motion='on'] .ken-burns > * {
-  animation: ken-burns var(--dur-kenBurns) var(--ease-out) both;
+  animation: ken-burns var(--dur-kenBurns) var(--ease-out) backwards;
 }
 
 @keyframes ken-burns {
@@ -111,9 +112,10 @@
   margin: -14px;
 }
 
+/* The pull uses the translate property, so it composes with a hover scale instead of being replaced by it */
 .magnetic > * {
-  transform: translate3d(var(--magnet-x, 0px), var(--magnet-y, 0px), 0);
-  transition: transform var(--dur-4) var(--ease-out);
+  translate: var(--magnet-x, 0px) var(--magnet-y, 0px);
+  transition: translate var(--dur-4) var(--ease-out);
 }
 
 /* SpotlightCard */
@@ -227,7 +229,6 @@
   .split-word,
   .ken-burns > *,
   .parallax,
-  .magnetic > *,
   .marquee-track {
     animation: none !important;
     transition: none !important;
@@ -236,8 +237,24 @@
     transform: none !important;
   }
 
+  .magnetic > * {
+    translate: none !important;
+  }
+
   .marquee-group[aria-hidden='true'],
   .marquee-toggle {
     display: none;
+  }
+}
+
+/* Printing (or saving as PDF) shows everything, revealed or not */
+@media print {
+  [data-reveal],
+  [data-stagger] > [data-stagger-item],
+  .split-word {
+    animation: none !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
   }
 }

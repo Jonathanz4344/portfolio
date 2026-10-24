@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Heart, Repeat, Shuffle, ChevronDown, MoreHorizontal, Check, FolderKanban, Building2, Copy, Share2, Maximize2 } from 'lucide-react';
 import type { Project } from '@/types';
 import { CoverArt, Equalizer, Menu, MenuItem, TagList, useDismiss } from '@/components/kit';
+import { scrollMotion } from '@/components/motion';
 import './NowPlayingBar.css';
 
 // Company URLs for "Go to Company" option
@@ -12,6 +13,9 @@ const companyUrls: Record<string, string> = {
 
 // Companies without external links (greyed out)
 const companiesWithoutLinks = ['ADP', 'IBM', 'Personal Project'];
+
+// The compact player and its full-screen sheet are for this width and below
+const PHONE = '(max-width: 640px)';
 
 interface NowPlayingBarProps {
   project: Project;
@@ -41,10 +45,30 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   const [isDetailsExpanded, setIsDetailsExpanded] = useState(false);
   const [detailsDragStartY, setDetailsDragStartY] = useState<number | null>(null);
   const [hasReachedTop, setHasReachedTop] = useState(false);
-  const fullPlayerRef = useRef<HTMLDivElement>(null);
+  const fullPlayerRef = useRef<HTMLDialogElement>(null);
   const fullPlayerMenuRef = useRef<HTMLDivElement>(null);
+  const fullPlayerMenuButtonRef = useRef<HTMLButtonElement>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
   const closeFullPlayerMenu = useCallback(() => setShowFullPlayerMenu(false), []);
+
+  // The full player exists only at phone width
+  const openFullPlayer = () => {
+    if (matchMedia(PHONE).matches) setIsFullPlayer(true);
+  };
+
+  // A native modal dialog: focus moves in, Escape closes it, the page behind is inert, focus returns on close
+  useEffect(() => {
+    const dialog = fullPlayerRef.current;
+    if (!dialog || !isFullPlayer) return;
+    if (!dialog.open) dialog.showModal();
+    const phone = matchMedia(PHONE);
+    const leavePhoneWidth = () => !phone.matches && setIsFullPlayer(false);
+    phone.addEventListener('change', leavePhoneWidth);
+    return () => {
+      phone.removeEventListener('change', leavePhoneWidth);
+      if (dialog.open) dialog.close();
+    };
+  }, [isFullPlayer]);
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>;
@@ -114,7 +138,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
     if (dragStartY === null) return;
     const deltaY = e.changedTouches[0].clientY - dragStartY;
     if (deltaY < -50) {
-      setIsFullPlayer(true);
+      openFullPlayer();
     }
     setDragStartY(null);
   };
@@ -128,9 +152,14 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
   return (
     <>
       {/* Full Screen Mobile Player */}
-      <div
+      <dialog
         ref={fullPlayerRef}
-        className={`full-player-overlay ${isFullPlayer ? 'open' : ''}`}
+        className="full-player-overlay"
+        aria-labelledby="full-player-title"
+        onCancel={(e) => {
+          e.preventDefault();
+          setIsFullPlayer(false);
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -143,9 +172,10 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
             <button className="full-player-close" onClick={() => setIsFullPlayer(false)} aria-label="Close">
               <ChevronDown size={28} />
             </button>
-            <span className="full-player-header-name">Jonathan Zhu</span>
+            <span className="full-player-header-name" id="full-player-title">Jonathan Zhu</span>
             <div className="full-player-menu" ref={fullPlayerMenuRef}>
               <button
+                ref={fullPlayerMenuButtonRef}
                 className="full-player-menu-btn"
                 onClick={() => setShowFullPlayerMenu(!showFullPlayerMenu)}
                 aria-label="More options"
@@ -155,7 +185,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
                 <MoreHorizontal size={24} />
               </button>
               {showFullPlayerMenu && (
-                <Menu className="full-player-dropdown">
+                <Menu className="full-player-dropdown" onClose={closeFullPlayerMenu} triggerRef={fullPlayerMenuButtonRef}>
                   <MenuItem
                     icon={<FolderKanban size={16} />}
                     onSelect={() => {
@@ -291,7 +321,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
                   setHasReachedTop(false);
                   // Scroll to show the lyrics content
                   setTimeout(() => {
-                    detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    detailsRef.current?.scrollIntoView({ behavior: scrollMotion(), block: 'start' });
                   }, 50);
                 }
               }}
@@ -309,11 +339,11 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
                     setHasReachedTop(false);
                     if (newExpanded) {
                       setTimeout(() => {
-                        detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        detailsRef.current?.scrollIntoView({ behavior: scrollMotion(), block: 'start' });
                       }, 50);
                     } else {
                       // Scroll back to top when closing
-                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: scrollMotion() });
                     }
                   }}
                 >
@@ -348,7 +378,7 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
                       // Second time at top dragging down - close
                       setIsDetailsExpanded(false);
                       setHasReachedTop(false);
-                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                      fullPlayerRef.current?.scrollTo({ top: 0, behavior: scrollMotion() });
                     } else {
                       // First time - mark it
                       setHasReachedTop(true);
@@ -375,7 +405,9 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
             </div>
           </div>
         </div>
-      </div>
+      </dialog>
+
+      <div className="player-tray" aria-hidden="true" />
 
       <div
         className="now-playing-bar"
@@ -383,26 +415,36 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
         onTouchEnd={handleBarTouchEnd}
       >
         {/* Track Info */}
-        <div className="now-playing-left" onClick={() => setIsFullPlayer(true)}>
-          <CoverArt project={project} letter={project.title.charAt(0)} sizes="52px" className="now-playing-cover" />
-          <div className="now-playing-info">
-            <div className="now-playing-title-row">
-              {isPlaying && <Equalizer bars={3} className="equalizer-bars" />}
-              <span
-                className="now-playing-title clickable desktop-only-click"
-                onClick={(e) => {
-                  // Only trigger on desktop (window width > 640px)
-                  if (window.innerWidth > 640) {
-                    e.stopPropagation();
-                    onViewDetails();
-                  }
-                }}
-              >
-                {project.title}
-              </span>
+        <div className="now-playing-left" onClick={openFullPlayer}>
+          <button
+            type="button"
+            className="now-playing-open"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (matchMedia(PHONE).matches) openFullPlayer();
+              else onViewDetails();
+            }}
+          >
+            <CoverArt project={project} letter={project.title.charAt(0)} sizes="52px" className="now-playing-cover" />
+            <div className="now-playing-info">
+              <div className="now-playing-title-row">
+                {isPlaying && <Equalizer bars={3} className="equalizer-bars" />}
+                <span
+                  className="now-playing-title clickable desktop-only-click"
+                  onClick={(e) => {
+                    // Only trigger on desktop (window width > 640px)
+                    if (window.innerWidth > 640) {
+                      e.stopPropagation();
+                      onViewDetails();
+                    }
+                  }}
+                >
+                  {project.title}
+                </span>
+              </div>
+              <span className="now-playing-artist">{project.artist}</span>
             </div>
-            <span className="now-playing-artist">{project.artist}</span>
-          </div>
+          </button>
           <button
             className={`like-btn ${isLiked ? 'liked' : ''}`}
             aria-label="Like"
