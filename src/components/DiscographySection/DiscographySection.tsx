@@ -81,7 +81,7 @@ const DiscographySection = ({ education, certifications, tab, onTabChange }: Dis
           meta={`Jonathan Zhu • ${selected.item.status}`}
           accent={schoolAccents[selected.item.school]}
         >
-          <ol className="detail-modal-list">
+          <ol className="detail-modal-list" role="list">
             <li>
               <span className="detail-modal-list-index">1</span>
               <span>{selected.item.degree}</span>

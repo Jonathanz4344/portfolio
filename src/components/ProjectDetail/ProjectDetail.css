@@ -37,9 +37,11 @@
   font-weight: 380;
   line-height: 1.02;
   letter-spacing: -0.03em;
+  overflow-wrap: break-word;
   color: var(--text);
 }
 
+/* Artist and dates each stay whole; on a narrow screen the dates wrap beneath the artist */
 .project-detail-meta {
   display: flex;
   flex-wrap: wrap;
@@ -49,25 +51,26 @@
   color: var(--text-2);
 }
 
+/* The dot after the artist is drawn, so the text stays exactly as written; on a wrap it ends the line instead of leading the next */
 .project-detail-artist {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   font-weight: 600;
   color: var(--text);
 }
 
-/* The dot before the dates is drawn, so the text stays exactly as written */
-.project-detail-duration {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-variant-numeric: tabular-nums;
-}
-
-.project-detail-duration::before {
+.project-detail-artist::after {
   content: '';
+  flex-shrink: 0;
   width: 3px;
   height: 3px;
   border-radius: 50%;
   background: var(--text-3);
+}
+
+.project-detail-duration {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Body: the last section's own padding completes the bottom margin, matching the header's top */
@@ -105,17 +108,12 @@
 }
 
 @media (max-width: 640px) {
-  /* The kit stretches a sheet to exactly the screen's height; this one is taller, so it grows and scrolls */
-  .project-detail .dialog-panel {
-    align-self: flex-start;
-  }
-
   /* As in the Spotify app: the cover centered, the words left-aligned beneath it */
   .project-detail-header {
     flex-direction: column;
     align-items: stretch;
     gap: var(--space-6);
-    padding-top: 64px;
+    padding-top: var(--space-16);
   }
 
   .project-detail .project-detail-cover {
@@ -133,10 +131,5 @@
 
   .project-detail-body {
     padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
-  }
-
-  /* The sheet scrolls, so its close button floats and stays in reach */
-  .project-detail .dialog-close {
-    position: fixed;
   }
 }

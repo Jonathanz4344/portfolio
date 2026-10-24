@@ -44,7 +44,7 @@ const FeaturingSection = ({ experience }: FeaturingSectionProps) => {
           meta={`${selected.company} • ${selected.period} • ${selected.location}`}
           accent={sleeve(toneOf(selected.company))}
         >
-          <ol className="detail-modal-list">
+          <ol className="detail-modal-list" role="list">
             {selected.highlights.map((highlight, i) => (
               <li key={i}>
                 <span className="detail-modal-list-index">{i + 1}</span>

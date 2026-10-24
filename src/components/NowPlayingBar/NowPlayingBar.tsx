@@ -70,22 +70,24 @@ const NowPlayingBar = ({ project, currentIndex, onPrevious, onNext, isShuffleOn,
     };
   }, [isFullPlayer]);
 
+  // The timer reads progress through a ref so it never calls the parent from inside a state updater
+  const progressRef = useRef(progress);
   useEffect(() => {
-    let interval: ReturnType<typeof setInterval>;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            if (isRepeatOn) {
-              return 0;
-            }
-            onNext();
-            return 0;
-          }
-          return prev + 0.049;
-        });
-      }, 100);
-    }
+    progressRef.current = progress;
+  }, [progress]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      if (progressRef.current >= 100) {
+        // End of the track: start over, and move on unless repeat is on
+        progressRef.current = 0;
+        setProgress(0);
+        if (!isRepeatOn) onNext();
+        return;
+      }
+      setProgress((prev) => prev + 0.049);
+    }, 100);
     return () => clearInterval(interval);
   }, [isPlaying, onNext, isRepeatOn]);
 

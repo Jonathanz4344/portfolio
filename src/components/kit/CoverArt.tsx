@@ -27,7 +27,7 @@ export function CoverArt({ project, letter, sizes, className, alt }: CoverArtPro
   }
   return (
     <span className={cx('cover-art', 'cover-art-letter', className)} data-type={projectType(project)}>
-      <span>{letter}</span>
+      <span aria-hidden="true">{letter}</span>
     </span>
   );
 }

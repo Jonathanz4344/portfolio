@@ -32,7 +32,7 @@ const AboutSection = ({ about }: AboutSectionProps) => {
               src="/profile.png"
               alt=""
               fill
-              sizes="(max-width: 768px) calc(100vw - 32px), 680px"
+              sizes="(max-width: 768px) calc(100vw - 32px), 560px"
               className="about-card-image"
             />
           </span>

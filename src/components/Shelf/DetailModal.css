@@ -1,26 +1,8 @@
 /* The album and playlist page: the cover on a calm wash of the release's tone, a display title, a track list */
 
-/* The page sits on the app's panel surface, so the wash fades into it as on Spotify's album page.
-   A column, so on a phone the body fills the screen and the wash can finish fading. */
+/* The page sits on the app's panel surface, so the wash fades into it as on Spotify's album page */
 .detail-modal .dialog-panel {
-  display: flex;
-  flex-direction: column;
-  /* A phone sheet is otherwise stretched to exactly the screen's height and clips a long list; growing with
-     its content lets the dialog scroll */
-  align-self: flex-start;
-  /* Clips the rounded corners without becoming a scroll container, so the close button can stick */
-  overflow: clip;
   background: var(--surface);
-}
-
-/* The close button stays in reach while a long page scrolls, as Spotify's back button does */
-.detail-modal .dialog-close {
-  position: sticky;
-  top: var(--space-3);
-  flex-shrink: 0;
-  align-self: flex-end;
-  /* Takes no room in the column, so the page starts under it at the panel's top edge */
-  margin: var(--space-3) var(--space-3) calc(-36px - var(--space-3)) 0;
 }
 
 .detail-modal-page {
@@ -110,7 +92,7 @@
 .detail-modal-body {
   flex: 1 0 auto;
   padding: var(--space-6) var(--space-6) var(--space-10);
-  background: linear-gradient(180deg, var(--detail-tone-low), transparent min(100%, 180px));
+  background: linear-gradient(180deg, var(--detail-tone-low), var(--surface) min(100%, 180px));
 }
 
 /* Track list: a tabular index column, generous rows, hairlines that step aside for the hovered row */

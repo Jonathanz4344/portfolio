@@ -214,28 +214,6 @@ a {
   }
 }
 
-/* Until the remaining dialogs move to the kit Dialog, the legacy overlays lock the page behind them */
-html:has(.project-detail-overlay, .detail-modal-overlay, .about-modal-overlay) {
-  overflow: hidden;
+#main:focus {
+  outline: none;
 }
-
-/* Section header still used by About until it moves to the kit */
-.section-header {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.section-header h2 {
-  font-size: var(--text-2xl);
-  color: var(--text);
-}
-
-@media (max-width: 640px) {
-  .section-header {
-    margin-bottom: 16px;
-    padding: 0 16px;
-  }
-}
-.stage:focus { outline: none; }

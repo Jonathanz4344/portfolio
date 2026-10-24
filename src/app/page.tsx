@@ -142,55 +142,58 @@ export default function Home() {
             onMobileClose={closeDrawer}
           />
 
-          <main id="main" className="stage" tabIndex={-1} inert={isDrawerOpen}>
-            <div ref={homeRef}>
-              <Hero
-                profile={profileData}
-                isPlaying={isPlaying}
-                onPlayToggle={handlePlayToggle}
-                isShuffleOn={isShuffleOn}
-                onShuffleToggle={handleShuffleToggle}
-              />
-            </div>
+          {/* The panel holds the page's main content and, after it, the footer as its own landmark */}
+          <div className="stage" inert={isDrawerOpen}>
+            <main id="main" tabIndex={-1}>
+              <div ref={homeRef}>
+                <Hero
+                  profile={profileData}
+                  isPlaying={isPlaying}
+                  onPlayToggle={handlePlayToggle}
+                  isShuffleOn={isShuffleOn}
+                  onShuffleToggle={handleShuffleToggle}
+                />
+              </div>
 
-            <div ref={projectsRef}>
-              <ProjectList
-                projects={profileData.projects}
-                currentTrack={currentTrack}
-                isPlaying={isPlaying}
-                onTrackChange={handleTrackChange}
-                onViewDetails={handleViewDetails}
-                onPause={() => setIsPlaying(false)}
-              />
-            </div>
+              <div ref={projectsRef}>
+                <ProjectList
+                  projects={profileData.projects}
+                  currentTrack={currentTrack}
+                  isPlaying={isPlaying}
+                  onTrackChange={handleTrackChange}
+                  onViewDetails={handleViewDetails}
+                  onPause={() => setIsPlaying(false)}
+                />
+              </div>
 
-            <ImpactSection projects={profileData.projects} />
+              <ImpactSection projects={profileData.projects} />
 
-            <div ref={discographyRef}>
-              <DiscographySection
-                education={profileData.education}
-                certifications={profileData.certifications}
-                tab={discographyTab}
-                onTabChange={setDiscographyTab}
-              />
-            </div>
+              <div ref={discographyRef}>
+                <DiscographySection
+                  education={profileData.education}
+                  certifications={profileData.certifications}
+                  tab={discographyTab}
+                  onTabChange={setDiscographyTab}
+                />
+              </div>
 
-            <div ref={experienceRef}>
-              <FeaturingSection experience={profileData.experience} />
-            </div>
+              <div ref={experienceRef}>
+                <FeaturingSection experience={profileData.experience} />
+              </div>
 
-            <div ref={aboutRef}>
-              <AboutSection about={profileData.about} />
-            </div>
+              <div ref={aboutRef}>
+                <AboutSection about={profileData.about} />
+              </div>
 
-            <div ref={skillsRef}>
-              <ArtistPlaylistsSection skills={profileData.skills} />
-            </div>
+              <div ref={skillsRef}>
+                <ArtistPlaylistsSection skills={profileData.skills} />
+              </div>
 
-            <ContactBand />
+              <ContactBand />
+            </main>
 
             <Footer profile={profileData} />
-          </main>
+          </div>
         </div>
 
         <div inert={isDrawerOpen}>

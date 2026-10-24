@@ -26,10 +26,11 @@
   border-radius: var(--radius-media);
   color: var(--text-on-ink);
   text-align: left;
-  /* The studio: the photo's pale backdrop carried across, falling off to the left and into the suit's ink below */
+  /* The studio: the photo's pale backdrop carried across, falling off to the left and into the suit's ink below.
+     It only ever darkens downward, so no bright ridge shows as a horizon across a wide card */
   background:
     linear-gradient(90deg, color-mix(in oklab, var(--platinum-900) 50%, transparent), transparent 62%),
-    linear-gradient(180deg, var(--platinum-300) 0%, var(--platinum-200) 26%, var(--platinum-300) 58%, var(--platinum-700) 78%, var(--neutral-1000) 92%);
+    linear-gradient(180deg, var(--platinum-200) 0%, var(--platinum-300) 34%, var(--platinum-500) 58%, var(--platinum-700) 76%, var(--neutral-1000) 94%);
   box-shadow: 0 0 0 1px var(--line), 0 24px 48px -32px var(--shadow-color);
   transition:
     transform var(--dur-4) var(--ease-out),
@@ -37,24 +38,31 @@
 }
 
 /* Of the kit spotlight only the lit hairline stays; its accent glow would cloud the photograph */
-.about-card::before {
+.about-card.spotlight::before {
   content: none;
 }
 
-.about-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 0 1px var(--line-strong), 0 32px 56px -30px var(--shadow-color);
+/* A calm lift for pointers that hover; a tap on a phone leaves nothing raised behind the sheet */
+@media (hover: hover) {
+  .about-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 0 1px var(--line-strong), 0 32px 56px -30px var(--shadow-color);
+  }
+
+  .about-card:active {
+    transform: translateY(-1px);
+  }
+
+  .about-card:hover .about-card-image {
+    transform: scale(1.025);
+  }
 }
 
-.about-card:active {
-  transform: translateY(-1px);
-}
-
-/* The portrait stands at the right, its left edge dissolving into the studio */
+/* The portrait stands at the right, its left edge dissolving into the studio; capped so a wide card keeps its framing */
 .about-card-media {
   position: absolute;
   inset: 0 0 0 auto;
-  width: 54%;
+  width: min(54%, 560px);
   -webkit-mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 38%);
   mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 38%);
 }
@@ -65,10 +73,7 @@
   transition: transform var(--dur-6) var(--ease-out);
 }
 
-.about-card:hover .about-card-image {
-  transform: scale(1.025);
-}
-
+/* Eased in several steps, so the shade rises with no visible edge where it begins, yet stays as deep behind the text */
 .about-card-scrim {
   position: absolute;
   inset: 0;
@@ -76,8 +81,12 @@
     linear-gradient(
       0deg,
       color-mix(in oklab, var(--about-ink) 90%, transparent) 0%,
-      color-mix(in oklab, var(--about-ink) 58%, transparent) 36%,
-      transparent 70%
+      color-mix(in oklab, var(--about-ink) 76%, transparent) 18%,
+      color-mix(in oklab, var(--about-ink) 62%, transparent) 32%,
+      color-mix(in oklab, var(--about-ink) 46%, transparent) 44%,
+      color-mix(in oklab, var(--about-ink) 26%, transparent) 56%,
+      color-mix(in oklab, var(--about-ink) 10%, transparent) 66%,
+      transparent 76%
     ),
     color-mix(in oklab, var(--about-ink) var(--about-veil), transparent);
 }
@@ -146,6 +155,7 @@
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .about-card-text {
@@ -200,15 +210,10 @@
 
 /* Full bio: the portrait in its studio, then the highlights and the whole story */
 
-/* A sheet taller than the phone grows with its content and scrolls, instead of being stretched to the screen and clipped */
-.about-dialog .dialog-panel {
-  align-self: flex-start;
-}
-
+/* The banner meets the body without a hairline, which over the pale backdrop showed as a bright seam under the suit */
 .about-dialog-media {
   position: relative;
   height: 320px;
-  border-bottom: 1px solid var(--line);
   /* The photo's pale backdrop, carried past its edges */
   background: linear-gradient(180deg, var(--platinum-300) 0%, var(--platinum-200) 16%, var(--platinum-200) 46%, var(--platinum-300) 74%, var(--platinum-500) 100%);
 }
@@ -276,6 +281,8 @@
   font-weight: 420;
   line-height: 1.2;
   letter-spacing: -0.01em;
+  /* A narrow column breaks "Machine Learning / & AI" rather than leaving "AI" alone on a line */
+  text-wrap: pretty;
   color: var(--text);
 }
 
@@ -301,7 +308,7 @@
 
   .about-dialog-body {
     gap: var(--space-6);
-    padding: var(--space-6) 16px var(--space-10);
+    padding: var(--space-6) var(--space-4) calc(var(--space-10) + env(safe-area-inset-bottom));
   }
 
   .about-highlights {

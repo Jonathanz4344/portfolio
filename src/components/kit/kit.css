@@ -559,12 +559,17 @@
   backdrop-filter: blur(8px);
 }
 
+/* A column that grows with its content (the dialog element scrolls), clipped for its rounded corners
+   without becoming a scroll container, so the close button can stick */
 .dialog-panel {
   position: relative;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: var(--dialog-w, 560px);
   margin: auto;
   overflow: hidden;
+  overflow: clip;
   border-radius: var(--radius-xl);
   background: var(--surface-overlay);
   box-shadow: var(--shadow-pop);
@@ -582,11 +587,15 @@
   --dialog-w: 960px;
 }
 
+/* The close button stays in reach while a long dialog scrolls, and takes no room in the column
+   (its 36px and top margin are given back), so the content starts at the panel's top edge */
 .dialog-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: sticky;
+  top: var(--space-3);
   z-index: 2;
+  flex-shrink: 0;
+  align-self: flex-end;
+  margin: var(--space-3) var(--space-3) calc(-36px - var(--space-3)) 0;
   display: grid;
   place-items: center;
   width: 36px;
@@ -642,7 +651,9 @@ html:has(.dialog[open]) {
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
 
+  /* A full-screen sheet grows past the screen with its content instead of being stretched to it and clipped */
   .dialog[data-sheet] .dialog-panel {
+    align-self: flex-start;
     min-height: 100%;
     margin: 0;
     border-radius: 0;
@@ -793,10 +804,19 @@ textarea.control {
   }
 }
 
-/* Forced colors (Windows high contrast): shadows vanish, so fields get a real border and outline */
+/* Forced colors (Windows high contrast): shadows vanish, so fields and outlined controls get real borders */
 @media (forced-colors: active) {
   .control {
     border: 1px solid CanvasText;
+  }
+
+  .btn-secondary,
+  .icon-well,
+  .tag,
+  .filter-chip,
+  .top-bar-pill,
+  .dialog-panel {
+    border: 1px solid ButtonText;
   }
 
   .control:focus-visible {

@@ -39,7 +39,7 @@ const ArtistPlaylistsSection = ({ skills }: ArtistPlaylistsSectionProps) => {
           meta={`Jonathan Zhu • ${categories[selectedIndex][1].length} skills`}
           accent={sleeve(toneOf(selectedIndex))}
         >
-          <ol className="detail-modal-list">
+          <ol className="detail-modal-list" role="list">
             {categories[selectedIndex][1].map((skill, i) => (
               <li key={skill}>
                 <span className="detail-modal-list-index">{i + 1}</span>

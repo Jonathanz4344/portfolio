@@ -51,7 +51,7 @@ function sharedObserver(rootMargin: string) {
 }
 
 /** Becomes true the first time the element scrolls into view, then stops watching it. */
-export function useInViewOnce(ref: RefObject<Element | null>, rootMargin = '0px 0px -12% 0px') {
+export function useInViewOnce(ref: RefObject<Element | null>, rootMargin = '0px 0px -6% 0px') {
   const [seen, setSeen] = useState(false);
 
   useEffect(() => {
