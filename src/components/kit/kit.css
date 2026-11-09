@@ -253,7 +253,11 @@
 :root[data-season='thanksgiving'] .season-tag[data-season-for='thanksgiving'],
 :root[data-season='christmas'] .season-tag[data-season-for='christmas'],
 :root[data-season='newyear'] .season-tag[data-season-for='newyear'],
-:root[data-season='lunar'] .season-tag[data-season-for='lunar'] {
+:root[data-season='lunar'] .season-tag[data-season-for='lunar'],
+:root[data-season='stpatricks'] .season-tag[data-season-for='stpatricks'],
+:root[data-season='spring'] .season-tag[data-season-for='spring'],
+:root[data-season='july4'] .season-tag[data-season-for='july4'],
+:root[data-season='summer'] .season-tag[data-season-for='summer'] {
   display: inline-flex;
 }
 

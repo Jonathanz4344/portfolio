@@ -1,5 +1,5 @@
 /** Seasonal moments the site dresses up for. Windows use the visitor's local date. */
-export const SEASONS = ['halloween', 'thanksgiving', 'christmas', 'newyear', 'lunar'] as const;
+export const SEASONS = ['halloween', 'thanksgiving', 'christmas', 'newyear', 'lunar', 'stpatricks', 'spring', 'july4', 'summer'] as const;
 export type Season = (typeof SEASONS)[number];
 
 /** The twelve animals in order, starting from the Year of the Rat (2020). */
@@ -22,6 +22,10 @@ export const seasonGreetings: Record<Season, string> = {
   christmas: 'Merry Christmas',
   newyear: 'Happy New Year',
   lunar: 'Happy Lunar New Year',
+  stpatricks: "Happy St. Patrick's Day",
+  spring: 'Happy Spring',
+  july4: 'Happy Fourth of July',
+  summer: 'Happy Summer',
 };
 
 export const zodiacNames: Record<Zodiac, string> = {
@@ -55,8 +59,9 @@ export const zodiacGlyphs: Record<Zodiac, string> = {
   pig: '豬',
 };
 
-/** Lunar New Year's day as [month, day] per Gregorian year. The season runs from the eve through the Lantern Festival. */
+/** Lunar New Year's day as [month, day] per Gregorian year. A year past the table has no Lunar New Year season. */
 export const lunarNewYear: Record<number, [number, number]> = {
+  2025: [1, 29],
   2026: [2, 17],
   2027: [2, 6],
   2028: [1, 26],
@@ -68,12 +73,27 @@ export const lunarNewYear: Record<number, [number, number]> = {
   2034: [2, 19],
   2035: [2, 8],
   2036: [1, 28],
+  2037: [2, 15],
+  2038: [2, 4],
+  2039: [1, 24],
+  2040: [2, 12],
+  2041: [2, 1],
+  2042: [1, 22],
+  2043: [2, 10],
+  2044: [1, 30],
+  2045: [2, 17],
+  2046: [2, 6],
+  2047: [1, 26],
+  2048: [2, 14],
+  2049: [2, 2],
+  2050: [1, 23],
 };
 
 /**
  * Which season a date falls in, or null.
- * Halloween Oct 15-31, Thanksgiving week (Monday to Sunday around the fourth Thursday of November),
- * Christmas Dec 1-30, New Year Dec 31 to Jan 2, Lunar New Year from its eve through the Lantern Festival.
+ * Halloween is October, Thanksgiving November, Christmas December, New Year Jan 1-14, Lunar New Year two weeks
+ * before its day to two weeks after, St. Patrick's Mar 10-17, Spring Mar 18 to Apr 30, July 4th Jun 28 to Jul 7,
+ * Summer Jul 8 to Aug 31. The same dates as the eye care site's seasonFor.
  * Self-contained so it can be serialized into the pre-paint script.
  */
 export function seasonOn(now: Date, lny: Record<number, [number, number]>): Season | null {
@@ -82,21 +102,23 @@ export function seasonOn(now: Date, lny: Record<number, [number, number]>): Seas
   const day = now.getDate();
   const monthDay = month * 100 + day;
 
-  if (monthDay >= 1015 && monthDay <= 1031) return 'halloween';
-  // Monday to Sunday around the fourth Thursday; when that is Nov 28, the week runs into Dec 1
-  const firstThursday = 1 + ((11 - new Date(year, 10, 1).getDay()) % 7);
-  const weekStart = new Date(year, 10, firstThursday + 18);
-  const weekEnd = new Date(year, 10, firstThursday + 25);
-  if (now >= weekStart && now < weekEnd) return 'thanksgiving';
-  if (monthDay >= 1201 && monthDay <= 1230) return 'christmas';
-  if (monthDay === 1231 || monthDay <= 102) return 'newyear';
+  if (month === 10) return 'halloween';
+  if (month === 11) return 'thanksgiving';
+  if (month === 12) return 'christmas';
+  // Checked before Lunar New Year, so in a year when its day comes early that season starts on Jan 15
+  if (monthDay <= 114) return 'newyear';
 
   const newYearsDay = lny[year];
   if (newYearsDay) {
-    const start = new Date(year, newYearsDay[0] - 1, newYearsDay[1] - 1);
+    const start = new Date(year, newYearsDay[0] - 1, newYearsDay[1] - 14);
     const end = new Date(year, newYearsDay[0] - 1, newYearsDay[1] + 15);
     if (now >= start && now < end) return 'lunar';
   }
+
+  if (monthDay >= 310 && monthDay <= 317) return 'stpatricks';
+  if (monthDay >= 318 && monthDay <= 430) return 'spring';
+  if (monthDay >= 628 && monthDay <= 707) return 'july4';
+  if (monthDay >= 708 && monthDay <= 831) return 'summer';
   return null;
 }
 

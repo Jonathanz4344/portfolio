@@ -108,6 +108,12 @@
   --focus: var(--season-text);
 }
 
+/* Christmas puts a light icon on its fill, so hover goes deeper: its lighter step loses the icon */
+:root[data-season-style='full'][data-season='christmas'] {
+  --accent-hover: var(--season-600);
+  --accent-pressed: var(--season-700);
+}
+
 :root[data-season-style='full'][data-season]:not([data-theme='light']) {
   --canvas: var(--season-canvas-dark);
   --surface: var(--season-surface-dark);

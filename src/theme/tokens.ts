@@ -30,7 +30,7 @@ export const neutral = {
   300: '#BBB7B0',
   400: '#98958E',
   500: '#7A7771',
-  550: '#6C6863',
+  550: '#6A6661',
   600: '#5E5A55',
   700: '#45423D',
   800: '#302D29',
@@ -62,10 +62,12 @@ type SeasonScale = Record<200 | 300 | 400 | 500 | 600 | 700 | 900, string> & {
   surfaceLight: string;
   /** Icon and text color on the 500 fill (the full style's play buttons). */
   onFill: string;
+  /** The season's second color, for its decor only. */
+  second?: Record<300 | 500 | 700, string>;
 };
 
 /** Seasonal palettes. "Dressed" seasons use them for accents and decor; "full" seasons replace the brand accent. */
-export const seasonPalettes: Record<'halloween' | 'thanksgiving' | 'christmas' | 'newyear' | 'lunar', SeasonScale> = {
+export const seasonPalettes: Record<'halloween' | 'thanksgiving' | 'christmas' | 'newyear' | 'lunar' | 'stpatricks' | 'spring' | 'july4' | 'summer', SeasonScale> = {
   // Pumpkin on plum-black
   halloween: {
     200: '#FFD4BB', 300: '#FEB487', 400: '#FC8C3F', 500: '#E77412', 600: '#BC5B00', 700: '#964700', 900: '#4B2000',
@@ -87,6 +89,29 @@ export const seasonPalettes: Record<'halloween' | 'thanksgiving' | 'christmas' |
   lunar: {
     200: '#FFD2CA', 300: '#FFB0A3', 400: '#FF8673', 500: '#F75F4C', 600: '#CF4232', 700: '#A92E21', 900: '#54140D',
     canvasDark: '#0E0705', surfaceDark: '#170B09', canvasLight: '#F3E5E2', surfaceLight: '#FDF4F3', onFill: neutral[1000],
+  },
+  // Emerald, a cooler green than the brand; the gold comes from the metal tokens
+  stpatricks: {
+    200: '#B4F1D3', 300: '#83E4B8', 400: '#47CE98', 500: '#10A974', 600: '#0B8A5E', 700: '#086C49', 900: '#043826',
+    canvasDark: '#030F0A', surfaceDark: '#061910', canvasLight: '#E3EEE7', surfaceLight: '#F2F9F5', onFill: neutral[1000],
+  },
+  // Cherry blossom, with leaf green for the stems
+  spring: {
+    200: '#FFD8E7', 300: '#FFB6D2', 400: '#F990B9', 500: '#E9689E', 600: '#C7477E', 700: '#A32E61', 900: '#501331',
+    canvasDark: '#0E060A', surfaceDark: '#170A11', canvasLight: '#F3E6EC', surfaceLight: '#FDF5F8', onFill: neutral[1000],
+    second: { 300: '#B9E48F', 500: '#7DBB4E', 700: '#44771F' },
+  },
+  // Flag blue on navy, with flag red for the stripes
+  july4: {
+    200: '#CFE1FB', 300: '#A9CAF7', 400: '#79A9EE', 500: '#4A8AE0', 600: '#2D6BBE', 700: '#1F5499', 900: '#0E2A50',
+    canvasDark: '#040913', surfaceDark: '#08111F', canvasLight: '#E5EBF3', surfaceLight: '#F4F7FB', onFill: neutral[1000],
+    second: { 300: '#FFA4AC', 500: '#E2384E', 700: '#B31F37' },
+  },
+  // The sea on deep water, with a mango and coral sun
+  summer: {
+    200: '#B8F0F6', 300: '#86E3EE', 400: '#4BCEDD', 500: '#12ACBE', 600: '#0B8B9B', 700: '#096673', 900: '#04363D',
+    canvasDark: '#020D11', surfaceDark: '#04161C', canvasLight: '#DFEBED', surfaceLight: '#F2F9FA', onFill: neutral[1000],
+    second: { 300: '#FFD27A', 500: '#FF7A59', 700: '#CC4528' },
   },
 };
 
@@ -161,8 +186,8 @@ const scale = (prefix: string, values: Record<string | number, string>) =>
   Object.entries(values).map(([key, value]) => `--${prefix}-${key}:${value};`).join('');
 
 const seasonBlocks = Object.entries(seasonPalettes)
-  .map(([season, { canvasDark, surfaceDark, canvasLight, surfaceLight, onFill, ...steps }]) =>
-    `:root[data-season="${season}"]{${scale('season', steps)}--season-canvas-dark:${canvasDark};--season-surface-dark:${surfaceDark};--season-canvas-light:${canvasLight};--season-surface-light:${surfaceLight};--season-on-fill:${onFill};}`
+  .map(([season, { canvasDark, surfaceDark, canvasLight, surfaceLight, onFill, second, ...steps }]) =>
+    `:root[data-season="${season}"]{${scale('season', steps)}--season-canvas-dark:${canvasDark};--season-surface-dark:${surfaceDark};--season-canvas-light:${canvasLight};--season-surface-light:${surfaceLight};--season-on-fill:${onFill};${second ? scale('season-second', second) : ''}}`
   )
   .join('');
 

@@ -478,16 +478,731 @@
   }
 }
 
+/* The four seasons below read their spots from --px and --py, which the phone rules repoint */
+.decor-clover,
+.decor-petal,
+.decor-burst,
+.decor-gull {
+  --px: var(--dx);
+  --py: var(--dy);
+}
+
+/* St. Patrick's */
+.decor-record {
+  position: absolute;
+  top: 7%;
+  right: clamp(-64px, -4cqw, -24px);
+  width: clamp(96px, 20cqw, 260px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 24deg,
+    var(--gold-700),
+    var(--gold-300) 8%,
+    var(--gold-700) 20%,
+    var(--gold-500) 42%,
+    var(--gold-700) 50%,
+    var(--gold-300) 58%,
+    var(--gold-700) 70%,
+    var(--gold-500) 92%,
+    var(--gold-700)
+  );
+  box-shadow: 0 0 56px 8px color-mix(in oklab, var(--gold-500) 22%, transparent);
+}
+
+.decor-record svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.record-groove {
+  fill: none;
+  stroke: var(--gold-900);
+  stroke-width: 0.7;
+  opacity: 0.4;
+}
+
+.record-label {
+  fill: var(--season-700);
+  stroke: var(--gold-200);
+  stroke-width: 1.2;
+}
+
+.record-shamrock {
+  fill: var(--gold-200);
+}
+
+.record-shamrock .decor-clover-stem {
+  stroke: var(--gold-200);
+}
+
+.record-hole {
+  fill: var(--surface);
+}
+
+.decor-clover {
+  position: absolute;
+  top: calc(var(--py) * 1%);
+  left: calc(var(--px) * 1%);
+  width: var(--s);
+  fill: var(--clover);
+  transform: rotate(var(--r));
+}
+
+.decor-clover svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.decor-clover-stem {
+  fill: none;
+  stroke: var(--clover);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.decor-clover[data-tone='0'] {
+  --clover: var(--season-400);
+}
+
+.decor-clover[data-tone='1'] {
+  --clover: var(--season-500);
+}
+
+.decor-clover[data-tone='2'] {
+  --clover: var(--season-600);
+}
+
+.decor-clover[data-tone='3'] {
+  --clover: var(--gold-300);
+}
+
+:root[data-theme='light'] .decor-clover[data-tone='3'] {
+  --clover: var(--gold-500);
+}
+
+:root[data-motion='on'] .decor-record {
+  animation: record-roll 1.9s var(--ease-out) 0.1s both;
+}
+
+/* Thrown off the record: each one starts from where the record ends up */
+:root[data-motion='on'] .decor-clover {
+  animation: clover-throw 1.5s var(--ease-out) var(--d) both;
+}
+
+@keyframes record-roll {
+  from {
+    transform: translateX(150%) rotate(172deg);
+  }
+}
+
+@keyframes clover-throw {
+  from {
+    opacity: 0;
+    transform: translate(calc((92 - var(--px)) * 1cqw), calc((28 - var(--py)) * 1cqh)) rotate(calc(var(--r) - 220deg)) scale(0.3);
+  }
+  25% {
+    opacity: 1;
+  }
+}
+
+/* Spring */
+.decor-garden {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.decor-stem {
+  --px: var(--dx);
+  --ph: var(--dh);
+  --bloom-size: var(--s);
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--px) * 1%);
+  width: 7px;
+  height: calc(var(--ph) * var(--k, 1) * 1cqh);
+}
+
+/* A level meter: stacked segments, darker at the base */
+.decor-stem-bar {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, var(--season-second-700), var(--season-second-500) 70%, var(--season-second-300));
+  -webkit-mask-image: repeating-linear-gradient(0deg, var(--neutral-1000) 0 5px, transparent 5px 8px);
+  mask-image: repeating-linear-gradient(0deg, var(--neutral-1000) 0 5px, transparent 5px 8px);
+}
+
+:root[data-theme='light'] .decor-stem-bar {
+  background: linear-gradient(0deg, var(--season-second-500), var(--season-second-700));
+}
+
+.decor-bloom {
+  position: absolute;
+  top: calc(var(--bloom-size) / -2);
+  left: calc(50% - var(--bloom-size) / 2);
+  width: var(--bloom-size);
+  fill: var(--bloom);
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--season-500) 40%, transparent));
+}
+
+.decor-bloom svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.decor-bloom[data-tone='0'] {
+  --bloom: var(--season-300);
+}
+
+.decor-bloom[data-tone='1'] {
+  --bloom: var(--season-200);
+}
+
+.decor-bloom[data-tone='2'] {
+  --bloom: var(--season-400);
+}
+
+:root[data-theme='light'] .decor-bloom[data-tone='0'] {
+  --bloom: var(--season-400);
+}
+
+:root[data-theme='light'] .decor-bloom[data-tone='1'] {
+  --bloom: var(--season-300);
+}
+
+:root[data-theme='light'] .decor-bloom[data-tone='2'] {
+  --bloom: var(--season-500);
+}
+
+.decor-bloom-heart {
+  fill: var(--gold-500);
+}
+
+.decor-petal {
+  position: absolute;
+  top: calc(var(--py) * 1%);
+  left: calc(var(--px) * 1%);
+  width: var(--s);
+  aspect-ratio: 1 / 1.25;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: var(--petal);
+  opacity: 0.85;
+  transform: rotate(var(--r));
+}
+
+.decor-petal[data-tone='0'] {
+  --petal: var(--season-300);
+}
+
+.decor-petal[data-tone='1'] {
+  --petal: var(--season-400);
+}
+
+:root[data-theme='light'] .decor-petal[data-tone='0'] {
+  --petal: var(--season-400);
+}
+
+:root[data-theme='light'] .decor-petal[data-tone='1'] {
+  --petal: var(--season-500);
+}
+
+:root[data-motion='on'] .decor-stem {
+  animation: stem-rise 1.5s var(--ease-in-out) calc(var(--i) * 60ms) both;
+}
+
+:root[data-motion='on'] .decor-bloom {
+  animation: bloom-open 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) calc(0.75s + var(--i) * 60ms) both;
+}
+
+:root[data-motion='on'] .decor-petal {
+  animation: petal-fall var(--t) var(--ease-out) var(--d) both;
+}
+
+/* The bars come up the way an equalizer does: past the mark, back, and then on it */
+@keyframes stem-rise {
+  0% {
+    transform: translateY(100%);
+  }
+  60% {
+    transform: translateY(-7%);
+  }
+  82% {
+    transform: translateY(2%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes bloom-open {
+  from {
+    transform: scale(0) rotate(-70deg);
+  }
+}
+
+@keyframes petal-fall {
+  from {
+    opacity: 0;
+    transform: translate(var(--drift), calc(-1 * var(--fall))) rotate(calc(var(--r) - 240deg));
+  }
+  15% {
+    opacity: 0.85;
+  }
+}
+
+/* July 4th */
+.season-decor[data-decor='july4'] {
+  --flag-red: var(--season-second-500);
+  --flag-white: var(--platinum-200);
+  --flag-blue: var(--season-400);
+}
+
+:root[data-theme='light'] .season-decor[data-decor='july4'] {
+  --flag-red: var(--season-second-700);
+  --flag-white: var(--platinum-300);
+  --flag-blue: var(--season-700);
+}
+
+.decor-flag {
+  --stripe: clamp(5px, 0.84cqw, 10px);
+  --stripe-gap: clamp(2px, 0.28cqw, 3px);
+  position: absolute;
+  top: 6%;
+  right: 3.5cqw;
+  display: grid;
+  gap: var(--stripe-gap);
+  width: clamp(84px, 25cqw, 300px);
+  filter: drop-shadow(0 0 22px color-mix(in oklab, var(--season-500) 30%, transparent));
+}
+
+.decor-stripe {
+  width: var(--w);
+  height: var(--stripe);
+  border-radius: 0 99px 99px 0;
+  background: var(--flag-red);
+}
+
+.decor-stripe[data-tone='1'] {
+  background: var(--flag-white);
+}
+
+.decor-canton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 40%;
+  height: calc(var(--stripe) * 4 + var(--stripe-gap) * 3);
+  background: var(--season-700);
+  fill: var(--neutral-0);
+}
+
+:root[data-theme='light'] .decor-canton {
+  background: var(--season-900);
+}
+
+.decor-canton svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.decor-burst {
+  position: absolute;
+  top: calc(var(--py) * 1%);
+  left: calc(var(--px) * 1%);
+  width: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+}
+
+.decor-burst svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.decor-burst line {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.decor-burst g[data-tone='0'] {
+  stroke: var(--flag-red);
+  fill: var(--flag-red);
+}
+
+.decor-burst g[data-tone='1'] {
+  stroke: var(--flag-white);
+  fill: var(--flag-white);
+}
+
+.decor-burst g[data-tone='2'] {
+  stroke: var(--flag-blue);
+  fill: var(--flag-blue);
+}
+
+:root[data-motion='on'] .decor-stripe {
+  transform-origin: 0 50%;
+  animation: stripe-sweep 1.2s var(--ease-in-out) calc(var(--i) * 70ms) both;
+}
+
+:root[data-motion='on'] .decor-canton {
+  animation: decor-fade 0.7s var(--ease-out) 0.2s both;
+}
+
+:root[data-motion='on'] .decor-burst {
+  animation: burst-open 1.3s var(--ease-out) var(--d) both;
+}
+
+@keyframes stripe-sweep {
+  0% {
+    transform: scaleX(0);
+  }
+  60% {
+    transform: scaleX(1.05);
+  }
+  82% {
+    transform: scaleX(0.98);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes decor-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes burst-open {
+  from {
+    opacity: 0;
+    transform: scale(0.1) rotate(-24deg);
+  }
+  30% {
+    opacity: 1;
+  }
+}
+
+/* Summer */
+.season-decor[data-decor='summer'] {
+  /* The waveform's baseline, which is the top of the action bar: the sun sets behind it */
+  --horizon: 80px;
+  --gull: color-mix(in oklab, var(--neutral-0) 72%, transparent);
+}
+
+:root[data-theme='light'] .season-decor[data-decor='summer'] {
+  --gull: color-mix(in oklab, var(--neutral-700) 76%, transparent);
+}
+
+.decor-sunset {
+  position: absolute;
+  right: 5cqw;
+  bottom: var(--horizon);
+  width: clamp(110px, 19cqw, 260px);
+  aspect-ratio: 200 / 150;
+}
+
+.decor-sun-glow {
+  position: absolute;
+  inset: -36% -36% -60%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--season-second-500) 32%, transparent), transparent);
+}
+
+.decor-sun {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.decor-sun svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.sun-fill-top {
+  stop-color: var(--season-second-300);
+}
+
+.sun-fill-mid {
+  stop-color: var(--season-second-500);
+}
+
+.sun-fill-low {
+  stop-color: var(--season-second-700);
+}
+
+.decor-sea {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 46%;
+  height: var(--horizon);
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 34%);
+  mask-image: linear-gradient(90deg, transparent, var(--neutral-1000) 34%);
+}
+
+.decor-wave {
+  position: absolute;
+  top: calc(8px + var(--row) * 14px);
+  left: var(--x);
+  width: var(--w);
+  height: 3px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--season-500) 62%, transparent);
+}
+
+.decor-wave[data-tone='sun'] {
+  background: color-mix(in oklab, var(--season-second-500) 74%, transparent);
+}
+
+.decor-gull {
+  position: absolute;
+  top: calc(var(--py) * 1%);
+  left: calc(var(--px) * 1%);
+  width: var(--s);
+  fill: none;
+  stroke: var(--gull);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+.decor-gull svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+:root[data-motion='on'] .decor-sun-glow {
+  animation: decor-fade 2.6s var(--ease-out) both;
+}
+
+:root[data-motion='on'] .decor-sun svg {
+  animation: sun-rise 2.6s var(--ease-out) both;
+}
+
+:root[data-motion='on'] .decor-wave {
+  animation: wave-in 1.3s var(--ease-out) calc(0.5s + var(--row) * 120ms) both;
+}
+
+:root[data-motion='on'] .decor-gull {
+  animation: gull-in 2.8s var(--ease-out) var(--d) both;
+}
+
+:root[data-motion='on'] .decor-gull svg {
+  animation: gull-flap 0.42s var(--ease-in-out) var(--d) 6 alternate;
+}
+
+@keyframes sun-rise {
+  from {
+    transform: translateY(62%);
+  }
+}
+
+@keyframes wave-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.25);
+  }
+}
+
+@keyframes gull-in {
+  from {
+    opacity: 0;
+    transform: translate(-90px, 34px);
+  }
+  20% {
+    opacity: 1;
+  }
+}
+
+@keyframes gull-flap {
+  to {
+    transform: scaleY(0.5);
+  }
+}
+
+/* Narrow desktops: the name takes most of the hero, so the pieces shrink, then keep to the free foot of it */
+@media (min-width: 769px) {
+  @container (max-width: 1000px) {
+    .decor-stem {
+      --k: 0.6;
+    }
+
+    .decor-petal,
+    .decor-burst[data-phone='off'] {
+      display: none;
+    }
+
+    .decor-sunset {
+      right: 2cqw;
+      width: 15cqw;
+    }
+
+    .decor-bat[data-bat='2'] {
+      display: none;
+    }
+
+    .decor-lantern[data-lantern='1'] {
+      right: 3%;
+    }
+  }
+
+  @container (max-width: 860px) {
+    .decor-stem {
+      --k: 0.42;
+    }
+
+    .decor-stem:nth-child(-n + 5),
+    .decor-clover,
+    .decor-gull,
+    .decor-burst {
+      display: none;
+    }
+
+    .decor-record {
+      top: auto;
+      right: -24px;
+      bottom: 16px;
+      width: 110px;
+    }
+
+    .decor-flag {
+      top: auto;
+      bottom: 18px;
+      right: 12px;
+      width: 112px;
+      --stripe: 5px;
+      --stripe-gap: 2px;
+    }
+
+    .decor-sunset {
+      right: -16px;
+      width: 84px;
+    }
+
+    .decor-sea {
+      left: 66%;
+    }
+
+    .decor-web {
+      width: 84px;
+    }
+
+    .decor-moon {
+      top: auto;
+      right: 24px;
+      bottom: 22px;
+      width: 60px;
+    }
+
+    .decor-bat[data-bat='3'] {
+      display: none;
+    }
+
+    .decor-bat[data-bat='0'] {
+      top: auto;
+      right: 84px;
+      bottom: 64px;
+      width: 38px;
+    }
+
+    .decor-bat[data-bat='1'] {
+      top: auto;
+      right: 96px;
+      bottom: 34px;
+      width: 26px;
+    }
+
+    /* The swags hang from above the hero's edge, so the bulbs stay over the greeting */
+    .decor-lights {
+      top: -26px;
+    }
+
+    /* No cords: they would cross the greeting. The lanterns float at the foot instead */
+    .decor-lantern-cord {
+      display: none;
+    }
+
+    .decor-lantern {
+      top: auto;
+      bottom: 14px;
+    }
+
+    .decor-lantern[data-lantern='0'] {
+      right: 26%;
+      width: 36px;
+    }
+
+    .decor-lantern[data-lantern='1'] {
+      right: 16%;
+      bottom: 30px;
+      width: 28px;
+    }
+
+    /* Leaves and sparkles gather in the free corner under the name */
+    .decor-leaf,
+    .decor-sparkle {
+      top: calc(66% + var(--y) * 0.28);
+      left: calc(60% + (var(--x) - 48%) * 0.8);
+    }
+  }
+
+  @container (max-width: 640px) {
+    .decor-stem {
+      --k: 0.3;
+    }
+  }
+}
+
+/* Pieces that would rest behind the text or the controls at a given hero width */
+@media (min-width: 769px) {
+  @container (min-width: 1001px) {
+    .season-decor [data-wide='off'] {
+      display: none;
+    }
+  }
+
+  @container (min-width: 861px) and (max-width: 1000px) {
+    .season-decor [data-mid='off'] {
+      display: none;
+    }
+  }
+
+  @container (max-width: 860px) {
+    .season-decor [data-narrow='off'] {
+      display: none;
+    }
+  }
+}
+
 /* Phones: the hero is a centered column, so the decor keeps to the edges */
 @media (max-width: 768px) {
   .decor-moon {
-    top: 7%;
+    top: 56px;
     right: 6%;
+  }
+
+  /* The corner the web hangs in, and the lantern cords, start under the menu and theme buttons */
+  .decor-web,
+  .decor-lantern {
+    top: 50px;
   }
 
   /* Drape the lights just under the menu and theme buttons */
   .decor-lights {
-    top: 44px;
+    top: 50px;
   }
 
   .decor-bat[data-bat='2'],
@@ -509,6 +1224,73 @@
   .decor-leaf,
   .decor-sparkle {
     left: calc((var(--x) - 48%) * 1.9 + 4%);
+  }
+
+  /* The four newer seasons have their own phone spots, or stay off phones */
+  .season-decor [data-phone='off'] {
+    display: none;
+  }
+
+  .decor-clover,
+  .decor-petal,
+  .decor-burst,
+  .decor-gull {
+    --px: var(--mx);
+    --py: var(--my);
+  }
+
+  .decor-record {
+    top: 11%;
+    right: -30px;
+    width: 112px;
+  }
+
+  /* Stems stand on the action bar here, since its controls run the full width */
+  .decor-garden {
+    bottom: 72px;
+  }
+
+  .decor-stem {
+    --px: var(--mx);
+    --ph: var(--mh);
+    --bloom-size: var(--ms);
+    width: 5px;
+  }
+
+  .decor-burst {
+    width: var(--ms);
+    margin: calc(var(--ms) / -2) 0 0 calc(var(--ms) / -2);
+  }
+
+  .decor-flag {
+    top: 58px;
+    right: 8px;
+    width: 76px;
+    --stripe: 5px;
+    --stripe-gap: 2px;
+  }
+
+  .season-decor[data-decor='summer'] {
+    --horizon: 72px;
+  }
+
+  .decor-sunset {
+    right: -18px;
+    width: 112px;
+  }
+
+  .decor-sea {
+    display: none;
+  }
+
+  .decor-gull {
+    width: var(--ms);
+  }
+}
+
+@media (max-width: 359px) {
+  .decor-stem {
+    --k: 0.7;
   }
 }
 

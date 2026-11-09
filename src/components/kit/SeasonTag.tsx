@@ -1,4 +1,4 @@
-import { Flower2, Ghost, Sparkles, TreePine, Wheat, type LucideIcon } from 'lucide-react';
+import { Clover, Flag, Flower2, Ghost, Sparkles, Sprout, Sun, TreePine, Wheat, type LucideIcon } from 'lucide-react';
 import { SEASONS, ZODIAC, seasonGreetings, zodiacNames, type Season } from '@/theme/seasons';
 import { cx } from './cx';
 import './kit.css';
@@ -9,6 +9,10 @@ const icons: Record<Season, LucideIcon> = {
   christmas: TreePine,
   newyear: Sparkles,
   lunar: Flower2,
+  stpatricks: Clover,
+  spring: Sprout,
+  july4: Flag,
+  summer: Sun,
 };
 
 /**
