@@ -11,31 +11,31 @@ export const profileData: ProfileData = {
   linkedinUrl: "https://linkedin.com/in/jonathanzhuu",
   about: `A full-stack software engineer who builds reliable, real-world systems with a focus on usability and impact. I enjoy taking complex problems, breaking them down, and shipping software that actually gets used.
 
-I'm currently an Application Developer at IBM, building the Oracle migration path of a self-service Azure DBaaS platform that cuts database provisioning from weeks to minutes. Before that, I was the sole engineer at Citywide Eye Care, where I designed and shipped a production EMR and practice-management system (React/TypeScript, FastAPI, PostgreSQL, AWS) that cut physician documentation time by 85% and passed every HIPAA compliance review with zero findings.
+I'm currently an Application Developer at IBM, delivering a self-service, multi-cloud Database-as-a-Service platform for Lumen Technologies across Azure and AWS that cuts database provisioning from weeks to minutes. Before that, I spent nearly three years at Citywide Eye Care: first as the sole engineer behind a production EMR and practice-management platform (React/TypeScript, FastAPI, PostgreSQL, AWS) that cut physician documentation time by 82%, then as an AI Engineer building RemitAI, an agentic claims-denial platform on AWS Bedrock that reduced denials 15% and recovered $25K+ in denied revenue.
 
-I've also built AI-driven tools, from lead-discovery pipelines to a claims-denial agent on Claude and AWS Bedrock. I earned my B.S. in Software Engineering from Rochester Institute of Technology and am pursuing an M.S. in Computer Science at Georgia Tech, focusing on machine learning and AI-driven systems.`,
+I've also built AI-driven tools, from lead-discovery pipelines to an AI clinical scribe on Claude and AWS Bedrock. I earned my B.S. in Software Engineering from Rochester Institute of Technology and am pursuing an M.S. in Computer Science at Georgia Tech, focusing on machine learning and AI-driven systems.`,
 
   projects: [
     {
       title: "Custom EMR System",
       artist: "Citywide Eye Care",
       album: "Production Systems",
-      duration: "Jan 2024 - Jun 2026",
-      description: "Production EMR and practice-management system for 60–90 patient visits a week, with structured charting, optical ordering, billing, inventory, and a login-free patient intake flow with e-signatures; led its zero-downtime on-prem-to-AWS migration",
-      impact: "85% documentation time reduction",
+      duration: "Aug 2023 - Jun 2025",
+      description: "EMR and practice-management platform, shipped as sole engineer, spanning charting, scheduling, billing, claims, and telephony for 60–90 weekly visits, with template-driven charting, version history, and WebSocket real-time collaboration; led its zero-downtime on-prem-to-AWS migration with HIPAA controls",
+      impact: "82% documentation time reduction",
       tech: ["FastAPI", "PostgreSQL", "React", "TypeScript", "AWS"],
       type: "Full-Stack Development",
       projectUrl: "https://www.citywideeyecare.com/",
       companyLogo: "/citywide-logo.png"
     },
     {
-      title: "Self-Service Azure DBaaS",
+      title: "Multi-Cloud DBaaS Platform",
       artist: "IBM",
       album: "Cloud Automation",
       duration: "Jun 2026 - Present",
-      description: "Oracle migration path of a self-service Azure DBaaS platform for Lumen Technologies, with automated VM right-sizing from live on-prem metrics, license-compliant placement on dedicated hosts, and fail-closed protection against duplicate migrations",
+      description: "Self-service, multi-cloud Database-as-a-Service platform for Lumen Technologies across Azure and AWS, driven by a 10-stage GitHub Actions pipeline (ServiceNow, EfficientIP IPAM, Terraform, Ansible/AWX) with automated Oracle right-sizing and secure-by-default IaC on Azure Verified Modules; adopted by every Lumen DBA team",
       impact: "Provisioning cut from weeks to minutes",
-      tech: ["Azure", "Terraform", "Ansible/AWX", "GitHub Actions", "ServiceNow", "Oracle"],
+      tech: ["Azure", "AWS", "Terraform", "Ansible/AWX", "GitHub Actions", "ServiceNow", "Oracle"],
       type: "Infrastructure",
       companyLogo: "/ibm-logo.png"
     },
@@ -52,14 +52,26 @@ I've also built AI-driven tools, from lead-discovery pipelines to a claims-denia
     },
     {
       title: "RemitAI",
-      artist: "Personal Project",
+      artist: "Citywide Eye Care",
       album: "Healthcare AI",
-      duration: "2025",
-      description: "HIPAA-compliant claims-denial agent on Claude and Amazon Nova Pro (AWS Bedrock, BAA) that reads EOB/ERA PDFs, classifies denials by CARC/RARC codes, drafts appeal strategies, and learns payer patterns over time",
-      impact: "Automated denial management",
+      duration: "Jun 2025 - Jun 2026",
+      description: "Agentic claims-denial platform on AWS Bedrock (BAA): Amazon Nova Pro parses EOB/ERA documents and Claude reasons over denials, grounded in Postgres payer-rule tables and past denial cases, returning CARC/RARC codes, root cause, corrective action, and an appeal draft; recovered $25K+ in denied revenue",
+      impact: "15% fewer claim denials",
       tech: ["FastAPI", "PostgreSQL", "React", "Claude API", "AWS Bedrock", "Amazon Nova Pro"],
       type: "AI & Healthcare",
-      repoUrl: "https://github.com/Jonathanz4344/RemitAI"
+      repoUrl: "https://github.com/Jonathanz4344/RemitAI",
+      companyLogo: "/citywide-logo.png"
+    },
+    {
+      title: "AI Clinical Scribe",
+      artist: "Citywide Eye Care",
+      album: "Healthcare AI",
+      duration: "Jun 2025 - Jun 2026",
+      description: "Speech-to-text clinical scribe built with Claude on AWS Bedrock that maps physician dictation to structured chart fields and auto-navigates exam sections inside the EMR",
+      impact: "60% charting time reduction",
+      tech: ["Claude API", "AWS Bedrock", "Speech-to-Text", "React", "FastAPI"],
+      type: "AI & Healthcare",
+      companyLogo: "/citywide-logo.png"
     },
     {
       title: "AI Health Chatbot",
@@ -133,30 +145,57 @@ I've also built AI-driven tools, from lead-discovery pipelines to a claims-denia
 
   experience: [
     {
-      role: "Application Developer",
+      role: "Application Developer – Cloud Full Stack",
       company: "IBM",
-      period: "Jun 2026 - Present",
+      period: "Aug 2026 - Present",
       location: "Baton Rouge, LA",
       logo: "/ibm-logo.png",
       highlights: [
-        "Cut database provisioning for Lumen Technologies from weeks in the DBA backlog to minutes by building the Oracle migration path of a self-service Azure DBaaS platform (ServiceNow, GitHub Actions, Terraform, Ansible/AWX)",
-        "Automated Oracle VM right-sizing from live on-prem metrics, replacing manual sizing for stacked and RAC databases",
-        "Designed production safeguards for automated migrations: license-compliant Oracle placement on dedicated hosts and fail-closed protection against duplicate migrations",
-        "Surfaced hidden failures in 12-job AWX onboarding workflows via step-level tracking; wrote a 57-error-code runbook"
+        "Delivered a self-service, multi-cloud Database-as-a-Service platform for Lumen Technologies across Azure and AWS, cutting provisioning from weeks to minutes; adopted by every Lumen DBA team, with 100+ of 1,600+ databases migrated since launch",
+        "Built the migration, Oracle sizing, and onboarding stages of a 10-stage GitHub Actions orchestration pipeline integrating ServiceNow, EfficientIP IPAM, Terraform, and Ansible/AWX with gated plan/apply",
+        "Standardized secure-by-default IaC on Azure Verified Modules with private endpoints, Key Vault secret management, Entra ID RBAC, and Terraform native tests, TFLint, and actionlint in CI",
+        "Partnered with Lumen's DBA, Cloud Center of Excellence, networking, and HCA teams; recognized by Lumen's VP of Cloud & AI, who called the DBaaS transformation an \"amazing outcome\""
+      ]
+    },
+    {
+      role: "Application Developer – Azure Cloud Migration",
+      company: "IBM",
+      period: "Jun 2026 - Aug 2026",
+      location: "Baton Rouge, LA",
+      logo: "/ibm-logo.png",
+      highlights: [
+        "Owned the Oracle-to-Azure migration path for ~800 Oracle databases, engineering a right-sizing engine (Bash, Azure Resource SKUs API) that maps live CPU, SGA, and PGA telemetry to E-series VM SKUs and Pure Storage LUN layouts",
+        "Engineered license-compliant Oracle placement on Azure Dedicated Host groups via SKU-generation and capacity-aware selection",
+        "Implemented fail-closed migration controls: atomic record claims against the production DBA portal and step-level AWX validation"
+      ]
+    },
+    {
+      role: "AI Engineer",
+      company: "Citywide Eye Care",
+      period: "Jun 2025 - Jun 2026",
+      location: "Great Neck, NY",
+      logo: "/citywide-logo.png",
+      highlights: [
+        "Built RemitAI, an agentic claims-denial platform on AWS Bedrock (BAA), drawing on prior medical-billing experience: Amazon Nova Pro for low-cost multimodal EOB/ERA parsing and Claude Sonnet for denial reasoning, routed by task for cost and accuracy",
+        "Designed a retrieval-augmented pipeline grounding Claude in Postgres payer-rule tables and historical denial cases, returning schema-validated structured outputs: CARC/RARC codes, root cause, corrective action, and appeal draft",
+        "Tuned prompts and payer rules to ~99% rule-check accuracy on a curated test set; reached 92% denial-prediction accuracy in live use, validated by biller and physician review and improving as the knowledge base learns from each new denial",
+        "Reduced claim denials 15%, recovered $25K+ in denied revenue, and cut biller time on denials 90% across 60–90 weekly claims, keeping PHI out of prompts (codes, modifiers, payer, and amounts only) with human approval before submission",
+        "Built an AI clinical scribe (speech-to-text with Claude on Bedrock) that maps dictation to structured chart fields and auto-navigates exam sections, cutting physician charting time an additional 60%"
       ]
     },
     {
       role: "Full-Stack Software Engineer",
       company: "Citywide Eye Care",
-      period: "Jan 2024 - Jun 2026",
+      period: "Aug 2023 - Jun 2025",
       location: "Great Neck, NY",
       logo: "/citywide-logo.png",
       highlights: [
-        "Sole engineer embedded with clinical staff; designed and shipped a production EMR and practice-management system (React/TypeScript, FastAPI, PostgreSQL) for 60–90 patient visits a week and led its zero-downtime on-prem-to-AWS migration",
-        "Cut physician documentation time 85% with structured charting (copy-forward, autosave, version history), and drove adoption through staff training and in-app guided tutorials",
-        "Digitized optical ordering, billing, and a login-free patient intake flow with e-signatures, cutting front-desk time on orders and payments 75%, intake paperwork 95%, and order pickup from 5 minutes to 1",
-        "Cut inventory discrepancies 85% by linking stock directly to optical orders so counts update automatically with every sale",
-        "Owned HIPAA security end to end (Cognito MFA, RBAC, IP allowlisting, WireGuard VPN, audit logging), passing all external compliance reviews with zero findings"
+        "Architected and shipped, as sole engineer, an EMR and practice-management platform (React/TypeScript, FastAPI, PostgreSQL, AWS) spanning charting, scheduling, billing, claims, and telephony for 60–90 weekly visits",
+        "Cut physician documentation time 82% with template-driven charting, full version history, and WebSocket real-time collaboration with pessimistic edit locking",
+        "Designed a dual-audience architecture isolating staff and patient traffic by hostname, route, and credential, with single-use tokenized access for patient intake",
+        "Led a zero-downtime on-prem-to-AWS migration (EC2, RDS, S3, Amplify, API Gateway) with HIPAA controls (Cognito MFA, RBAC, IP allowlisting, append-only audit logs)",
+        "Cut API latency from 5–6 s to sub-second by eliminating N+1 query patterns on RDS with batched loading",
+        "Automated front-desk workflows (ordering, e-signature intake, barcode ID scanning, order-linked inventory), cutting order time 70% and inventory discrepancies 80% while nearly eliminating paper intake"
       ]
     },
     {
@@ -167,18 +206,6 @@ I've also built AI-driven tools, from lead-discovery pipelines to a claims-denia
       highlights: [
         "Shipped a production CRM for ZLA on a 5-person Agile team (React/TypeScript, FastAPI, PostgreSQL, Terraform on AWS) with lead pipelines, campaign workflows, and map-based search",
         "Engineered an AI lead discovery pipeline (Google Places, Brave Search, OpenAI) that cut manual prospect research 60%"
-      ]
-    },
-    {
-      role: "Software Engineer Intern",
-      company: "Citywide Eye Care",
-      period: "Sep 2023 - Dec 2023",
-      location: "Great Neck, NY",
-      logo: "/citywide-logo.png",
-      highlights: [
-        "Built and deployed an AI health chatbot using Python and Gemini API, autonomously handling patient FAQs and symptom triage, cutting front-desk call volume by 50%",
-        "Rebuilt the patient-facing website in Next.js and Material UI, improving SEO and driving a 25% increase in appointment conversion rates",
-        "Implemented digital intake and scheduling workflows on AWS (EC2, S3, RDS, Secrets Manager), replacing all manual paper-based processes"
       ]
     },
     {
